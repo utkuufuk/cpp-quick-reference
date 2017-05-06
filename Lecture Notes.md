@@ -192,27 +192,42 @@ class Point
 
 **Destructors in C++:**
 ``` cpp
-struct node
-{
-    char data;
-    node *next;
-}
-
-class LinkedList
+class Node
 {
     public:
 
-        // 0 is the null pointer
-        LinkedList() : h(0) {}
+        Node(int d = 0, Node* ptr = nullptr) : data(d), next(ptr) {}
+ 
+    private:
 
-        // destructors always have the `void` argument
-        ~LinkedList()
-        {
-            release();    
-        }
+        int data;
+        Node* next;
+}
+
+class List
+{
+    public:
+
+        List() : head(nullptr), cursor(nullptr) {}
+        ~List();
+        void prepend(int value);
+        int getElement();
+        void advance();
+        void print();
 
     private:
 
-        node *h;
+        Node* head;
+        Node* cursor;
+}
+
+List::~List()
+{
+    for (cursor = head; cursor != nullptr; )
+    {
+        cursor = head->next;
+        delete head;
+        head = cursor;
+    }
 }
 ```

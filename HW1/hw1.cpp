@@ -1,11 +1,12 @@
 #include <iostream>
+#include <vector>
 
 using namespace std;
 
 const int N = 40;
 
 template <class Summable>
-inline void sum(Summable& p, Summable n, Summable d[])
+inline void sum(Summable& p, Summable n, vector<Summable> d)
 {
 	p = 0;
 
@@ -18,8 +19,8 @@ inline void sum(Summable& p, Summable n, Summable d[])
 int main()
 {
 	int accum = 0;
-	int data[N];
-	
+    vector<int> data(N);
+
 	for (int i = 0; i < N; ++i)
 	{
 		data[i] = i;

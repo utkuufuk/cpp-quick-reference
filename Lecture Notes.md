@@ -35,13 +35,14 @@ void swap(int* i, int *j)
 }
 
 // call C function
-swap(&a, &b);    // pass addresses of a and b
+// pass addresses of a and b
+swap(&a, &b);    
 ```
 
 **Swap in C++:**
 ``` cpp
 // i and j are references to ints
-inline void swap(int& i, int& j)
+inline void swap(int &i, int &j)
 {
   	int temp i; // no need to dereference
   	i = j;
@@ -49,7 +50,7 @@ inline void swap(int& i, int& j)
 }
 
 // C++ supports function overloading unlike C
-inline void swap(double& i, double& j)
+inline void swap(double &i, double &j)
 {
   	double temp i;
   	i = j;
@@ -57,13 +58,14 @@ inline void swap(double& i, double& j)
 }
 
 // call C++ function
-swap(a, b);    // no need to pass addresses
+// no need to pass addresses
+swap(a, b);    
 ```
 ## Generics in C++
 **Generic Swap in C++:**
 ``` cpp
 template <class T>
-inline void swap(T& i, T& j)
+inline void swap(T &i, T &j)
 {
   	T temp i;
   	i = j;
@@ -71,7 +73,8 @@ inline void swap(T& i, T& j)
 }
     
 // call C++ function
-swap(a, b);    // no need to pass addresses
+// no need to pass addresses
+swap(a, b);   
 ```
 
 **Generic Summation of an Array in C++:**
@@ -102,7 +105,7 @@ inline days operator++ (days d)
 }
 
 // overload the bit shift operator
-ostream& operator<< (ostream& out, const days& d)
+ostream& operator<< (ostream &out, const days &d)
 {
     switch (d)
     {

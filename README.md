@@ -1,6 +1,6 @@
-# Basic Comparison
+## Basic Comparison
 
-## C Code
+### C Code
 ``` c
 #include  <stdio.h>
 #include  <stdlib.h>
@@ -32,7 +32,7 @@ int main()
 }
 ```
 
-## C++ Code
+### C++ Code
 ``` cpp
 #include <iostream>
 #include <cstdlib>
@@ -78,3 +78,5 @@ int main(void)
     }
 }
 ```
+
+## read the [guide](guide.md) for more

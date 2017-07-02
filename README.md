@@ -1,6 +1,7 @@
-## Basic Comparison
+# Basic Comparison 
+#### read the [guide](guide.md) for more
 
-### C Code
+## C
 ``` c
 #include  <stdio.h>
 #include  <stdlib.h>
@@ -32,7 +33,7 @@ int main()
 }
 ```
 
-### C++ Code
+## C++
 ``` cpp
 #include <iostream>
 #include <cstdlib>
@@ -40,11 +41,9 @@ int main()
 
 using namespace std;
 
-// more type-safe than #define
-const int sides = 6;
+const int sides = 6;    // more type-safe than #define
 
-// more type-safe than #define
-inline int r_sides()
+inline int r_sides()    // more type-safe than #define
 {
     return (rand() % sides + 1);
 }
@@ -58,13 +57,11 @@ int main(void)
     cout << "\nEnter number of trials:";
     
     int trials;     // interleaved declaration
-    cin >> trials;  // cin is typesafe unlike scanf()
+    cin >> trials;  // cin is typesafe unlike scanf
 
-    // keyword new replaces malloc()
-    int *outcomes = new int[n_dice * sides + 1];    
+    int *outcomes = new int[n_dice * sides + 1];    // keyword new replaces malloc()
 
-    // allows local declarations 
-    for (int j = 0; j < trials; ++j)
+    for (int j = 0; j < trials; ++j)                // allows local declarations 
     {
         outcomes[(d1 = r_sides()) + (d2 = r_sides())]++;    
     }
@@ -73,10 +70,8 @@ int main(void)
     for (int j = 2; j < n_dice * sides + 1; ++j)
     {
         cout << "j=" << j << " p=" 
-             << static_cast<double>(outcomes[j] / trials)   // safe conversion
+             << static_cast<double>(outcomes[j] / trials)   // safer type conversion
              << endl;                                       // io manipulator: ends line
     }
 }
 ```
-
-### read the [guide](guide.md) for more

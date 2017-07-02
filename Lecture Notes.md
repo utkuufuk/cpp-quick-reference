@@ -16,8 +16,8 @@ g++ hello.cpp -o hello
 ## Memory Management in C++
 **The keyword `new` replaces `malloc` and `delete` replaces `free`:**
 ``` cpp
-char *s = new char[size];   // initialize an array
-int *p = new int(9);        // initialize a single int
+char* s = new char[size];   // initialize an array
+int* p = new int(9);        // initialize a single int
 
 delete [] s;                // delete an array
 delete p;                   // delete a single int
@@ -61,6 +61,48 @@ inline void swap(double &i, double &j)
 // no need to pass addresses
 swap(a, b);    
 ```
+
+## Vectors in C++
+```cpp
+#include <vector>
+using namespace std;
+
+vector<int> numbers1;                   // an empty vector of ints
+
+vector<int> numbers2(10);               // a vector of 10 ints
+
+vector<int> numbers3(10, 2);            // a vector of 10 ints, each initialized to 2
+
+vector<int> numbers4 {10, 20, 30, 40};  // a vector initialized with an initialization list
+
+vector<int> myVec(numbers4);            // a vector initialized with the elements of numbers4
+
+
+int val = myVec.at(index);  // returns the value of the element located at index of myVec
+
+int* arr = myVec.data();    // returns the underlying int array of myVec
+
+myVec.push_back(50);        // creates a last element (if myVec is full) and stores 50 in it
+
+myVec.pop_back();           // removes the last element from myVec
+
+myVec.size();               // get the number of elements in myVec
+
+myvec.capacity();           // get the maximum number of elements that may be stored in myVec 
+                            // without additional memory being allocated
+
+myVec.clear();              // completely clears the contents of myVec
+
+myVec.empty();              // returns true if myVec is empty
+
+myVec.reverse();            // reverses the order of elements in myVec
+
+myVec.resize(size, val);    // resizes myVec by size elements 
+                            // each of the new elements is initialized with the value val
+
+myVec.swap(someVec);        // swaps the contents of myVec with the contents of anotherVec
+```
+
 ## Generics in C++
 **Generic Swap in C++:**
 ``` cpp

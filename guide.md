@@ -23,6 +23,28 @@ delete [] s;                // delete an array
 delete p;                   // delete a single int
 ```
 
+## Pointers
+**Constant Values/Pointers**
+``` 
+// this function accepts a pointer to an array of constants
+void displayPayRates(const double *rates, int size)
+{
+    for (int count = 0; count < size; count++)
+    {
+        cout << “Pay rate for employee ” << (count + 1)
+        << “ is $" << *(rates + count) << endl;
+    }
+}
+
+// constant pointers can not point to something else
+int value = 22;
+int * const ptr = &value; 
+
+// this is a constant pointer to a constant
+int number = 15;
+const int * const ptr = &number 
+```
+
 ## Pass By Reference
 **Swap in C**
 ``` c

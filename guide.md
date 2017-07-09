@@ -31,8 +31,7 @@ void displayPayRates(const double *rates, int size)
 {
     for (int count = 0; count < size; count++)
     {
-        cout << “Pay rate for employee ” << (count + 1)
-        << “ is $" << *(rates + count) << endl;
+        cout << *(rates + count) << endl;
     }
 }
 

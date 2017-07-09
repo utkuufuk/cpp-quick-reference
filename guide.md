@@ -25,7 +25,7 @@ delete p;                   // delete a single int
 
 ## Pointers
 **Constant Values/Pointers**
-``` 
+``` cpp 
 // this function accepts a pointer to an array of constants
 void displayPayRates(const double *rates, int size)
 {

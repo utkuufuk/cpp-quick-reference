@@ -1,20 +1,20 @@
 # C++ for C Programmers
 
 ## Compiling
-**Compile and run a C program using terminal**
+#### Compile and run a C program using terminal
 ```
 gcc hello.c -o hello
 ./hello
 ``` 
 
-**Compile and run a C++ program using terminal**
+#### Compile and run a C++ program using terminal
 ```
 g++ hello.cpp -o hello
 ./hello
 ```
 
 ## Memory Management
-**The keyword `new` replaces `malloc` and `delete` replaces `free`**
+#### The keyword `new` replaces `malloc` and `delete` replaces `free`
 ``` cpp
 char* s = new char[size];   // dynamically allocate memory for an array
 delete [] s;                // free the allocated memory
@@ -22,7 +22,7 @@ s = nullptr;                // good practice for preventing errors
 ```
 
 ## Pointers
-**Constant Values/Pointers**
+#### Constant Values/Pointers
 ``` cpp 
 // this function accepts a pointer to an array of constants
 void displayPayRates(const double *rates, int size)
@@ -43,7 +43,7 @@ const int * const ptr = &number
 ```
 
 ## Pass By Reference
-**Swap in C**
+#### Swap in C
 ``` c
 // i and j are pointers to ints
 void swap(int* i, int *j)
@@ -58,7 +58,7 @@ void swap(int* i, int *j)
 swap(&a, &b);    
 ```
 
-**Swap in C++**
+#### Swap in C++
 ``` cpp
 // i and j are references to ints
 inline void swap(int &i, int &j)
@@ -109,7 +109,7 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 ```cpp 
 #include <cctype>   // required for using the following functions
 ```  
-**Character Testing**
+#### Character Testing
 
 | Function  | Returns true if the argument is a ...; returns 0 otherwise |
 | :-------: | :--------------------------------------------------------- |
@@ -122,15 +122,66 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 | `isupper` | uppercase letter. Otherwise, it returns 0.                 |
 | `isspace` | whitespace character. (`''`, `' \n '`, `' \v '`, `' \t '`) |
 
-**Character Case Conversion**
+#### Character Case Conversion
 
 | Function  | Description                                       |
 | :-------: | :------------------------------------------------ |
 | `toupper` | Returns the uppercase equivalent of its argument. |
 | `tolower` | Returns the lowercase equivalent of its argument. |
 
+## C-String Functions
+``` cpp 
+#include <cstring>   // required for using the following functions
+```  
+#### The `strlen` function
+``` cpp 
+// don't confuse the length of a string with the size of the array holding it
+char name[] = "Thomas Edison";
+int length = strlen(name); // length is 13
+```
+
+#### The `strcat` function (see also: `strncat`)
+
+*If the array holding the first string isn't large enough to hold both strings,
+`strcat` will overflow the boundaries of the array.*
+``` cpp 
+char string1[100] = "Hello ";   // string1 has enough capacity for strcat 
+char string2[] = "World!";
+strcat(string1, string2);
+cout << string1 << endl;        // outputs "Hello World!"
+```
+
+#### The `strcpy` function (see also: `strncpy`)
+
+*`strcpy` performs no bounds checking. The array specified by the first 
+argument will be overflowed if it isn’t large enough to hold the string
+specified by the second argument.*
+
+``` cpp
+char name[] = "Some other string";  // size of the holding array is sufficient
+strcpy(name, "Albert Einstein");
+```
+
+#### The `strstr` function
+``` cpp
+char arr[] = "Four score and seven years ago";
+char *ptr = strstr(arr, "seven");   // search for "seven" and return address
+cout << ptr << endl;                // outputs "seven years ago"
+```
+
+#### The `strcmp` function
+
+``` cpp
+int strcmp(char *string1, char *string2); // function prototype
+```
+
+The result is
+ - **zero** if the two strings are **equal**.
+ - **negagive** if string1 comes **before** string2 in alphabetical order.
+ - **positive** if string1 comes **after** string2 in alphabetical order.
+
 ## Generics in C++
-**Generic Swap in C++**
+#### Generic Swap in C++
 ``` cpp
 template <class T>
 inline void swap(T &i, T &j)
@@ -145,7 +196,7 @@ inline void swap(T &i, T &j)
 swap(a, b);   
 ```
 
-**Generic Summation of an Array in C++**
+#### Generic Summation of an Array in C++
 ``` cpp
 template<class T>
 T sum(const T data[], int size, T s = 0)    // elements of const array can not be modified
@@ -197,7 +248,7 @@ int main()
 ```
 
 ## Structs/Classes
-**Structs in C**
+#### Structs in C
 ``` c
 typedef struct point
 {
@@ -261,7 +312,7 @@ class Point
 }
 ```
 
-**Destructors in C++**
+#### Destructors in C++
 ``` cpp
 class Node
 {

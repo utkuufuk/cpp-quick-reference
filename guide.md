@@ -107,18 +107,27 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 
 ## Character Functions
 ```cpp 
-#include <cctype>
+#include <cctype>   // required for using the following functions
 ```  
-| Character Function | Returns true (a nonzero number) if the argument is a ..........., returns 0 otherwise |
-| :----------------: | :------------------------------------------------------------------------------------ |
-| `isalpha`          | letter of the alphabet.                                                               |
-| `isalnum`          | letter of the alphabet or a digit.                                                    |
-| `isdigit`          | digit from 0 through 9.                                                               |
-| `islower`          | lowercase letter.                                                                     |
-| `isprint`          | printable character (including a space).                                              |
-| `ispunct`          | printable character other than a digit, letter, or space.                             |
-| `isupper`          | uppercase letter. Otherwise, it returns 0.                                            |
-| `isspace`          | whitespace character. (`''`, `' \n '`, `' \v '`, `' \t '`)                            |
+**Character Testing**
+
+| Function  | Returns true if the argument is a ...; returns 0 otherwise |
+| :-------: | :--------------------------------------------------------- |
+| `isalpha` | letter of the alphabet.                                    |
+| `isalnum` | letter of the alphabet or a digit.                         |
+| `isdigit` | digit from 0 through 9.                                    |
+| `islower` | lowercase letter.                                          |
+| `isprint` | printable character (including a space).                   |
+| `ispunct` | printable character other than a digit, letter, or space.  |
+| `isupper` | uppercase letter. Otherwise, it returns 0.                 |
+| `isspace` | whitespace character. (`''`, `' \n '`, `' \v '`, `' \t '`) |
+
+**Character Case Conversion**
+
+| Function  | Description                                       |
+| :-------: | :------------------------------------------------ |
+| `toupper` | Returns the uppercase equivalent of its argument. |
+| `tolower` | Returns the lowercase equivalent of its argument. |
 
 ## Generics in C++
 **Generic Swap in C++**

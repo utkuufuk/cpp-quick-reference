@@ -16,11 +16,9 @@ g++ hello.cpp -o hello
 ## Memory Management in C++
 **The keyword `new` replaces `malloc` and `delete` replaces `free`:**
 ``` cpp
-char* s = new char[size];   // initialize an array
-int* p = new int(9);        // initialize a single int
-
-delete [] s;                // delete an array
-delete p;                   // delete a single int
+char* s = new char[size];   // dynamically allocate memory for an array
+delete [] s;                // free the allocated memory
+s = nullptr;                // good practice for preventing errors
 ```
 
 ## Pointers in C/C++
@@ -85,6 +83,21 @@ myVec.reverse();            // reverse the order of elements in myVec
 myVec.resize(size, val);    // resize myVec. the new elements are initialized with val
 myVec.swap(someVec);        // swap the contents of myVec with the contents of anotherVec
 ```
+
+## Character Functions
+```cpp 
+#include <cctype>
+```  
+| Character Function | Returns true (a nonzero number) if the argument is a ..........., returns 0 otherwise |
+| :----------------: | :------------------------------------------------------------------------------------ |
+| `isalpha`          | letter of the alphabet.                                                               |
+| `isalnum`          | letter of the alphabet or a digit.                                                    |
+| `isdigit`          | digit from 0 through 9.                                                               |
+| `islower`          | lowercase letter.                                                                     |
+| `isprint`          | printable character (including a space).                                              |
+| `ispunct`          | printable character other than a digit, letter, or space.                             |
+| `isupper`          | uppercase letter. Otherwise, it returns 0.                                            |
+| `isspace`          | whitespace character. (`''`, `' \n '`, `' \v '`, `' \t '`)                            |
 
 ## Generics in C++
 **Generic Swap in C++:**

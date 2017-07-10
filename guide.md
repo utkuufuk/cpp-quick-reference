@@ -110,7 +110,6 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 #include <cctype>   // required for using the following functions
 ```  
 #### Character Testing
-
 | Function  | Returns true if the argument is a ...; returns 0 otherwise |
 | :-------: | :--------------------------------------------------------- |
 | `isalpha` | letter of the alphabet.                                    |
@@ -123,16 +122,18 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 | `isspace` | whitespace character. (`''`, `' \n '`, `' \v '`, `' \t '`) |
 
 #### Character Case Conversion
-
 | Function  | Description                                       |
 | :-------: | :------------------------------------------------ |
 | `toupper` | Returns the uppercase equivalent of its argument. |
 | `tolower` | Returns the lowercase equivalent of its argument. |
 
 ## C-String Functions
+
+### Working With C-Strings
 ``` cpp 
 #include <cstring>   // required for using the following functions
 ```  
+
 #### The `strlen` function
 ``` cpp 
 // don't confuse the length of a string with the size of the array holding it
@@ -141,7 +142,6 @@ int length = strlen(name); // length is 13
 ```
 
 #### The `strcat` function (see also: `strncat`)
-
 *If the array holding the first string isn't large enough to hold both strings,
 `strcat` will overflow the boundaries of the array.*
 ``` cpp 
@@ -152,11 +152,9 @@ cout << string1 << endl;        // outputs "Hello World!"
 ```
 
 #### The `strcpy` function (see also: `strncpy`)
-
 *`strcpy` performs no bounds checking. The array specified by the first 
 argument will be overflowed if it isn’t large enough to hold the string
 specified by the second argument.*
-
 ``` cpp
 char name[] = "Some other string";  // size of the holding array is sufficient
 strcpy(name, "Albert Einstein");
@@ -170,15 +168,39 @@ cout << ptr << endl;                // outputs "seven years ago"
 ```
 
 #### The `strcmp` function
-
 ``` cpp
 int strcmp(char *string1, char *string2); // function prototype
 ```
-
 The result is
  - **zero** if the two strings are **equal**.
  - **negagive** if string1 comes **before** string2 in alphabetical order.
  - **positive** if string1 comes **after** string2 in alphabetical order.
+
+### C-String/Numeric Conversion Functions
+``` cpp 
+#include <cstdlib>   // required for using the following functions
+
+//Converts a c-string to an integer.
+int intVal = atoi("1000");
+
+//Converts a c-string to a long value.
+long longVal = atoi("1000000");
+
+//Converts a c-string to a double/float value.
+float floatVal = atoi("12.67");
+double doubleVal = atoi("12.67");
+
+// returns a numeric argument converted to a string object
+to_string(int value);
+to_string(long value);
+to_string(long long value);
+to_string(unsigned value);
+to_string(unsigned long value);
+to_string(unsigned long long value);
+to_string(float value);
+to_string(double value);
+to_string(long double value);
+```
 
 ## Generics in C++
 #### Generic Swap in C++

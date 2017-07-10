@@ -1,28 +1,49 @@
 # C++ for C Programmers
 
-## Compiling C/C++ Code
-**Compile and run a C program using terminal:**
+## Compiling
+**Compile and run a C program using terminal**
 ```
 gcc hello.c -o hello
 ./hello
 ``` 
 
-**Compile and run a C++ program using terminal:**
+**Compile and run a C++ program using terminal**
 ```
 g++ hello.cpp -o hello
 ./hello
 ```
 
-## Memory Management in C++
-**The keyword `new` replaces `malloc` and `delete` replaces `free`:**
+## Memory Management
+**The keyword `new` replaces `malloc` and `delete` replaces `free`**
 ``` cpp
 char* s = new char[size];   // dynamically allocate memory for an array
 delete [] s;                // free the allocated memory
 s = nullptr;                // good practice for preventing errors
 ```
 
-## Pointers in C/C++
-**Swap in C:**
+## Pointers
+**Constant Values/Pointers**
+``` cpp 
+// this function accepts a pointer to an array of constants
+void displayPayRates(const double *rates, int size)
+{
+    for (int count = 0; count < size; count++)
+    {
+        cout << *(rates + count) << endl;
+    }
+}
+
+// constant pointers can not point to something else
+int value = 22;
+int * const ptr = &value; 
+
+// this is a constant pointer to a constant
+int number = 15;
+const int * const ptr = &number 
+```
+
+## Pass By Reference
+**Swap in C**
 ``` c
 // i and j are pointers to ints
 void swap(int* i, int *j)
@@ -37,7 +58,7 @@ void swap(int* i, int *j)
 swap(&a, &b);    
 ```
 
-**Swap in C++:**
+**Swap in C++**
 ``` cpp
 // i and j are references to ints
 inline void swap(int &i, int &j)
@@ -100,7 +121,7 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 | `isspace`          | whitespace character. (`''`, `' \n '`, `' \v '`, `' \t '`)                            |
 
 ## Generics in C++
-**Generic Swap in C++:**
+**Generic Swap in C++**
 ``` cpp
 template <class T>
 inline void swap(T &i, T &j)
@@ -115,7 +136,7 @@ inline void swap(T &i, T &j)
 swap(a, b);   
 ```
 
-**Generic Summation of an Array in C++:**
+**Generic Summation of an Array in C++**
 ``` cpp
 template<class T>
 T sum(const T data[], int size, T s = 0)    // elements of const array can not be modified
@@ -166,8 +187,8 @@ int main()
 }
 ```
 
-## Structs/Classes in C/C++
-**Structs in C:**
+## Structs/Classes
+**Structs in C**
 ``` c
 typedef struct point
 {
@@ -182,7 +203,7 @@ void addPoints(point* p1, point* p2, point* sum)
 }
 ```
 
-**Classes in C++:**
+**Classes in C++**
 ``` cpp
 class Point
 {
@@ -231,7 +252,7 @@ class Point
 }
 ```
 
-**Destructors in C++:**
+**Destructors in C++**
 ``` cpp
 class Node
 {

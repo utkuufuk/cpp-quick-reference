@@ -127,8 +127,7 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 | `toupper` | Returns the uppercase equivalent of its argument. |
 | `tolower` | Returns the lowercase equivalent of its argument. |
 
-## C-String Functions
-
+## C-Strings
 ### Working With C-Strings
 ``` cpp 
 #include <cstring>   // required for using the following functions
@@ -190,7 +189,7 @@ long longVal = atoi("1000000");
 float floatVal = atoi("12.67");
 double doubleVal = atoi("12.67");
 
-// returns a numeric argument converted to a string object
+// returns a numeric argument converted to a c-string object
 to_string(int value);
 to_string(long value);
 to_string(long long value);
@@ -201,6 +200,44 @@ to_string(float value);
 to_string(double value);
 to_string(long double value);
 ```
+
+## Strings
+#### Defining `string` objects
+``` cpp 
+#include <string>           // required for using the string data type
+
+string str0;                // defines an empty string
+
+string str1 = "Hello";      // defines a string initialized with "Hello"
+
+string str2("Greetings!");  // defines a string initialized with "Greetings!"
+
+string str3(str2);          // defines a string which is a copy of str2.
+                            // (str2 may be either a string or a c-string)
+
+char cStr[] = "abcdefgh";   // this has to be a c-string, not a string
+string str4(cStr, 5);       // defines a string which is initialized 
+                            // to the first 5 characters in the c-string cStr
+
+string str5('x', 10);       // defines a string initialized with 10 'x' chars
+
+string str6(str5, 2, 8);    // defines a string which is initialized
+                            // with a substring of str5. 
+```
+#### `string` operators
+There is no need to use a function such as `strcmp` to compare string objects. 
+You may use the `<` , `>` , `<=` , `>=` , `==` , and `!=` relational operators.
+
+``` cpp
+string s1 = "Hello ";
+string s2 = "World!";
+string mystring = s1 + s2;  // concatenates s1 and s2
+char c = mystring[0];       // returns the char at position 0 in mystring
+```
+#### `string` member functions
+![string functions 1](images/string_functions_1.png)
+![string functions 2](images/string_functions_2.png)
+![string functions 3](images/string_functions_3.png)
 
 ## Generics in C++
 #### Generic Swap in C++

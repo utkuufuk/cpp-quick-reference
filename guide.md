@@ -306,23 +306,72 @@ int main()
 }
 ```
 
-## Structs/Classes
-#### Structs in C
-``` c
-typedef struct point
+## Structs
+``` cpp
+// declare a struct
+struct CityInfo
 {
-    double x;
-    double y;
-} point;
+    string cityName;
+    string state;
+    long population;
+    int distance;
+};
 
-void addPoints(point* p1, point* p2, point* sum)
+// define a struct
+CityInfo location;
+CityInfo cities[20];
+
+// initialize a struct
+CityInfo location = {"Asheville", "NC", 50000, 28};
+CityInfo location = {"Atlanta"};  // only cityName is initialized 
+CityInfo cities[2] = {{"Asheville", "NC", 50000, 28}, 
+                      {"Atlanta", "GA", 45000, 90}};
+
+// access struct members
+location.population = 4750;
+cout << location.population << endl;
+
+// declare a nested struct
+struct EmployeeInfo
 {
-    sum->x = p1->x + p2->x;    
-    sum->y = p1->y + p2->y;
+    string name;
+    int employeeNumber;
+    CityInfo birthPlace;
+};
+
+// access nested struct members
+EmployeeInfo manager;
+manager.birthPlace.population = 4750;
+cout << manager.birthPlace.population << endl;
+```
+**Note:** *By default, structures are passed to functions by value.*<br>
+**Note:** *You can return local structs defined in functions unlike arrays.*
+
+#### Dynamically Allocating Structs
+``` cpp
+struct Circle
+{
+    double radius;
+    double diameter;
+    double area;
+};
+
+Circle* cirPtr = new Circle;
+Circle* circles = new Circle[5];
+
+// access members after dereferencing the struct pointer
+cirPtr->radius = 1.1;
+cirPtr->area = 2.2;
+
+// array elements are structs, not pointers
+for (int i = 0; i < 5; i++)
+{
+    circles[i].radius = 1.1 * i;
+    circles[i].area = 2.2 * i;
 }
 ```
 
-**Classes in C++**
+## Classes
 ``` cpp
 class Point
 {
@@ -371,7 +420,7 @@ class Point
 }
 ```
 
-#### Destructors in C++
+#### Destructors
 ``` cpp
 class Node
 {

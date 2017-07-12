@@ -7,7 +7,7 @@
  * [Pass by Reference](#pass-by-reference)
  * [Vectors](#vectors)
  * [Character Functions](#character-functions)
- * [C-Strings](#c---strings)
+ * [C-Strings](#c-strings)
  * [Strings](#strings)
  * [Generics](#generics)
  * [Operator Overloading](#operator-overloading)

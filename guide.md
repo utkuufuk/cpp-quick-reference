@@ -110,16 +110,16 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 #include <cctype>   // required for using the following functions
 ```  
 #### Character testing
-| Function  | Returns true if the argument is a ...; returns 0 otherwise |
-| :-------: | :--------------------------------------------------------- |
-| `isalpha` | letter of the alphabet.                                    |
-| `isalnum` | letter of the alphabet or a digit.                         |
-| `isdigit` | digit from 0 through 9.                                    |
-| `islower` | lowercase letter.                                          |
-| `isprint` | printable character (including a space).                   |
-| `ispunct` | printable character other than a digit, letter, or space.  |
-| `isupper` | uppercase letter. Otherwise, it returns 0.                 |
-| `isspace` | whitespace character. (`''`, `' \n '`, `' \v '`, `' \t '`) |
+| Function  | Returns true if the argument is a ...; returns 0 otherwise  |
+| :-------: | :---------------------------------------------------------- |
+| `isalpha` | letter of the alphabet.                                     |
+| `isalnum` | letter of the alphabet or a digit.                          |
+| `isdigit` | digit from 0 through 9.                                     |
+| `islower` | lowercase letter.                                           |
+| `isprint` | printable character (including a space).                    |
+| `ispunct` | printable character other than a digit, letter, or space.   |
+| `isupper` | uppercase letter. Otherwise, it returns 0.                  |
+| `isspace` | whitespace character. (`' '`, `' \n '`, `' \v '`, `' \t '`) |
 
 #### Character case conversion
 | Function  | Description                                       |
@@ -306,6 +306,49 @@ int main()
 }
 ```
 
+## Enumerated Data Types
+``` cpp
+// each enumerator is assigned an integer starting from 0
+enum Day
+{
+    MONDAY,     // 0
+    TUESDAY,    // 1
+    WEDNESDAY,  // 2
+    THURSDAY,   // 3
+    FRIDAY      // 4
+};
+
+// assign an enumerator to an integer
+int x = THURSDAY;
+
+// can not directly assign an int to an enum variable
+Day day1 = static_cast<Day>(3);         // day1 = 3 is illegal!!
+Day day2 = static_cast<Day>(day1 + 1);  // day2 = day1 + 1 is illegal!!
+
+// compare enum values
+bool b = FRIDAY > MONDAY // true because FIRDAY comes after MONDAY
+
+// anonymous enum types can be used when you don't need to define variables
+enum {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY};
+
+// can specify integer values for all or some enumerators
+enum Color {RED, ORANGE, YELLOW = 9, GREEN, BLUE};
+```
+
+#### Strongly typed enumerators `(enum class)`
+``` cpp
+// can specify multiple enumerators with the same name, within the same scope
+enum class President {MCKINLEY, ROOSEVELT, TAFT};
+enum class VicePresident {ROOSEVELT, FAIRBANKS, SHERMAN};
+
+// can not directly assign a strongly typed enum to an integer
+// int x = President::MCKINLEY is illegal!!
+int x = static_cast<int>(President::MCKINLEY);  
+
+// can specify any integer data type as the underlying type
+enum class Day : char {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY}; 
+```
+
 ## Structs
 ``` cpp
 // declare a struct
@@ -347,7 +390,7 @@ cout << manager.birthPlace.population << endl;
 **Note:** *By default, structures are passed to functions by value.*<br>
 **Note:** *You can return local structs defined in functions unlike arrays.*
 
-#### dynamically allocating structs
+#### Dynamically allocating structs
 ``` cpp
 struct Circle
 {

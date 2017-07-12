@@ -1,13 +1,13 @@
 # C++ for C Programmers
 
 ## Compiling
-#### Compile and run a C program using terminal
+#### Compile and run a C program
 ```
 gcc hello.c -o hello
 ./hello
 ``` 
 
-#### Compile and run a C++ program using terminal
+#### Compile and run a C++ program
 ```
 g++ hello.cpp -o hello
 ./hello
@@ -22,7 +22,7 @@ s = nullptr;                // good practice for preventing errors
 ```
 
 ## Pointers
-#### Constant Values/Pointers
+#### Constant values & constant pointers
 ``` cpp 
 // this function accepts a pointer to an array of constants
 void displayPayRates(const double *rates, int size)
@@ -109,7 +109,7 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 ```cpp 
 #include <cctype>   // required for using the following functions
 ```  
-#### Character Testing
+#### Character testing
 | Function  | Returns true if the argument is a ...; returns 0 otherwise |
 | :-------: | :--------------------------------------------------------- |
 | `isalpha` | letter of the alphabet.                                    |
@@ -121,14 +121,14 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 | `isupper` | uppercase letter. Otherwise, it returns 0.                 |
 | `isspace` | whitespace character. (`''`, `' \n '`, `' \v '`, `' \t '`) |
 
-#### Character Case Conversion
+#### Character case conversion
 | Function  | Description                                       |
 | :-------: | :------------------------------------------------ |
 | `toupper` | Returns the uppercase equivalent of its argument. |
 | `tolower` | Returns the lowercase equivalent of its argument. |
 
 ## C-Strings
-### Working With C-Strings
+### Working with c-strings
 ``` cpp 
 #include <cstring>   // required for using the following functions
 ```  
@@ -175,7 +175,7 @@ The result is
  - **negagive** if string1 comes **before** string2 in alphabetical order.
  - **positive** if string1 comes **after** string2 in alphabetical order.
 
-### C-String/Numeric Conversion Functions
+### C-string/numeric conversion functions
 ``` cpp 
 #include <cstdlib>   // required for using the following functions
 
@@ -255,7 +255,7 @@ inline void swap(T &i, T &j)
 swap(a, b);   
 ```
 
-#### Generic Summation of an Array in C++
+#### Generic summation of an array in C++
 ``` cpp
 template<class T>
 T sum(const T data[], int size, T s = 0)    // elements of const array can not be modified
@@ -347,7 +347,7 @@ cout << manager.birthPlace.population << endl;
 **Note:** *By default, structures are passed to functions by value.*<br>
 **Note:** *You can return local structs defined in functions unlike arrays.*
 
-#### Dynamically Allocating Structs
+#### dynamically allocating structs
 ``` cpp
 struct Circle
 {

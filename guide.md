@@ -1,5 +1,20 @@
 # C++ for C Programmers
 
+## Contents
+ * [Compiling](#compiling)
+ * [Memory Management](#memory-management)
+ * [Pointers](#pointers)
+ * [Pass by Reference](#pass-by-reference)
+ * [Vectors](#vectors)
+ * [Character Functions](#character-functions)
+ * [C-Strings](#c---strings)
+ * [Strings](#strings)
+ * [Generics](#generics)
+ * [Operator Overloading](#operator-overloading)
+ * [Enumerated Data Types](#enumerated-data-types)
+ * [Structs](#structs)
+ * [Classes](#classes)
+
 ## Compiling
 #### Compile and run a C program
 ```
@@ -42,7 +57,7 @@ int number = 15;
 const int * const ptr = &number 
 ```
 
-## Pass By Reference
+## Pass by Reference
 #### Swap in C
 ``` c
 // i and j are pointers to ints
@@ -81,7 +96,7 @@ inline void swap(double &i, double &j)
 swap(a, b);    
 ```
 
-## Vectors in C++
+## Vectors
 ```cpp
 #include <vector>
 using namespace std;
@@ -239,7 +254,7 @@ char c = mystring[0];       // returns the char at position 0 in mystring
 ![string functions 2](images/string_functions_2.png)
 ![string functions 3](images/string_functions_3.png)
 
-## Generics in C++
+## Generics
 #### Generic Swap in C++
 ``` cpp
 template <class T>
@@ -271,7 +286,7 @@ sum(scores, 92);        // sum = 0 by default
 sum(scores, 92, 58);    // sum = 58 to begin with
 ```
 
-## Operator Overloading in C++
+## Operator Overloading
 ``` cpp
 // define a new enum type
 typedef enum days {SUN, MON, TUE, WED, THU, FRI, SAT} days;

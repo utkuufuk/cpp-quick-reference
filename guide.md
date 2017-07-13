@@ -14,6 +14,7 @@
  * [Enumerated Data Types](#enumerated-data-types)
  * [Structs](#structs)
  * [Classes](#classes)
+ * [File Operations](#file-operations)
 
 ## Compiling
 #### Compile and run a C program
@@ -519,3 +520,71 @@ List::~List()
     }
 }
 ```
+
+## File Operations
+| Data Type  | Description                                                    |
+| :--------: | :------------------------------------------------------------- |
+| `ifstream` | Input file stream. Can be used to read data from files.        |
+| `ofstream` | Output file stream. Can be used to create write data to files. |
+| `fstream`  | File stream. Can be used to read and write data to/from files. |
+
+#### File access flags
+By using different combinations of access flags, you can open files in many possible modes:
+![File Access Flags](images/file-access-flags.png)
+
+#### `ifstream` and `ofstream`
+``` cpp
+#include <fstream>
+
+// open an ifstream
+ifstream inputFile;
+inputFile.open("InputFile.txt");
+// Alternatively: 
+// ifstream inputFile("InputFile.txt");
+
+// open an ofstream
+ofstream outputFile;
+outputFile.open("OutputFile.txt");
+// Alternatively: 
+// ofstream outputFile("OutputFile.txt");
+
+// open ofstream in append mode
+outputFile.open("OutputFile.txt", ios::out | ios::app);
+
+inputFile >> value;
+outputFile << "I love C++ programming" << endl;
+
+inputFile.close();
+outputFile.close();
+```
+
+#### `fstream`
+``` cpp
+#include <fstream>
+
+fstream file;
+
+// open fstream in output mode
+file.open("DataFile.txt", ios::out);
+
+// open fstream in both input and output modes
+file.open("DataFile.txt", ios::in | ios::out);
+
+// read and write data in binary mode
+char data[4] = {'A', 'B', 'C', 'D'};
+fstream file("DataFile.dat", ios::binary | ios::out);
+file.write(data, sizeof(data));
+file.open("DataFile.dat", ios::binary | ios::in);
+file.read(data, sizeof(data));
+
+// read and write non-char data
+int numbers[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+fstream file("numbers.dat", ios::out | ios::binary);
+file.write(reinterpret_cast<char *>(numbers), sizeof(numbers));
+file.open("numbers.dat", ios::in | ios::binary);
+file.read(reinterpret_cast<char *>(numbers), sizeof(numbers));
+
+// close the file
+file.close();
+```
+

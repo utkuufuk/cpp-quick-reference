@@ -432,8 +432,78 @@ for (int i = 0; i < 5; i++)
 
 ## Classes
 ``` cpp
+// Rectangle.hpp
+class Rectangle
+{
+    private:
+
+        double width;
+        double length;
+
+    public:
+
+        void setWidth(double);
+        void setLength(double);
+
+        // const keyword specifies that the function will not change any data
+        double getWidth() const;
+        double getLength() const;
+        double getArea() const;
+};
+```
+
+``` cpp
+// Rectangle.cpp
+#import "Rectangle.hpp"
+
+void Rectangle::setWidth(double w)
+{
+    width = w;
+}
+
+void Rectangle::setLength(double len)
+{
+    length = len;
+}
+
+double Rectangle::getWidth() const
+{
+    return width;
+}
+
+double Rectangle::getLength() const
+{
+    return length;
+}
+
+double Rectangle::getArea() const
+{
+    return width * length;
+}
+
+```
+
+#### Using objects
+``` cpp
+// define an object from the Rectangle class
+Rectangle box;      // width & length members don't hold meaningful values yet 
+box.setWidth(12.7);
+
+// define a pointer to a Rectangle class object
+Rectangle *rectPtr = new Rectangle; 
+rectPtr->setLength(10.5);
+delete rectPtr;             // delete the object from memory
+rectPtr = nullptr;          // good practice for preventing errors
+```
+
+``` cpp
 class Point
 {
+    private:
+
+        double x;
+        double y;
+        
     public:
 
         // this is the preferred constructor usage
@@ -471,11 +541,6 @@ class Point
             out << "( " << p.x << ", " << p.y << " )";
             return out;
         }
-
-    private:
-
-        double x;
-        double y;
 }
 ```
 

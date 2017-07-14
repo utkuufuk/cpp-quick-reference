@@ -199,11 +199,11 @@ The result is
 int intVal = atoi("1000");
 
 //Converts a c-string to a long value.
-long longVal = atoi("1000000");
+long longVal = atol("1000000");
 
 //Converts a c-string to a double/float value.
-float floatVal = atoi("12.67");
-double doubleVal = atoi("12.67");
+float floatVal = atof("12.67");
+double doubleVal = atof("12.67");
 
 // returns a numeric argument converted to a c-string object
 to_string(int value);

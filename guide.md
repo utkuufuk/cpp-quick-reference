@@ -431,8 +431,13 @@ for (int i = 0; i < 5; i++)
 ```
 
 ## Classes
+#### Class Specification 
 ``` cpp
-// Rectangle.hpp
+// Rectangle.h
+
+#ifndef RECTANGLE_H     // include guard prevents the header file from 
+#define RECTANGLE_H     // accidentally being included more than once
+
 class Rectangle
 {
     private:
@@ -442,19 +447,53 @@ class Rectangle
 
     public:
 
+        Rectangle();    // default constructor (takes no arguments)
+
+        // constructors can also be defined inline
+        Rectangle(double width, double length)
+        {
+            this->width = width;    
+            this->length = length;
+        }
+
+        // this is a better constructor definition
+        Rectangle(double width = 0.0; double length = 0.0) :
+        width(width), length(length) {}
+
         void setWidth(double);
         void setLength(double);
 
-        // const keyword specifies that the function will not change any data
+        // a member function defined in declaration is an inline function
         double getWidth() const;
+        {
+            return width;
+        }
+
+        // no need to use the scope resolution operator for inline functions
         double getLength() const;
+        {
+            return width;
+        }
+
+        // const keyword specifies that the function will not change any data
         double getArea() const;
 };
+#endif
 ```
 
+#### Class Implementation
 ``` cpp
 // Rectangle.cpp
-#import "Rectangle.hpp"
+
+// double quotes indicate that Rectangle.h is located in the current 
+// project directory; instead of the compiler's include file directory
+#import "Rectangle.h"   
+
+Rectangle::Rectangle()
+{
+    width = 0.0;
+    length = 0.0;
+} 
 
 void Rectangle::setWidth(double w)
 {
@@ -466,124 +505,72 @@ void Rectangle::setLength(double len)
     length = len;
 }
 
-double Rectangle::getWidth() const
-{
-    return width;
-}
-
-double Rectangle::getLength() const
-{
-    return length;
-}
-
 double Rectangle::getArea() const
 {
     return width * length;
-}
-
-```
-
-#### Using objects
-``` cpp
-// define an object from the Rectangle class
-Rectangle box;      // width & length members don't hold meaningful values yet 
-box.setWidth(12.7);
-
-// define a pointer to a Rectangle class object
-Rectangle *rectPtr = new Rectangle; 
-rectPtr->setLength(10.5);
-delete rectPtr;             // delete the object from memory
-rectPtr = nullptr;          // good practice for preventing errors
-```
-
-``` cpp
-class Point
-{
-    private:
-
-        double x;
-        double y;
-        
-    public:
-
-        // this is the preferred constructor usage
-        Point(double x = 0.0, double y = 0.0) : x(x), y(y) {}
-
-        /**
-         * This is also a valid constructor:
-         * Point()
-         * {
-         *     this->x = 0.0;  // or x = 0.0;
-         *     this->y = 0.0;  // or y = 0.0;
-         * }
-         */
-
-        double getX()
-        {
-            return x;    
-        }
-        
-        void setX(double v)
-        {
-            x = v;    
-        }
-
-        // pass the point objects by reference for efficiency
-        point operator+ (point &p1, point &p2)
-        {
-            point sum = {p1.x + p2.x, p1.y + p2.y}
-            return sum;
-        }
-
-        // pass the point object by reference for efficiency
-        ostream& operator<< (ostream &out, const point &p) 
-        {
-            out << "( " << p.x << ", " << p.y << " )";
-            return out;
-        }
 }
 ```
 
 #### Destructors
 ``` cpp
-class Node
-{
-    public:
+// ContactInfo.h
 
-        Node(int d = 0, Node* ptr = nullptr) : data(d), next(ptr) {}
- 
+#ifndef CONTACTINFO_H
+#define CONTACTINFO_H
+
+#include <cstring> // Needed for strlen and strcpy
+
+class ContactInfo
+{
     private:
 
-        int data;
-        Node* next;
-}
+        char *name;
+        char *phone;
 
-class List
-{
     public:
 
-        List() : head(nullptr), cursor(nullptr) {}
-        ~List();
-        void prepend(int value);
-        int getElement();
-        void advance();
-        void print();
+        ContactInfo(char *n, char *p)
+        { 
+            // Allocate just enough memory for the name and phone number.
+            name = new char[strlen(n) + 1];
+            phone = new char[strlen(p) + 1];
 
-    private:
+            // Copy the name and phone number to the allocated memory.
+            strcpy(name, n);
+            strcpy(phone, p); 
+        }
+        
+        ~ContactInfo() // Destructor
+        { 
+            delete [] name;
+            delete [] phone; 
+        }
 
-        Node* head;
-        Node* cursor;
-}
+        // const prevents any code calling the function from changing the name
+        const char *getName() const
+        {
+            return name; 
+        }
 
-List::~List()
-{
-    for (cursor = head; cursor != nullptr; )
-    {
-        cursor = head->next;
-        delete head;
-        head = cursor;
-    }
-}
+        const char *getPhoneNumber() const
+        {
+            return phone; 
+        }
+};
+#endif
+```
+
+#### Objects
+``` cpp
+// define an object from the Rectangle class
+Rectangle box;  // width & length are set to 0.0 by the default constructor
+box.setWidth(12.7);
+
+// define a pointer to a ContactInfo class object
+ContactInfo* contactPtr = new ContactInfo("Kristen Lee", "555-2021");
+contactPtr->getName();
+delete contactPtr;      // the destructor is called here automatically
+contactPtr = nullptr;   // good practice for preventing errors
 ```
 
 ## File Operations

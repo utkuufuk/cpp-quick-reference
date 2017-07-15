@@ -9,12 +9,12 @@
  * [Character Functions](#character-functions)
  * [C-Strings](#c-strings)
  * [Strings](#strings)
- * [Generics](#generics)
- * [Operator Overloading](#operator-overloading)
+ * [File Operations](#file-operations)
  * [Enumerated Data Types](#enumerated-data-types)
  * [Structs](#structs)
  * [Classes](#classes)
- * [File Operations](#file-operations)
+ * [Generics](#generics)
+ * [Operator Overloading](#operator-overloading)
 
 ## Compiling
 #### Compile and run a C program
@@ -255,71 +255,71 @@ char c = mystring[0];       // returns the char at position 0 in mystring
 ![string functions 2](images/string_functions_2.png)
 ![string functions 3](images/string_functions_3.png)
 
-## Generics
-#### Generic Swap in C++
+## File Operations
+| Data Type  | Description                                                    |
+| :--------: | :------------------------------------------------------------- |
+| `ifstream` | Input file stream. Can be used to read data from files.        |
+| `ofstream` | Output file stream. Can be used to create write data to files. |
+| `fstream`  | File stream. Can be used to read and write data to/from files. |
+
+#### File access flags
+By using different combinations of access flags, you can open files in many possible modes:
+![File Access Flags](images/file-access-flags.png)
+
+#### `ifstream` and `ofstream`
 ``` cpp
-template <class T>
-inline void swap(T &i, T &j)
-{
-    T temp i;
-    i = j;
-    j = temp;
-}
-    
-// call C++ function
-// no need to pass addresses
-swap(a, b);   
+#include <fstream>
+
+// open an ifstream
+ifstream inputFile;
+inputFile.open("InputFile.txt");
+// Alternatively: 
+// ifstream inputFile("InputFile.txt");
+
+// open an ofstream
+ofstream outputFile;
+outputFile.open("OutputFile.txt");
+// Alternatively: 
+// ofstream outputFile("OutputFile.txt");
+
+// open ofstream in append mode
+outputFile.open("OutputFile.txt", ios::out | ios::app);
+
+inputFile >> value;
+outputFile << "I love C++ programming" << endl;
+
+inputFile.close();
+outputFile.close();
 ```
 
-#### Generic summation of an array in C++
+#### `fstream`
 ``` cpp
-template<class T>
-T sum(const T data[], int size, T s = 0)    // elements of const array can not be modified
-{
-    for (int i = 0; i < size; ++i)
-    {
-        s += data[i];
-    }
-}
+#include <fstream>
 
-// call the function
-sum(scores, 92);        // sum = 0 by default
-sum(scores, 92, 58);    // sum = 58 to begin with
-```
+fstream file;
 
-## Operator Overloading
-``` cpp
-// define a new enum type
-typedef enum days {SUN, MON, TUE, WED, THU, FRI, SAT} days;
+// open fstream in output mode
+file.open("DataFile.txt", ios::out);
 
-// overload the increment operator
-inline days operator++ (days d)
-{
-    return static_cast<days>((static_cast<int>(d) + 1) % 7);    
-}
+// open fstream in both input and output modes
+file.open("DataFile.txt", ios::in | ios::out);
 
-// overload the bit shift operator
-ostream& operator<< (ostream &out, const days &d)
-{
-    switch (d)
-    {
-        case SUN: out << "SUN"; break;
-        case MON: out << "MON"; break;
-        case TUE: out << "TUE"; break;
-        case WED: out << "WED"; break;
-        case THU: out << "THU"; break;
-        case FRI: out << "FRI"; break;
-        case SAT: out << "SAT"; break; 
-    } 
-}
+// read and write data in binary mode
+char data[4] = {'A', 'B', 'C', 'D'};
+fstream file("DataFile.dat", ios::binary | ios::out);
+file.write(data, sizeof(data));
+file.open("DataFile.dat", ios::binary | ios::in);
+file.read(data, sizeof(data));
 
-// use the overloaded operators
-int main()
-{
-    days d = MON, e;
-    e = ++d;
-    cout << d << '\t' << e << endl;
-}
+// read and write non-char data
+int numbers[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+fstream file("numbers.dat", ios::out | ios::binary);
+file.write(reinterpret_cast<char *>(numbers), sizeof(numbers));
+file.open("numbers.dat", ios::in | ios::binary);
+file.read(reinterpret_cast<char *>(numbers), sizeof(numbers));
+
+// close the file
+file.close();
 ```
 
 ## Enumerated Data Types
@@ -573,70 +573,69 @@ delete contactPtr;      // the destructor is called here automatically
 contactPtr = nullptr;   // good practice for preventing errors
 ```
 
-## File Operations
-| Data Type  | Description                                                    |
-| :--------: | :------------------------------------------------------------- |
-| `ifstream` | Input file stream. Can be used to read data from files.        |
-| `ofstream` | Output file stream. Can be used to create write data to files. |
-| `fstream`  | File stream. Can be used to read and write data to/from files. |
-
-#### File access flags
-By using different combinations of access flags, you can open files in many possible modes:
-![File Access Flags](images/file-access-flags.png)
-
-#### `ifstream` and `ofstream`
+## Generics
+#### Generic Swap in C++
 ``` cpp
-#include <fstream>
-
-// open an ifstream
-ifstream inputFile;
-inputFile.open("InputFile.txt");
-// Alternatively: 
-// ifstream inputFile("InputFile.txt");
-
-// open an ofstream
-ofstream outputFile;
-outputFile.open("OutputFile.txt");
-// Alternatively: 
-// ofstream outputFile("OutputFile.txt");
-
-// open ofstream in append mode
-outputFile.open("OutputFile.txt", ios::out | ios::app);
-
-inputFile >> value;
-outputFile << "I love C++ programming" << endl;
-
-inputFile.close();
-outputFile.close();
+template <class T>
+inline void swap(T &i, T &j)
+{
+    T temp i;
+    i = j;
+    j = temp;
+}
+    
+// call C++ function
+// no need to pass addresses
+swap(a, b);   
 ```
 
-#### `fstream`
+#### Generic summation of an array in C++
 ``` cpp
-#include <fstream>
+template<class T>
+T sum(const T data[], int size, T s = 0)    // elements of const array can not be modified
+{
+    for (int i = 0; i < size; ++i)
+    {
+        s += data[i];
+    }
+}
 
-fstream file;
-
-// open fstream in output mode
-file.open("DataFile.txt", ios::out);
-
-// open fstream in both input and output modes
-file.open("DataFile.txt", ios::in | ios::out);
-
-// read and write data in binary mode
-char data[4] = {'A', 'B', 'C', 'D'};
-fstream file("DataFile.dat", ios::binary | ios::out);
-file.write(data, sizeof(data));
-file.open("DataFile.dat", ios::binary | ios::in);
-file.read(data, sizeof(data));
-
-// read and write non-char data
-int numbers[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-fstream file("numbers.dat", ios::out | ios::binary);
-file.write(reinterpret_cast<char *>(numbers), sizeof(numbers));
-file.open("numbers.dat", ios::in | ios::binary);
-file.read(reinterpret_cast<char *>(numbers), sizeof(numbers));
-
-// close the file
-file.close();
+// call the function
+sum(scores, 92);        // sum = 0 by default
+sum(scores, 92, 58);    // sum = 58 to begin with
 ```
 
+## Operator Overloading
+``` cpp
+// define a new enum type
+typedef enum days {SUN, MON, TUE, WED, THU, FRI, SAT} days;
+
+// overload the increment operator
+inline days operator++ (days d)
+{
+    return static_cast<days>((static_cast<int>(d) + 1) % 7);    
+}
+
+// overload the bit shift operator
+ostream& operator<< (ostream &out, const days &d)
+{
+    switch (d)
+    {
+        case SUN: out << "SUN"; break;
+        case MON: out << "MON"; break;
+        case TUE: out << "TUE"; break;
+        case WED: out << "WED"; break;
+        case THU: out << "THU"; break;
+        case FRI: out << "FRI"; break;
+        case SAT: out << "SAT"; break; 
+    } 
+}
+
+// use the overloaded operators
+int main()
+{
+    days d = MON, e;
+    e = ++d;
+    cout << d << '\t' << e << endl;
+}
+```

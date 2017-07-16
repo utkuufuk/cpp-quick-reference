@@ -14,7 +14,6 @@
  * [Structs](#structs)
  * [Classes](#classes)
  * [Generics](#generics)
- * [Operator Overloading](#operator-overloading)
 
 ## Compiling
 ``` sh
@@ -651,39 +650,4 @@ T sum(const T data[], int size, T s = 0)    // elements of const array can not b
 // call the function
 sum(scores, 92);        // sum = 0 by default
 sum(scores, 92, 58);    // sum = 58 to begin with
-```
-
-## Operator Overloading
-``` cpp
-// define a new enum type
-typedef enum days {SUN, MON, TUE, WED, THU, FRI, SAT} days;
-
-// overload the increment operator
-inline days operator++ (days d)
-{
-    return static_cast<days>((static_cast<int>(d) + 1) % 7);    
-}
-
-// overload the bit shift operator
-ostream& operator<< (ostream &out, const days &d)
-{
-    switch (d)
-    {
-        case SUN: out << "SUN"; break;
-        case MON: out << "MON"; break;
-        case TUE: out << "TUE"; break;
-        case WED: out << "WED"; break;
-        case THU: out << "THU"; break;
-        case FRI: out << "FRI"; break;
-        case SAT: out << "SAT"; break; 
-    } 
-}
-
-// use the overloaded operators
-int main()
-{
-    days d = MON, e;
-    e = ++d;
-    cout << d << '\t' << e << endl;
-}
 ```

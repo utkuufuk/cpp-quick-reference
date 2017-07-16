@@ -442,8 +442,12 @@ class Rectangle
 {
     private:
 
+        // instance member variables
         double width;
         double length;
+
+        // static member variable
+        static int numObjects;
 
     public:
 
@@ -454,29 +458,33 @@ class Rectangle
         {
             this->width = width;    
             this->length = length;
+            numObjects++;   // increment total number of objects in each constructor call
         }
 
         // this is a better constructor definition
-        Rectangle(double width = 0.0; double length = 0.0) :
+        Rectangle(double width = 0.0, double length = 0.0) :
         width(width), length(length) {}
 
         void setWidth(double);
         void setLength(double);
 
         // a member function defined in declaration is an inline function
-        double getWidth() const;
+        double getWidth() const
         {
             return width;
         }
 
         // no need to use the scope resolution operator for inline functions
-        double getLength() const;
+        double getLength() const
         {
             return width;
         }
 
         // const keyword specifies that the function will not change any data
         double getArea() const;
+
+        // static member functions cannot access any nonstatic member data
+        static int getNumObjects();
 };
 #endif
 ```
@@ -487,12 +495,16 @@ class Rectangle
 
 // double quotes indicate that Rectangle.h is located in the current 
 // project directory; instead of the compiler's include file directory
-#import "Rectangle.h"   
+#include "Rectangle.h"   
+
+// the static member variable must be defined in the implementation file
+int Rectangle::numObjects = 0;
 
 Rectangle::Rectangle()
 {
     width = 0.0;
     length = 0.0;
+    numObjects++;   // increment total number of objects in each constructor call
 } 
 
 void Rectangle::setWidth(double w)
@@ -508,6 +520,11 @@ void Rectangle::setLength(double len)
 double Rectangle::getArea() const
 {
     return width * length;
+}
+
+int Rectangle::getNumObjects()
+{
+    return numObjects;
 }
 ```
 
@@ -563,8 +580,14 @@ class ContactInfo
 #### Objects
 ``` cpp
 // define an object from the Rectangle class
-Rectangle box;  // width & length are set to 0.0 by the default constructor
-box.setWidth(12.7);
+Rectangle box1(12.8, 9.4);
+
+// initialize the new object with width & length of box1
+Rectangle box2 = box1;  // numObjects won't be incremented because constructor for box2 doesn't get called 
+box2.setWidth(4.7);     // assign a new width to box2
+
+// call static member function
+cout << "Number of objects: " << Rectangle::getNumObjects();    // Number of objects: 1
 
 // define a pointer to a ContactInfo class object
 ContactInfo* contactPtr = new ContactInfo("Kristen Lee", "555-2021");

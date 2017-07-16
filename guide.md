@@ -17,15 +17,17 @@
  * [Operator Overloading](#operator-overloading)
 
 ## Compiling
-#### Compile and run a C program
-```
+``` sh
+# compile and run a C program
 gcc hello.c -o hello
 ./hello
-``` 
 
-#### Compile and run a C++ program
-```
+# compile and run a C++ program
 g++ hello.cpp -o hello
+./hello
+
+# compile a program which uses C++11 features
+g++ -std=c++11 hello.cpp -o hello
 ./hello
 ```
 
@@ -528,7 +530,7 @@ int Rectangle::getNumObjects()
 }
 ```
 
-#### Destructors
+#### Copy constructors and destructors
 ``` cpp
 // ContactInfo.h
 
@@ -555,6 +557,19 @@ class ContactInfo
             // Copy the name and phone number to the allocated memory.
             strcpy(name, n);
             strcpy(phone, p); 
+        }
+
+        // copy constructor (const protects the argument object against modification)
+        ContactInfo(const ContactInfo &obj)
+        {
+            int nameSize = strlen(obj.name) + 1;
+            int phoneSize = strlen(obj.phone) + 1;
+
+            name = new char[nameSize];
+            phone = new char[phoneSize];
+
+            strcpy(name, obj.getName());
+            strcpy(phone, obj.getPhoneNumber());
         }
         
         ~ContactInfo() // Destructor
@@ -583,16 +598,25 @@ class ContactInfo
 Rectangle box1(12.8, 9.4);
 
 // initialize the new object with width & length of box1
-Rectangle box2 = box1;  // numObjects won't be incremented because constructor for box2 doesn't get called 
+// c++ automatically creates a default copy constructor if it's not defined by programmer
+Rectangle box2 = box1;  // numObjects not incremented because it's not handled in default copy constructor
 box2.setWidth(4.7);     // assign a new width to box2
 
 // call static member function
 cout << "Number of objects: " << Rectangle::getNumObjects();    // Number of objects: 1
 
 // define a pointer to a ContactInfo class object
+// this object lives on the heap and should be deleted manually
 ContactInfo* contactPtr = new ContactInfo("Kristen Lee", "555-2021");
 contactPtr->getName();
-delete contactPtr;      // the destructor is called here automatically
+
+// create a new contact and copy name & phone number from the previous one
+// this object lives on the stack and will be automatically deleted when the calling function terminates
+ContactInfo newContact = *contactPtr;       // our copy constructor is called here automatically
+const char* newName = newContact.getName(); // same as "Kristen Lee"
+
+// the destructor is called here automatically (we won't delete newContact because it's on the stack)
+delete contactPtr;      
 contactPtr = nullptr;   // good practice for preventing errors
 ```
 

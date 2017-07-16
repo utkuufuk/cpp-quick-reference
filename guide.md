@@ -594,10 +594,10 @@ class ContactInfo
 
 #### Objects
 ``` cpp
-// define an object from the Rectangle class
+// define an object from the Rectangle class (lives on stack)
 Rectangle box1(12.8, 9.4);
 
-// initialize the new object with width & length of box1
+// initialize the new object with width & length of box1 (lives on stack)
 // c++ automatically creates a default copy constructor if it's not defined by programmer
 Rectangle box2 = box1;  // numObjects not incremented because it's not handled in default copy constructor
 box2.setWidth(4.7);     // assign a new width to box2
@@ -610,14 +610,15 @@ cout << "Number of objects: " << Rectangle::getNumObjects();    // Number of obj
 ContactInfo* contactPtr = new ContactInfo("Kristen Lee", "555-2021");
 contactPtr->getName();
 
-// create a new contact and copy name & phone number from the previous one
-// this object lives on the stack and will be automatically deleted when the calling function terminates
+// create a new contact and copy name & phone number from the previous one (lives on stack)
 ContactInfo newContact = *contactPtr;       // our copy constructor is called here automatically
 const char* newName = newContact.getName(); // same as "Kristen Lee"
 
-// the destructor is called here automatically (we won't delete newContact because it's on the stack)
+// the destructor is called here automatically 
 delete contactPtr;      
 contactPtr = nullptr;   // good practice for preventing errors
+
+// don't delete other objects because they live on stack and will get deleted when the calling function returns
 ```
 
 ## Generics

@@ -620,6 +620,140 @@ contactPtr = nullptr;   // good practice for preventing errors
 // don't delete other objects because they live on stack and will get deleted when the calling function returns
 ```
 
+## Inheritence
+### Parent class declaration
+``` cpp
+#ifndef GRADEDACTIVITY_H
+#define GRADEDACTIVITY_H
+
+class GradedActivity
+{
+    protected:  // only accesible by children
+
+        double score;
+
+    public:
+
+        GradedActivity()
+        {
+            score = 0.0; 
+        }
+
+        GradedActivity(double s)
+        {
+            score = s; 
+        }
+       
+        void setScore(double s)
+        {
+            score = s; 
+        }
+       
+        double getScore() const
+        {
+            return score; 
+        }
+
+        char getLetterGrade() const;
+};
+#endif
+```
+
+### Parent class implementation
+``` cpp
+#include "GradedActivity.h"
+
+char GradedActivity::getLetterGrade() const
+{
+    char letterGrade;
+
+    if (score > 89)
+    {
+        letterGrade = 'A';
+    }
+    else if (score > 79)
+    {
+        letterGrade = 'B';
+    }
+    else if (score > 69)
+    {
+        letterGrade = 'C';
+    }
+    else if (score > 59)
+    {
+        letterGrade = 'D';
+    }
+    else
+    {
+        letterGrade = 'F'
+    }
+    return letterGrade;
+}
+```
+
+### Child class declaration
+``` cpp
+#ifndef FINALEXAM_H
+#define FINALEXAM_H
+
+#include "GradedActivity.h"
+
+// the word public is the base class access specification
+class FinalExam : public GradedActivity
+{
+    private:
+
+        int numQuestions;
+        int numMissed;
+
+    public:
+    
+        FinalExam()
+        {
+            numQuestions = 0;
+            numMissed = 0; 
+        }
+       
+        FinalExam(int questions, int missed)
+        {
+            set(questions, missed); 
+        }
+       
+        void set(int, int);
+        
+        double getNumQuestions() const
+        {
+            return numQuestions; 
+        }
+
+        int getNumMissed() const
+        {
+            return numMissed; 
+        }
+};
+#endif
+```
+
+### Child class implementation
+``` cpp
+#include "FinalExam.h"
+
+void FinalExam::set(int questions, int missed)
+{
+    numQuestions = questions;
+    numMissed = missed;
+    double pointsEach = 100.0 / numQuestions;
+    double numericScore = 100.0 - (missed * pointsEach);
+  
+    // call parent function 
+    setScore(numericScore);
+}
+```
+
+### Base class access specification
+![BCAS](images/base-class-access-specification.png)
+**NOTE:** If the base class access specification is left out of a declaration, the default access specification is `private.`
+
 ## Generics
 #### Generic Swap in C++
 ``` cpp

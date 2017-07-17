@@ -1,4 +1,4 @@
-# C++ for C Programmers
+# C++ Guide
 
 ## Sections
  * [Compiling](#compiling)
@@ -7,6 +7,7 @@
  * [Pass by Reference](#pass-by-reference)
  * [Vectors](#vectors)
  * [Character Functions](#character-functions)
+    - [Character case conversion](#character-case-conversion)
  * [C-Strings](#c-strings)
  * [Strings](#strings)
  * [File Operations](#file-operations)

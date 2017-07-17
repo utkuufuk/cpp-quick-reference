@@ -1,6 +1,23 @@
 # Basic Comparison 
 #### read the [guide](guide.md) for more
 
+## Contents
+ * [Compiling](#compiling)
+ * [Memory Management](guide.md#memory-management)
+ * [Pointers](#pointers)
+ * [Pass by Reference](#pass-by-reference)
+ * [Vectors](#vectors)
+ * [Character Functions](#character-functions)
+ * [C-Strings](#c-strings)
+ * [Strings](#strings)
+ * [File Operations](#file-operations)
+ * [Enumerated Data Types](#enumerated-data-types)
+ * [Structs](#structs)
+ * [Classes](#classes)
+ * [Inheritence](#inheritence)
+ * [Generics](#generics)
+
+
 ## C
 ``` c
 #include  <stdio.h>

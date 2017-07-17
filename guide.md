@@ -7,7 +7,6 @@
  * [Pass by Reference](#pass-by-reference)
  * [Vectors](#vectors)
  * [Character Functions](#character-functions)
-    - [Character case conversion](#character-case-conversion)
  * [C-Strings](#c-strings)
  * [Strings](#strings)
  * [File Operations](#file-operations)
@@ -128,7 +127,7 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 ```cpp 
 #include <cctype>   // required for using the following functions
 ```  
-#### Character testing
+### Character testing
 | Function  | Returns true if the argument is a ...; returns 0 otherwise  |
 | :-------: | :---------------------------------------------------------- |
 | `isalpha` | letter of the alphabet.                                     |
@@ -140,7 +139,7 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 | `isupper` | uppercase letter. Otherwise, it returns 0.                  |
 | `isspace` | whitespace character. (`' '`, `' \n '`, `' \v '`, `' \t '`) |
 
-#### Character case conversion
+### Character case conversion
 | Function  | Description                                       |
 | :-------: | :------------------------------------------------ |
 | `toupper` | Returns the uppercase equivalent of its argument. |
@@ -221,7 +220,7 @@ to_string(long double value);
 ```
 
 ## Strings
-#### Defining `string` objects
+### Defining `string` objects
 ``` cpp 
 #include <string>           // required for using the string data type
 
@@ -243,7 +242,7 @@ string str5('x', 10);       // defines a string initialized with 10 'x' chars
 string str6(str5, 2, 8);    // defines a string which is initialized
                             // with a substring of str5. 
 ```
-#### `string` operators
+### `string` operators
 There is no need to use a function such as `strcmp` to compare string objects. 
 You may use the `<` , `>` , `<=` , `>=` , `==` , and `!=` relational operators.
 
@@ -253,7 +252,7 @@ string s2 = "World!";
 string mystring = s1 + s2;  // concatenates s1 and s2
 char c = mystring[0];       // returns the char at position 0 in mystring
 ```
-#### `string` member functions
+### `string` member functions
 ![string functions 1](images/string_functions_1.png)
 ![string functions 2](images/string_functions_2.png)
 ![string functions 3](images/string_functions_3.png)
@@ -265,7 +264,7 @@ char c = mystring[0];       // returns the char at position 0 in mystring
 | `ofstream` | Output file stream. Can be used to create write data to files. |
 | `fstream`  | File stream. Can be used to read and write data to/from files. |
 
-#### `ifstream` and `ofstream`
+### `ifstream` and `ofstream`
 ``` cpp
 #include <fstream>
 
@@ -291,7 +290,7 @@ inputFile.close();
 outputFile.close();
 ```
 
-#### `fstream`
+### `fstream`
 ``` cpp
 #include <fstream>
 
@@ -321,7 +320,7 @@ file.read(reinterpret_cast<char *>(numbers), sizeof(numbers));
 file.close();
 ```
 
-#### File access flags
+### File access flags
 By using different combinations of access flags, you can open files in many possible modes:
 ![File Access Flags](images/file-access-flags.png)
 
@@ -354,7 +353,7 @@ enum {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY};
 enum Color {RED, ORANGE, YELLOW = 9, GREEN, BLUE};
 ```
 
-#### Strongly typed enumerators `(enum class)`
+### Strongly typed enumerators `(enum class)`
 ``` cpp
 // can specify multiple enumerators with the same name, within the same scope
 enum class President {MCKINLEY, ROOSEVELT, TAFT};
@@ -409,7 +408,7 @@ cout << manager.birthPlace.population << endl;
 **Note:** *By default, structures are passed to functions by value.*<br>
 **Note:** *You can return local structs defined in functions unlike arrays.*
 
-#### Dynamically allocating structs
+### Dynamically allocating structs
 ``` cpp
 struct Circle
 {
@@ -434,7 +433,7 @@ for (int i = 0; i < 5; i++)
 ```
 
 ## Classes
-#### Class Specification 
+### Class Specification 
 ``` cpp
 // Rectangle.h
 
@@ -492,7 +491,7 @@ class Rectangle
 #endif
 ```
 
-#### Class Implementation
+### Class Implementation
 ``` cpp
 // Rectangle.cpp
 
@@ -531,7 +530,7 @@ int Rectangle::getNumObjects()
 }
 ```
 
-#### Copy constructors and destructors
+### Copy constructors and destructors
 ``` cpp
 // ContactInfo.h
 
@@ -593,7 +592,7 @@ class ContactInfo
 #endif
 ```
 
-#### Objects
+### Objects
 ``` cpp
 // define an object from the Rectangle class (lives on stack)
 Rectangle box1(12.8, 9.4);

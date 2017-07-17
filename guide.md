@@ -264,10 +264,6 @@ char c = mystring[0];       // returns the char at position 0 in mystring
 | `ofstream` | Output file stream. Can be used to create write data to files. |
 | `fstream`  | File stream. Can be used to read and write data to/from files. |
 
-#### File access flags
-By using different combinations of access flags, you can open files in many possible modes:
-![File Access Flags](images/file-access-flags.png)
-
 #### `ifstream` and `ofstream`
 ``` cpp
 #include <fstream>
@@ -323,6 +319,10 @@ file.read(reinterpret_cast<char *>(numbers), sizeof(numbers));
 // close the file
 file.close();
 ```
+
+#### File access flags
+By using different combinations of access flags, you can open files in many possible modes:
+![File Access Flags](images/file-access-flags.png)
 
 ## Enumerated Data Types
 ``` cpp

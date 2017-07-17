@@ -13,6 +13,7 @@
  * [Enumerated Data Types](#enumerated-data-types)
  * [Structs](#structs)
  * [Classes](#classes)
+ * [Inheritence](#intheritence)
  * [Generics](#generics)
 
 ## Compiling

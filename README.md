@@ -1,4 +1,4 @@
-## Contents of [Guide](guide.md)
+## [Guide](guide.md) Sections
  * [Compiling](guide.md#compiling)
  * [Memory Management](guide.md#memory-management)
  * [Pointers](guide.md#pointers)

@@ -1,6 +1,6 @@
 # C++ for C Programmers
 
-## Contents
+## Sections
  * [Compiling](#compiling)
  * [Memory Management](#memory-management)
  * [Pointers](#pointers)

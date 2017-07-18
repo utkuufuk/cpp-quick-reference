@@ -12,4 +12,5 @@
  * [Structs](guide.md#structs)
  * [Classes](guide.md#classes)
  * [Inheritence](guide.md#inheritence)
+ * [Polymorphism](guide.md#polymorphism)
  * [Generics](guide.md#generics)

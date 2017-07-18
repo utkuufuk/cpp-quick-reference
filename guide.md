@@ -14,6 +14,7 @@
  * [Structs](#structs)
  * [Classes](#classes)
  * [Inheritence](#inheritence)
+ * [Polymorphism](#polymorphism)
  * [Generics](#generics)
 
 ## Compiling
@@ -626,7 +627,7 @@ contactPtr = nullptr;   // good practice for preventing errors
 The parent class’s constructor is called before the child class’s constructor.<br> 
 The destructors are called in reverse order, with the child class’s destructor being called first.
 
-### Parent class
+#### Parent class
 ``` cpp
 #ifndef RECTANGLE_H
 #define RECTANGLE_H
@@ -670,7 +671,7 @@ class Rectangle
 #endif
 ```
 
-### Child class declaration
+#### Child class declaration
 ``` cpp
 #ifndef CUBE_H
 #define CUBE_H
@@ -707,7 +708,7 @@ class Cube : public Rectangle
 #endif
 ```
 
-### Child class implementation
+#### Child class implementation
 ``` cpp
 #include "Rectangle.h"
 
@@ -719,9 +720,168 @@ Cube::Cube(double w, double len, double h) : Rectangle(w, len)
 }
 ```
 
-### Base class access specification
+#### Base class access specification
 ![BCAS](images/base-class-access-specification.png)
 **NOTE:** If the base class access specification is left out of a declaration, the default access specification is `private.`
+
+## Polymorphism
+
+Any class that has a virtual member function should also have a virtual destructor.<br>
+If the class doesn’t require a destructor, it should have a virtual destructor that performs no statements.
+
+#### Parent class specification
+``` cpp
+#ifndef GRADEDACTIVITY_H
+#define GRADEDACTIVITY_H
+
+class GradedActivity
+{
+    protected:
+
+        double score;
+
+    public:
+
+        GradedActivity()
+        {   
+            score = 0.0; 
+        }
+       
+        GradedActivity(double s)
+        { 
+            score = s; 
+        }
+       
+        // final keyword ensures that the function does not get overridden in a child class
+        void setScore(double s) final;
+        {
+            score = s; 
+        }
+       
+        double getScore() const
+        {
+            return score; 
+        }
+        
+        // virtual functions may be overriden by the child class
+        // virtual functions also make any function that overrides it virtual
+        virtual char getLetterGrade() const;
+
+        // virtual destructor allows the child class destructor to execute
+        virtual ~GradedActivity()
+        {
+            // clean up     
+        }
+};
+#endif
+```
+
+#### Parent class implementation
+``` cpp
+#include "GradedActivity.h"
+
+char GradedActivity::getLetterGrade() const
+{
+    char letterGrade;
+
+    if (score > 89)
+    {
+        letterGrade = 'A';
+    }
+    else if (score > 79)
+    {
+        letterGrade = 'B';
+    }
+    else if (score > 69)
+    {
+        letterGrade = 'C';
+    }
+    else if (score > 59)
+    {
+        letterGrade = 'D';
+    }
+    else
+    {
+        letterGrade = 'F'
+    }
+    return letterGrade;
+}
+```
+
+#### Child class specification
+``` cpp
+#ifndef PASSFAILACTIVITY_H
+#define PASSFAILACTIVITY_H
+
+#include "GradedActivity.h"
+
+class PassFailActivity : public GradedActivity
+{
+    protected:
+
+        double minPassingScore;
+
+    public:
+
+    PassFailActivity() : GradedActivity()
+    {
+        minPassingScore = 0.0; 
+    }
+   
+    PassFailActivity(double mps) : GradedActivity()
+    {
+        minPassingScore = mps; 
+    }
+   
+    void setMinPassingScore(double mps)
+    {
+        minPassingScore = mps; 
+    }
+   
+    double getMinPassingScore() const
+    {
+        return minPassingScore; 
+    }
+
+    // virtual keyword is actually redundant here since this function
+    // has already been declared as virtual in the parent class
+    virtual char getLetterGrade() const;
+};
+#endif
+```
+
+#### Child class implementation
+``` cpp
+#include "PassFailActivity.h"
+
+// the override keyword means that the function is 
+// supposed to override a function in the parent class
+char PassFailActivity::getLetterGrade() const override
+{
+    if (score >= minPassingScore)
+    {
+        return 'P';
+    }
+    else
+    {
+        return 'F';
+    }
+}
+```
+
+##### Example
+``` cpp
+PassFailActivity pfActivity(70);
+pfActivity.setScore(72);
+displayGrade(pfActivity);
+
+// polymorphism requires pass by reference or by pointer
+// polymorphic behavior would not possible if the object was passed by value
+void displayGrade(const GradedActivity &activity)
+{
+    cout << "The activity's letter grade is " << activity.getLetterGrade() << endl;
+}
+```
 
 ## Generics
 #### Generic Swap in C++

@@ -622,114 +622,86 @@ contactPtr = nullptr;   // good practice for preventing errors
 ```
 
 ## Inheritence
-### Parent class declaration
-``` cpp
-#ifndef GRADEDACTIVITY_H
-#define GRADEDACTIVITY_H
 
-class GradedActivity
+The parent class’s constructor is called before the child class’s constructor.<br> 
+The destructors are called in reverse order, with the child class’s destructor being called first.
+
+### Parent class
+``` cpp
+#ifndef RECTANGLE_H
+#define RECTANGLE_H
+
+class Rectangle
 {
     protected:  // only accesible by children
 
-        double score;
+        double width;
+        double length;
 
     public:
 
-        GradedActivity()
+        Rectangle()
         {
-            score = 0.0; 
-        }
-
-        GradedActivity(double s)
-        {
-            score = s; 
+            width = 0.0;
+            length = 0.0; 
         }
        
-        void setScore(double s)
+        Rectangle(double w, double len)
         {
-            score = s; 
-        }
-       
-        double getScore() const
-        {
-            return score; 
+            width = w;
+            length = len; 
         }
 
-        char getLetterGrade() const;
+        double getWidth() const
+        { 
+            return width; 
+        }
+
+        double getLength() const
+        {
+            return length; 
+        }
+
+        double getArea() const
+        {   
+            return width * length; 
+        }
 };
 #endif
 ```
 
-### Parent class implementation
-``` cpp
-#include "GradedActivity.h"
-
-char GradedActivity::getLetterGrade() const
-{
-    char letterGrade;
-
-    if (score > 89)
-    {
-        letterGrade = 'A';
-    }
-    else if (score > 79)
-    {
-        letterGrade = 'B';
-    }
-    else if (score > 69)
-    {
-        letterGrade = 'C';
-    }
-    else if (score > 59)
-    {
-        letterGrade = 'D';
-    }
-    else
-    {
-        letterGrade = 'F'
-    }
-    return letterGrade;
-}
-```
-
 ### Child class declaration
 ``` cpp
-#ifndef FINALEXAM_H
-#define FINALEXAM_H
+#ifndef CUBE_H
+#define CUBE_H
 
-#include "GradedActivity.h"
+#include "Rectangle.h"
 
 // the word public is the base class access specification
-class FinalExam : public GradedActivity
+class Cube : public Rectangle
 {
-    private:
+    protected:
 
-        int numQuestions;
-        int numMissed;
+        double height;
+        double volume;
 
     public:
-    
-        FinalExam()
+
+        Cube() : Rectangle()
         {
-            numQuestions = 0;
-            numMissed = 0; 
+            height = 0.0; volume = 0.0; 
         }
        
-        FinalExam(int questions, int missed)
-        {
-            set(questions, missed); 
-        }
-       
-        void set(int, int);
-        
-        double getNumQuestions() const
-        {
-            return numQuestions; 
+        Cube(double width, double length, double height);
+
+        double getHeight() const
+        { 
+            return height; 
         }
 
-        int getNumMissed() const
+        double getVolume() const
         {
-            return numMissed; 
+            return volume; 
         }
 };
 #endif
@@ -737,17 +709,13 @@ class FinalExam : public GradedActivity
 
 ### Child class implementation
 ``` cpp
-#include "FinalExam.h"
+#include "Rectangle.h"
 
-void FinalExam::set(int questions, int missed)
+// pass width and length arguments to parent class constructor
+Cube::Cube(double w, double len, double h) : Rectangle(w, len)
 {
-    numQuestions = questions;
-    numMissed = missed;
-    double pointsEach = 100.0 / numQuestions;
-    double numericScore = 100.0 - (missed * pointsEach);
-  
-    // call parent function 
-    setScore(numericScore);
+    height = h;
+    volume = getArea() * h;     // call parent function
 }
 ```
 

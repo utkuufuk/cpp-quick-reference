@@ -15,6 +15,7 @@
  * [Classes](#classes)
  * [Inheritence](#inheritence)
  * [Polymorphism](#polymorphism)
+ * [Exceptions](#exceptions)
  * [Generics](#generics)
 
 ## Compiling
@@ -880,6 +881,103 @@ displayGrade(pfActivity);
 void displayGrade(const GradedActivity &activity)
 {
     cout << "The activity's letter grade is " << activity.getLetterGrade() << endl;
+}
+```
+
+### Abstract Classes
+A **pure virtual function** is a virtual member function of a base class that **must be overridden**. When a class contains a pure virtual function as a member, that class becomes an **abstract class**.
+``` cpp
+// this is a pure virtual function
+virtual void foo() = 0;
+```
+
+## Exceptions
+#### Throwing an Exception
+``` cpp
+double divide(int numerator, int denominator)
+{
+    if (denominator == 0)
+    {
+        // throws an exception of type "string"
+        throw "ERROR: Cannot divide by zero.\n";
+    }
+    else
+    {
+        return static_cast<double>(numerator) / denominator;
+    }
+}
+```
+
+#### Handling an Exception
+``` cpp
+try
+{
+    quotient = divide(num1, num2);
+    cout << "The quotient is " << quotient << endl;
+}
+catch (string exceptionString)  // only catches exceptions of type "string"
+{
+    cout << exceptionString;
+}
+```
+There are two possible ways for a thrown exception to go uncaught: 
+1. The try/catch construct contains no catch blocks with an exception parameter of the right data type. 
+2. The exception is thrown from outside a try block. 
+
+*In either case, the exception will cause the entire program to abort execution.*
+
+#### Multiple Exceptions
+``` cpp
+// define an exception class
+class MyException
+{
+    private:
+
+        string message;
+    
+    public:
+
+        MyException(string message)
+        {
+            this->message = message;    
+        }
+
+        string getMessage()
+        {
+            return message;   
+        }
+};
+
+double divide(int numerator, int denominator)
+{
+    if (denominator == 0)
+    {
+        // throws an exception of type "string"
+        throw "ERROR: Cannot divide by zero.\n";
+    }
+    else if (numerator < 0 || denominator < 0)
+    {
+        // throw an exception of type "MyException"
+        throw MyException("Negative arguments not allowed!"); 
+    }
+    else
+    {
+        return static_cast<double>(numerator) / denominator;
+    }
+}
+
+try
+{
+    quotient = divide(num1, num2);
+    cout << "The quotient is " << quotient << endl;
+}
+catch (string exceptionString)  // only catches exceptions of type "string"
+{
+    cout << exceptionString;
+}
+catch (MyException e)
+{
+    cout << "Error: " << e.getMessage() << endl;    
 }
 ```
 

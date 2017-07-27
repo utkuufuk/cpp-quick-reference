@@ -926,6 +926,8 @@ There are two possible ways for a thrown exception to go uncaught:
 
 *In either case, the exception will cause the entire program to abort execution.*
 
+If an exception is thrown by the member function of a class object, then the class destructor is called. If statements in the try block or branching from the try block created any other objects, their destructors will be called as well.
+
 #### Multiple Exceptions
 ``` cpp
 // define an exception class
@@ -966,6 +968,7 @@ double divide(int numerator, int denominator)
     }
 }
 
+// use the function
 try
 {
     quotient = divide(num1, num2);
@@ -978,6 +981,19 @@ catch (string exceptionString)  // only catches exceptions of type "string"
 catch (MyException e)
 {
     cout << "Error: " << e.getMessage() << endl;    
+}
+```
+
+#### Rethrowing an Exception
+``` cpp
+try
+{
+    // assume that this function throws an exception of type "exception"
+    doSomething();  
+}
+catch(exception)
+{
+    throw;  // rethrow the exception
 }
 ```
 

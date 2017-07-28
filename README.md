@@ -16,6 +16,7 @@
  * [Inheritence](#inheritence)
  * [Polymorphism](#polymorphism)
  * [Exceptions](#exceptions)
+ * [Templates](#templates)
  * [Generics](#generics)
 
 ## Compiling
@@ -997,13 +998,13 @@ catch(exception)
 }
 ```
 
-## Generics
-#### Generic Swap in C++
+## Templates
+### Function Templates
 ``` cpp
 template <class T>
 inline void swap(T &i, T &j)
 {
-    T temp i;
+    T temp = i;
     i = j;
     j = temp;
 }
@@ -1013,18 +1014,112 @@ inline void swap(T &i, T &j)
 swap(a, b);   
 ```
 
-#### Generic summation of an array in C++
+### Class Templates
 ``` cpp
-template<class T>
-T sum(const T data[], int size, T s = 0)    // elements of const array can not be modified
+#ifndef SIMPLEVECTOR_H
+#define SIMPLEVECTOR_H
+
+#include <iostream>
+#include <cstdlib>
+using namespace std;
+
+template <class T>
+class SimpleVector
 {
-    for (int i = 0; i < size; ++i)
-    {
-        s += data[i];
-    }
+    private:
+
+        T *arrPtr;              // To point to the allocated array
+        int arraySize;          // Number of elements in the array
+        void subscriptError();  // Handles subscripts out of range
+
+    public:
+
+        // Default constructor
+        SimpleVector()
+        { 
+            arrPtr = 0; 
+            arraySize = 0;
+        }
+
+        // Constructor declaration
+        SimpleVector(int);
+
+        // Copy constructor declaration
+        SimpleVector(const SimpleVector &);
+
+        // Destructor declaration
+        ~SimpleVector();
+
+        // Accessor to return the array size
+        int size() const
+        { 
+            return arraySize; 
+        }
+
+        // Accessor to return a specific element
+        T getElementAt(int position);
+
+        // Overloaded [] operator declaration
+        T &operator[](const int &);
+};
+
+template <class T>
+SimpleVector<T>::SimpleVector(int s)
+{
+    arraySize = s;
+
+    // Allocate memory for the array.
+    arrPtr = new T [s];
+
+    // Initialize the array.
+    for (int count = 0; count < arraySize; count++)
+        *(arrPtr + count) = 0;
 }
 
-// call the function
-sum(scores, 92);        // sum = 0 by default
-sum(scores, 92, 58);    // sum = 58 to begin with
+template <class T>
+SimpleVector<T>::SimpleVector(const SimpleVector &obj)
+{
+    // Copy the array size.
+    arraySize = obj.arraySize;
+
+    // Allocate memory for the array.
+    arrPtr = new T [arraySize];
+
+    // Copy the elements of obj's array.
+    for (int count = 0; count < arraySize; count++)
+        *(arrPtr + count) = *(obj.arrPtr + count);
+}
+
+template <class T>
+SimpleVector<T>::~SimpleVector()
+{
+    if (arraySize > 0)
+        delete [] arrPtr;
+}
+
+template <class T>
+void SimpleVector<T>::subscriptError()
+{
+    cout << "ERROR: Subscript out of range.\n";
+    exit(EXIT_FAILURE);
+}
+
+template <class T>
+T SimpleVector<T>::getElementAt(int sub)
+{
+    if (sub < 0 || sub >= arraySize)
+        subscriptError();
+
+    return arrPtr[sub];
+}
+
+template <class T>
+T &SimpleVector<T>::operator[](const int &sub)
+{
+    if (sub < 0 || sub >= arraySize)
+        subscriptError();
+
+    return arrPtr[sub];
+}
+#endif
 ```

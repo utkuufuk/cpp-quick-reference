@@ -1,4 +1,4 @@
-# C++ Guide
+# C++ Quick Guide
 
 ## Sections
  * [Compiling](#compiling)

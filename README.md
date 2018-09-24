@@ -17,7 +17,6 @@
  * [Polymorphism](#polymorphism)
  * [Exceptions](#exceptions)
  * [Templates](#templates)
- * [Generics](#generics)
 
 ## Compiling
 ``` sh

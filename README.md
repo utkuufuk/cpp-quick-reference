@@ -491,156 +491,16 @@ See the [Cube](examples/Cube.h) class which inherits from the [Rectangle](exampl
 ## Polymorphism
 
 Any class that has a virtual member function should also have a virtual destructor.<br>
-If the class doesn’t require a destructor, it should have a virtual destructor that performs no statements.
+Even if the class doesn’t normally require a destructor, it should still have an empty virtual destructor.
 
-#### Parent class specification
-``` cpp
-#ifndef GRADEDACTIVITY_H
-#define GRADEDACTIVITY_H
+See the [GradedActivity](examples/GradedActivity.h) and [PassFailActivity](examples/PassFailActivity.h) and then the example usage below:
 
-class GradedActivity
-{
-    protected:
-
-        double score;
-
-    public:
-
-        GradedActivity()
-        {   
-            score = 0.0; 
-        }
-       
-        GradedActivity(double s)
-        { 
-            score = s; 
-        }
-       
-        // final keyword ensures that the function does not get overridden in a child class
-        void setScore(double s) final;
-        {
-            score = s; 
-        }
-       
-        double getScore() const
-        {
-            return score; 
-        }
-        
-        // virtual functions may be overriden by the child class
-        // virtual functions also make any function that overrides it virtual
-        virtual char getLetterGrade() const;
-
-        // virtual destructor allows the child class destructor to execute
-        virtual ~GradedActivity()
-        {
-            // clean up     
-        }
-};
-#endif
-```
-
-#### Parent class implementation
-``` cpp
-#include "GradedActivity.h"
-
-char GradedActivity::getLetterGrade() const
-{
-    char letterGrade;
-
-    if (score > 89)
-    {
-        letterGrade = 'A';
-    }
-    else if (score > 79)
-    {
-        letterGrade = 'B';
-    }
-    else if (score > 69)
-    {
-        letterGrade = 'C';
-    }
-    else if (score > 59)
-    {
-        letterGrade = 'D';
-    }
-    else
-    {
-        letterGrade = 'F'
-    }
-    return letterGrade;
-}
-```
-
-#### Child class specification
-``` cpp
-#ifndef PASSFAILACTIVITY_H
-#define PASSFAILACTIVITY_H
-
-#include "GradedActivity.h"
-
-class PassFailActivity : public GradedActivity
-{
-    protected:
-
-        double minPassingScore;
-
-    public:
-
-    PassFailActivity() : GradedActivity()
-    {
-        minPassingScore = 0.0; 
-    }
-   
-    PassFailActivity(double mps) : GradedActivity()
-    {
-        minPassingScore = mps; 
-    }
-   
-    void setMinPassingScore(double mps)
-    {
-        minPassingScore = mps; 
-    }
-   
-    double getMinPassingScore() const
-    {
-        return minPassingScore; 
-    }
-
-    // virtual keyword is actually redundant here since this function
-    // has already been declared as virtual in the parent class
-    virtual char getLetterGrade() const;
-};
-#endif
-```
-
-#### Child class implementation
-``` cpp
-#include "PassFailActivity.h"
-
-// the override keyword means that the function is 
-// supposed to override a function in the parent class
-char PassFailActivity::getLetterGrade() const override
-{
-    if (score >= minPassingScore)
-    {
-        return 'P';
-    }
-    else
-    {
-        return 'F';
-    }
-}
-```
-
-##### Example
 ``` cpp
 PassFailActivity pfActivity(70);
 pfActivity.setScore(72);
 displayGrade(pfActivity);
 
 // polymorphism requires pass by reference or by pointer
-// polymorphic behavior would not possible if the object was passed by value
 void displayGrade(const GradedActivity &activity)
 {
     cout << "The activity's letter grade is " << activity.getLetterGrade() << endl;

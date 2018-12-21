@@ -4,36 +4,33 @@
 #include <iostream>
 #include <cstdlib>
 
-using namespace std;
-
 template <class T>
 class SimpleVector
 {
     private:
         // array pointer
-        T *arrPtr;              
+        T *arrPtr {nullptr};
 
         // number of elements
-        int arraySize;          
+        int arraySize {0};
 
         // handles subscripts out of range
         void subscriptError();  
 
     public:
         // default constructor
-        SimpleVector()
-        { 
-            arrPtr = 0; 
-            arraySize = 0;
-        }
+        SimpleVector() = default;
 
-        // constructor declaration
+        // constructor
         SimpleVector(int);
 
-        // copy constructor declaration
+        // copy constructor
         SimpleVector(const SimpleVector &);
 
-        // destructor declaration
+        // copy assignment
+        SimpleVector& operator=(const SimpleVector& other);
+
+        // destructordeclaration
         ~SimpleVector();
 
         // array size accessor
@@ -50,17 +47,12 @@ class SimpleVector
 };
 
 template <class T>
-SimpleVector<T>::SimpleVector(int s)
+SimpleVector<T>::SimpleVector(int s) : arraySize(s), arrPtr(new T[s])
 {
-    arraySize = s;
-
-    // allocate memory for the array
-    arrPtr = new T[s];
-
     // initialize the array
-    for (int count = 0; count < arraySize; count++)
+    for (int i = 0; i < arraySize; i++)
     {
-        *(arrPtr + count) = 0;
+        arrPtr[i] = 0;
     }
 }
 
@@ -71,22 +63,38 @@ SimpleVector<T>::SimpleVector(const SimpleVector &obj)
     arraySize = obj.arraySize;
 
     // allocate memory for the array
-    arrPtr = new T [arraySize];
+    arrPtr = new T[arraySize];
 
     // copy the elements of source array
-    for (int count = 0; count < arraySize; count++)
+    for (int i = 0; i < arraySize; i++)
     {
-        *(arrPtr + count) = *(obj.arrPtr + count);
+        arrPtr[i] = obj.arrPtr[i];
     }
+}
+
+template<class T>
+SimpleVector<T>& SimpleVector<T>::operator=(const SimpleVector<T>& other)
+{
+    delete [] arrPtr;
+
+    // copy the array size
+    arraySize = other.arraySize;
+
+    // allocate memory for the array
+    arrPtr = new T[arraySize];
+
+    // copy the elements of source array
+    for (int i = 0; i < arraySize; i++)
+    {
+        arrPtr[i] = other.arrPtr[i];
+    }
+    return *this;
 }
 
 template <class T>
 SimpleVector<T>::~SimpleVector()
 {
-    if (arraySize > 0)
-    {
-        delete [] arrPtr;
-    }
+    delete [] arrPtr;
 }
 
 template <class T>

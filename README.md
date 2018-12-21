@@ -574,7 +574,7 @@ double divide(int numerator, int denominator)
     if (denominator == 0)
     {
         // throws an exception of type "string"
-        throw "ERROR: Cannot divide by zero.\n";
+        throw string("ERROR: Cannot divide by zero.\n");
     }
     else if (numerator < 0 || denominator < 0)
     {
@@ -590,7 +590,7 @@ double divide(int numerator, int denominator)
 // use the function
 try
 {
-    quotient = divide(num1, num2);
+    double quotient = divide(num1, num2);
     cout << "The quotient is " << quotient << endl;
 }
 catch (string msg)  // only catches exceptions of type "string"

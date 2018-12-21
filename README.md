@@ -224,25 +224,32 @@ to_string(long double value);
 ## Strings
 ### Defining `string` objects
 ``` cpp 
-#include <string>           // required for using the string data type
+// required for using the string data type
+#include <string>           
 
-string str0;                // defines an empty string
+// defines an empty string
+string str0;                
 
-string str1 = "Hello";      // defines a string initialized with "Hello"
+// defines a string initialized with "Hello"
+string str1 = "Hello";      
 
-string str2("Greetings!");  // defines a string initialized with "Greetings!"
+// defines a string initialized with "Greetings!"
+string str2("Greetings!");  
 
-string str3(str2);          // defines a string which is a copy of str2.
-                            // (str2 may be either a string or a c-string)
+// defines a string which is a copy of str2. (str2 may be a string or a c-string)
+string str3(str2);          
 
-char cStr[] = "abcdefgh";   // this has to be a c-string, not a string
-string str4(cStr, 5);       // defines a string which is initialized 
-                            // to the first 5 characters in the c-string cStr
+// this has to be a c-string, not a string 
+char cStr[] = "abcdefgh";   
 
-string str5('x', 10);       // defines a string initialized with 10 'x' chars
+// defines a string which is initialized to the first 5 characters in cStr
+string str4(cStr, 5);       
 
-string str6(str5, 2, 8);    // defines a string which is initialized
-                            // with a substring of str5. 
+// defines a string initialized with 10 'x' chars
+string str5('x', 10);       
+
+// defines a string which is initialized with a substring of str5. 
+string str6(str5, 2, 8);    
 ```
 ### `string` operators
 There is no need to use a function such as `strcmp` to compare string objects. 

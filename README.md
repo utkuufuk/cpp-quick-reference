@@ -100,6 +100,7 @@ int x = 5;                      // create an int on the stack
 
 int* y = new int(5);            // crate an integer on the heap, has to be freed manually
 delete y                        // free heap memory occupied by y
+y = nullptr;                    // good practice for preventing errors
 ```
 
 **Classes & Objects:**
@@ -113,13 +114,14 @@ class Person
 
 Person* person = new Person();  // call the constructor & instantiate a Person object 
 delete person                   // call destructor & free heap memory occupied by person
+person = nullptr;
 ```
 
 **Arrays:**
 ``` cpp
 char* s = new char[size];       // dynamically allocate memory for an array
 delete [] s;                    // free the allocated memory
-s = nullptr;                    // good practice for preventing errors
+s = nullptr;
 ```
 
 ## Vectors

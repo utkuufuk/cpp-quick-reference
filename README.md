@@ -926,28 +926,24 @@ There are two possible ways for a thrown exception to go uncaught:
 
 *In either case, the exception will cause the entire program to abort execution.*
 
-If an exception is thrown by the member function of a class object, then the class destructor is called. If statements in the try block or branching from the try block created any other objects, their destructors will be called as well.
+If an exception is thrown by the member function of a class object, then the class destructor is called. If any other objects had been created in the try block,their destructors will be called as well.
 
 #### Multiple Exceptions
 ``` cpp
-// define an exception class
-class MyException
+// define a custom exception class
+class MyException: public std::exception
 {
-    private:
-
-        string message;
-    
     public:
+        MyException(const char* message) : msg(message) {}
+        MyException(const std::string& message): msg(message) {}
 
-        MyException(string message)
+        const char* what() const throw()
         {
-            this->message = message;    
+            return msg.c_str();
         }
 
-        string getMessage()
-        {
-            return message;   
-        }
+    protected:
+        std::string msg;
 };
 
 double divide(int numerator, int denominator)
@@ -974,13 +970,13 @@ try
     quotient = divide(num1, num2);
     cout << "The quotient is " << quotient << endl;
 }
-catch (string exceptionString)  // only catches exceptions of type "string"
+catch (string msg)  // only catches exceptions of type "string"
 {
-    cout << exceptionString;
+    cout << msg;
 }
-catch (MyException e)
+catch (MyException& e)
 {
-    cout << "Error: " << e.getMessage() << endl;    
+    cout << "Error: " << e.what() << endl;    
 }
 ```
 
@@ -996,6 +992,23 @@ catch(exception)
     throw;  // rethrow the exception
 }
 ```
+#### Standard Exceptions
+| Exception             | Description                                                                                   |
+| :-------------------- | :-------------------------------------------------------------------------------------------- |
+| std::exception        | An exception and parent class of all the standard C++ exceptions.                             |
+| std::bad_alloc        | This can be thrown by new.                                                                    |
+| std::bad_cast         | This can be thrown by dynamic_cast.                                                           |
+| std::bad_exception    | This is useful device to handle unexpected exceptions in a C++ program.                       |
+| std::bad_typeid       | This can be thrown by typeid.                                                                 |
+| std::logic_error      | An exception that theoretically can be detected by reading the code.                          |
+| std::domain_error     | This is an exception thrown when a mathematically invalid domain is used.                     |
+| std::invalid_argument | This is thrown due to invalid arguments.                                                      |
+| std::length_error     | This is thrown when a too big std::string is created.                                         |
+| std::out_of_range     | This can be thrown by the 'at' method, e.g. a std::vector and std::bitset<>::operator[]().    |	
+| std::runtime_error    | An exception that theoretically cannot be detected by reading the code.                       |	
+| std::overflow_error   | This is thrown if a mathematical overflow occurs.                                             |
+| std::range_error      | This is occurred when you try to store a value which is out of range.                         |
+| std::underflow_error  | This is thrown if a mathematical underflow occurs.                                            |
 
 ## Templates
 ### Function Templates

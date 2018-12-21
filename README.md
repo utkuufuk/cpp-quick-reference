@@ -45,21 +45,21 @@ s = nullptr;                // good practice for preventing errors
 #### Constant values & constant pointers
 ``` cpp 
 // this function accepts a pointer to an array of constants
-void displayPayRates(const double *rates, int size)
+void displayPayRates(const double* rates, int size)
 {
     for (int count = 0; count < size; count++)
     {
-        cout << *(rates + count) << endl;
+        cout << rates[count] << endl;
     }
 }
 
 // constant pointers can not point to something else
 int value = 22;
-int * const ptr = &value; 
+int* const ptr = &value; 
 
 // this is a constant pointer to a constant
 int number = 15;
-const int * const ptr = &number 
+const int* const ptr = &number 
 ```
 
 ## Pass by Reference
@@ -73,8 +73,7 @@ void swap(int* i, int *j)
     *j = temp;
 }
 
-// call C function
-// pass addresses of a and b
+// have to pass addresses of a and b
 swap(&a, &b);    
 ```
 
@@ -88,7 +87,7 @@ inline void swap(int &i, int &j)
     j = temp;
 }
 
-// C++ supports function overloading unlike C
+// C++ allows function overloading unlike C
 inline void swap(double &i, double &j)
 {
     double temp i;
@@ -96,7 +95,6 @@ inline void swap(double &i, double &j)
     j = temp;
 }
 
-// call C++ function
 // no need to pass addresses
 swap(a, b);    
 ```

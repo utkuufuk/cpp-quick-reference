@@ -2,9 +2,9 @@
 
 ## Sections
  * [Compiling](#compiling)
- * [Memory Management](#memory-management)
  * [Pointers](#pointers)
  * [Pass by Reference](#pass-by-reference)
+ * [Memory Management](#memory-management)
  * [Vectors](#vectors)
  * [Character Functions](#character-functions)
  * [C-Strings](#c-strings)
@@ -33,16 +33,7 @@ g++ -std=c++11 hello.cpp -o hello
 ./hello
 ```
 
-## Memory Management
-#### The keyword `new` replaces `malloc` and `delete` replaces `free`
-``` cpp
-char* s = new char[size];   // dynamically allocate memory for an array
-delete [] s;                // free the allocated memory
-s = nullptr;                // good practice for preventing errors
-```
-
 ## Pointers
-#### Constant values & constant pointers
 ``` cpp 
 // this function accepts a pointer to an array of constants
 void displayPayRates(const double* rates, int size)
@@ -73,7 +64,7 @@ void swap(int* i, int *j)
     *j = temp;
 }
 
-// have to pass addresses of a and b
+// have to pass pointers to a and b
 swap(&a, &b);    
 ```
 
@@ -95,8 +86,40 @@ inline void swap(double &i, double &j)
     j = temp;
 }
 
-// no need to pass addresses
+// no need to pass pointers
 swap(a, b);    
+```
+
+## Memory Management
+Keywords `new` and `delete` in C++ replace `malloc` and `free` in C, with the exception that `new` and `delete` call the constructor and destructor as well. 
+
+**Primitive Values:**
+``` cpp
+int x = 5;                      // create an int on the stack
+                                // automatically freed when calling function returns
+
+int* y = new int(5);            // crate an integer on the heap, has to be freed manually
+delete y                        // free heap memory occupied by y
+```
+
+**Classes & Objects:**
+``` cpp
+class Person
+{
+    // constructor
+    // destructor
+    // other members
+}
+
+Person* person = new Person();  // call the constructor & instantiate a Person object 
+delete person                   // call destructor & free heap memory occupied by person
+```
+
+**Arrays:**
+``` cpp
+char* s = new char[size];       // dynamically allocate memory for an array
+delete [] s;                    // free the allocated memory
+s = nullptr;                    // good practice for preventing errors
 ```
 
 ## Vectors

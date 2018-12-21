@@ -1014,15 +1014,13 @@ catch(exception)
 ### Function Templates
 ``` cpp
 template <class T>
-inline void swap(T &i, T &j)
+void swap(T &i, T &j)
 {
     T temp = i;
     i = j;
     j = temp;
 }
-    
-// call C++ function
-// no need to pass addresses
+
 swap(a, b);   
 ```
 
@@ -1039,13 +1037,11 @@ template <class T>
 class SimpleVector
 {
     private:
-
         T *arrPtr;              // To point to the allocated array
         int arraySize;          // Number of elements in the array
         void subscriptError();  // Handles subscripts out of range
 
     public:
-
         // Default constructor
         SimpleVector()
         { 
@@ -1099,7 +1095,9 @@ SimpleVector<T>::SimpleVector(const SimpleVector &obj)
 
     // Copy the elements of obj's array.
     for (int count = 0; count < arraySize; count++)
+    {
         *(arrPtr + count) = *(obj.arrPtr + count);
+    }
 }
 
 template <class T>
@@ -1112,15 +1110,16 @@ SimpleVector<T>::~SimpleVector()
 template <class T>
 void SimpleVector<T>::subscriptError()
 {
-    cout << "ERROR: Subscript out of range.\n";
-    exit(EXIT_FAILURE);
+    throw "ERROR: Subscript out of range.";
 }
 
 template <class T>
 T SimpleVector<T>::getElementAt(int sub)
 {
     if (sub < 0 || sub >= arraySize)
+    {
         subscriptError();
+    }
 
     return arrPtr[sub];
 }

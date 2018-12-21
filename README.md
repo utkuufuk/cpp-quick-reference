@@ -440,166 +440,16 @@ for (int i = 0; i < 5; i++)
 ```
 
 ## Classes
-### Class Specification 
-``` cpp
-// Rectangle.h
+Classes are usually made up of a specification file and an implementation file with extensions `.h` and `.cpp`; however it is also possible to put everyting inside a single `.h` file.
 
-#ifndef RECTANGLE_H     // include guard prevents the header file from 
-#define RECTANGLE_H     // accidentally being included more than once
-
-class Rectangle
-{
-    private:
-
-        // instance member variables
-        double width;
-        double length;
-
-        // static member variable
-        static int numObjects;
-
-    public:
-
-        Rectangle();    // default constructor (takes no arguments)
-
-        // constructors can also be defined inline
-        Rectangle(double width, double length)
-        {
-            this->width = width;    
-            this->length = length;
-            numObjects++;   // increment total number of objects in each constructor call
-        }
-
-        // this is a better constructor definition
-        Rectangle(double width = 0.0, double length = 0.0) :
-        width(width), length(length) {}
-
-        void setWidth(double);
-        void setLength(double);
-
-        // a member function defined in declaration is an inline function
-        double getWidth() const
-        {
-            return width;
-        }
-
-        // no need to use the scope resolution operator for inline functions
-        double getLength() const
-        {
-            return width;
-        }
-
-        // const keyword specifies that the function will not change any data
-        double getArea() const;
-
-        // static member functions cannot access any nonstatic member data
-        static int getNumObjects();
-};
-#endif
-```
-
-### Class Implementation
-``` cpp
-// Rectangle.cpp
-
-// double quotes indicate that Rectangle.h is located in the current 
-// project directory; instead of the compiler's include file directory
-#include "Rectangle.h"   
-
-// the static member variable must be defined in the implementation file
-int Rectangle::numObjects = 0;
-
-Rectangle::Rectangle()
-{
-    width = 0.0;
-    length = 0.0;
-    numObjects++;   // increment total number of objects in each constructor call
-} 
-
-void Rectangle::setWidth(double w)
-{
-    width = w;
-}
-
-void Rectangle::setLength(double len)
-{
-    length = len;
-}
-
-double Rectangle::getArea() const
-{
-    return width * length;
-}
-
-int Rectangle::getNumObjects()
-{
-    return numObjects;
-}
-```
+As a simple example, see the [specification](examples/Rectangle.cpp) and [implementation](examples/Rectangle.cpp) files of the Rectangle class.
 
 ### Copy constructors and destructors
-``` cpp
-// ContactInfo.h
-
-#ifndef CONTACTINFO_H
-#define CONTACTINFO_H
-
-#include <cstring> // Needed for strlen and strcpy
-
-class ContactInfo
-{
-    private:
-
-        char *name;
-        char *phone;
-
-    public:
-
-        ContactInfo(char *n, char *p)
-        { 
-            // Allocate just enough memory for the name and phone number.
-            name = new char[strlen(n) + 1];
-            phone = new char[strlen(p) + 1];
-
-            // Copy the name and phone number to the allocated memory.
-            strcpy(name, n);
-            strcpy(phone, p); 
-        }
-
-        // copy constructor (const protects the argument object against modification)
-        ContactInfo(const ContactInfo &obj)
-        {
-            int nameSize = strlen(obj.name) + 1;
-            int phoneSize = strlen(obj.phone) + 1;
-
-            name = new char[nameSize];
-            phone = new char[phoneSize];
-
-            strcpy(name, obj.getName());
-            strcpy(phone, obj.getPhoneNumber());
-        }
-        
-        ~ContactInfo() // Destructor
-        { 
-            delete [] name;
-            delete [] phone; 
-        }
-
-        // const prevents any code calling the function from changing the name
-        const char *getName() const
-        {
-            return name; 
-        }
-
-        const char *getPhoneNumber() const
-        {
-            return phone; 
-        }
-};
-#endif
-```
+See the [ContactInfo](examples/ContactInfo.h) class.
 
 ### Objects
+Here's some example usage of the [Rectangle](examples/Rectangle.h) and [ContactInfo](ContactInfo.h) classes:
+
 ``` cpp
 // define an object from the Rectangle class (lives on stack)
 Rectangle box1(12.8, 9.4);
@@ -625,7 +475,7 @@ const char* newName = newContact.getName(); // same as "Kristen Lee"
 delete contactPtr;      
 contactPtr = nullptr;   // good practice for preventing errors
 
-// don't delete other objects because they live on stack and will get deleted when the calling function returns
+// no need to delete other objects because they live on stack and will get deleted when the calling function returns
 ```
 
 ## Inheritence
@@ -1030,4 +880,4 @@ swap(a, b);
 ```
 
 ### Class Templates
-See the example [SimpleVector](SimpleVector.h) class.
+See the example [SimpleVector](examples/SimpleVector.h) class.

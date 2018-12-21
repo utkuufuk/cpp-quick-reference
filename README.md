@@ -479,102 +479,10 @@ contactPtr = nullptr;   // good practice for preventing errors
 ```
 
 ## Inheritence
-
 The parent class’s constructor is called before the child class’s constructor.<br> 
 The destructors are called in reverse order, with the child class’s destructor being called first.
 
-#### Parent class
-``` cpp
-#ifndef RECTANGLE_H
-#define RECTANGLE_H
-
-class Rectangle
-{
-    protected:  // only accesible by children
-
-        double width;
-        double length;
-
-    public:
-
-        Rectangle()
-        {
-            width = 0.0;
-            length = 0.0; 
-        }
-       
-        Rectangle(double w, double len)
-        {
-            width = w;
-            length = len; 
-        }
-
-        double getWidth() const
-        { 
-            return width; 
-        }
-
-        double getLength() const
-        {
-            return length; 
-        }
-
-        double getArea() const
-        {   
-            return width * length; 
-        }
-};
-#endif
-```
-
-#### Child class declaration
-``` cpp
-#ifndef CUBE_H
-#define CUBE_H
-
-#include "Rectangle.h"
-
-// the word public is the base class access specification
-class Cube : public Rectangle
-{
-    protected:
-
-        double height;
-        double volume;
-
-    public:
-
-        Cube() : Rectangle()
-        {
-            height = 0.0; volume = 0.0; 
-        }
-       
-        Cube(double width, double length, double height);
-
-        double getHeight() const
-        { 
-            return height; 
-        }
-
-        double getVolume() const
-        {
-            return volume; 
-        }
-};
-#endif
-```
-
-#### Child class implementation
-``` cpp
-#include "Rectangle.h"
-
-// pass width and length arguments to parent class constructor
-Cube::Cube(double w, double len, double h) : Rectangle(w, len)
-{
-    height = h;
-    volume = getArea() * h;     // call parent function
-}
-```
+See the [Cube](examples/Cube.h) class which inherits from the [Rectangle](examples/Rectangle.h) class.
 
 #### Base class access specification
 ![BCAS](images/base-class-access-specification.png)

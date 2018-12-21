@@ -1,6 +1,4 @@
 # C++ Quick Reference
-
-## Sections
  * [Compiling](#compiling)
  * [Pointers](#pointers)
  * [Pass by Reference](#pass-by-reference)

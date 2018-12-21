@@ -522,7 +522,7 @@ double divide(int numerator, int denominator)
     if (denominator == 0)
     {
         // throws an exception of type "string"
-        throw "ERROR: Cannot divide by zero.\n";
+        throw string("ERROR: Cannot divide by zero.\n");
     }
     else
     {
@@ -535,7 +535,7 @@ double divide(int numerator, int denominator)
 ``` cpp
 try
 {
-    quotient = divide(num1, num2);
+    double quotient = divide(num1, num2);
     cout << "The quotient is " << quotient << endl;
 }
 catch (string exceptionString)  // only catches exceptions of type "string"

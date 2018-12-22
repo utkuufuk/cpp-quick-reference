@@ -30,7 +30,7 @@ Symbols declared inside a namespace block are placed in a named scope that preve
 Multiple namespace blocks with the same name are allowed. All declarations within those blocks are declared in the named scope.
 
 ``` cpp
-// should not be used in header files because it defeats the purpose of using namespaces in the first place
+// this line should not be put in headers since it defeats the purpose of using namespaces
 using namespace std;
 ```
 The line above allows you to directly use use functions & variables from `std` namespace:
@@ -42,7 +42,7 @@ as opposed to:
 std::cout << "Hello world." << std::endl;
 ```
 
-On the other hand, the following lets you use only cout & endl directly from `std:`
+On the other hand, the following lets you use only `cout` & `endl` directly from `std:`
 ``` cpp
 using std::cout;
 using std::endl;

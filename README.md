@@ -9,10 +9,11 @@
  * [Strings](#strings)
  * [File Operations](#file-operations)
  * [Enumerated Data Types](#enumerated-data-types)
- * [Structs](#structs)
- * [Classes](#classes)
- * [Inheritence](#inheritence)
- * [Polymorphism](#polymorphism)
+ * [Structs & Classes](#structs-&-classes)
+    * [Structs](#structs)
+    * [Classes](#classes)
+    * [Inheritence](#inheritence)
+    * [Polymorphism](#polymorphism)
  * [Exceptions](#exceptions)
  * [Templates](#templates)
 
@@ -397,7 +398,15 @@ int x = static_cast<int>(President::MCKINLEY);
 enum class Day : char {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY}; 
 ```
 
-## Structs
+## Structs & Classes
+Both `class` and `struct` declare a class. The only difference between the two is that structs have `public` members by default and classes have `private` members by default. Both classes and structs can have a mixture of public, protected and private members, can use inheritance and can have member functions.
+
+Beyond syntax, the only reason to choose one over the other is convention/style/preference. Structs are usually used as plain old data structures without any class-like features, and classes are used as aggregate data structures with private data and member functions.
+
+**Note:** *By default, structs/classes are passed to functions by value.*<br>
+**Note:** *You can return local structs/classes defined in functions unlike arrays.*
+
+### Structs
 ``` cpp
 // declare a struct
 struct CityInfo
@@ -435,10 +444,8 @@ EmployeeInfo manager;
 manager.birthPlace.population = 4750;
 cout << manager.birthPlace.population << endl;
 ```
-**Note:** *By default, structures are passed to functions by value.*<br>
-**Note:** *You can return local structs defined in functions unlike arrays.*
 
-### Dynamically allocating structs
+#### Dynamically allocating structs
 ``` cpp
 struct Circle
 {
@@ -462,15 +469,15 @@ for (int i = 0; i < 5; i++)
 }
 ```
 
-## Classes
+### Classes
 Classes are usually made up of a specification file and an implementation file with extensions `.h` and `.cpp`; however it is also possible to put everyting inside a single `.h` file.
 
 As a simple example, see the [specification](examples/Rectangle.cpp) and [implementation](examples/Rectangle.cpp) files of the Rectangle class.
 
-### Copy constructors and destructors
+#### Copy constructors and destructors
 See the [ContactInfo](examples/ContactInfo.h) class.
 
-### Objects
+#### Objects
 Here's some example usage of the [Rectangle](examples/Rectangle.h) and [ContactInfo](ContactInfo.h) classes:
 
 ``` cpp
@@ -501,17 +508,17 @@ contactPtr = nullptr;   // good practice for preventing errors
 // no need to delete other objects because they live on stack and will get deleted when the calling function returns
 ```
 
-## Inheritence
+### Inheritence
 The parent class’s constructor is called before the child class’s constructor.<br> 
 The destructors are called in reverse order, with the child class’s destructor being called first.
 
 See the [Cube](examples/Cube.h) class which inherits from the [Rectangle](examples/Rectangle.h) class.
 
-#### Base class access specification
+**Base class access specification**<br>
 ![BCAS](images/base-class-access-specification.png)
 **NOTE:** If the base class access specification is left out of a declaration, the default access specification is `private.`
 
-## Polymorphism
+### Polymorphism
 
 Any class that has a virtual member function should also have a virtual destructor.<br>
 Even if the class doesn’t normally require a destructor, it should still have an empty virtual destructor.
@@ -530,7 +537,7 @@ void displayGrade(const GradedActivity &activity)
 }
 ```
 
-### Abstract Classes
+#### Abstract Classes
 A **pure virtual function** is a virtual member function of a base class that **must be overridden**. When a class contains a pure virtual function as a member, that class becomes an **abstract class**.
 ``` cpp
 // this is a pure virtual function

@@ -76,10 +76,10 @@ using second::x;
 int main() 
 { 
     // access function within first 
-    cout << first::value() << endl;  
+    cout << first::getVal() << endl;  
   
     // access function within second 
-    cout << second::value() << endl;  
+    cout << second::getVal() << endl;  
   
     // access variable x directly 
     cout << x << endl;        

@@ -112,7 +112,7 @@ class Person
 }
 
 Person* person = new Person();  // call the constructor & instantiate a Person object 
-delete person                   // call destructor & free heap memory occupied by person
+delete person;                  // call destructor & free heap memory occupied by person
 person = nullptr;
 ```
 

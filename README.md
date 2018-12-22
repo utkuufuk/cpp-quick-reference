@@ -21,7 +21,7 @@
 ## 1. Memory Management
 Keywords `new` and `delete` in C++ replace `malloc` and `free` in C, with the exception that `new` and `delete` call the constructor and destructor as well. 
 
-**Primitive Values:**
+#### Primitive Values
 ``` cpp
 int x = 5;                      // create an int on the stack
                                 // automatically freed when calling function returns
@@ -31,7 +31,7 @@ delete y                        // free heap memory occupied by y
 y = nullptr;                    // good practice for preventing errors
 ```
 
-**Classes & Objects:**
+#### Classes & Objects
 ``` cpp
 class Person
 {
@@ -45,7 +45,7 @@ delete person;                  // call destructor & free heap memory occupied b
 person = nullptr;
 ```
 
-**Arrays:**
+#### Arrays
 ``` cpp
 char* s = new char[size];       // dynamically allocate memory for an array
 delete [] s;                    // free the allocated memory

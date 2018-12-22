@@ -459,13 +459,13 @@ for (int i = 0; i < 5; i++)
 ### 5.2. Classes
 Classes are usually made up of a specification file and an implementation file with extensions `.h` and `.cpp`; however it is also possible to put everyting inside a single `.h` file.
 
-As a simple example, see the [specification](examples/Rectangle.cpp) and [implementation](examples/Rectangle.cpp) files of the Rectangle class.
+As a simple example, see the [specification](code/Rectangle.cpp) and [implementation](code/Rectangle.cpp) files of the Rectangle class.
 
 #### Copy constructors and destructors
-See the [ContactInfo](examples/ContactInfo.h) class.
+See the [ContactInfo](code/ContactInfo.h) class.
 
 #### Objects
-Here's some example usage of the [Rectangle](examples/Rectangle.h) and [ContactInfo](ContactInfo.h) classes:
+Here's some example usage of the [Rectangle](code/Rectangle.h) and [ContactInfo](ContactInfo.h) classes:
 
 ``` cpp
 // define an object from the Rectangle class (lives on stack)
@@ -499,7 +499,7 @@ contactPtr = nullptr;   // good practice for preventing errors
 The parent class’s constructor is called before the child class’s constructor.<br> 
 The destructors are called in reverse order, with the child class’s destructor being called first.
 
-See the [Cube](examples/Cube.h) class which inherits from the [Rectangle](examples/Rectangle.h) class.
+See the [Cube](code/Cube.h) class which inherits from the [Rectangle](code/Rectangle.h) class.
 
 **Base class access specification**<br>
 ![BCAS](images/base-class-access-specification.png)<br>
@@ -509,7 +509,7 @@ See the [Cube](examples/Cube.h) class which inherits from the [Rectangle](exampl
 Any class that has a virtual member function should also have a virtual destructor.<br>
 Even if the class doesn’t normally require a destructor, it should still have an empty virtual destructor.
 
-See the [GradedActivity](examples/GradedActivity.h) and [PassFailActivity](examples/PassFailActivity.h) and then the example usage below:
+See the [GradedActivity](code/GradedActivity.h) and [PassFailActivity](code/PassFailActivity.h) and then the example usage below:
 
 ``` cpp
 PassFailActivity pfActivity(70);
@@ -588,7 +588,7 @@ swap(a, b);
 ```
 
 ### 6.2. Class Templates
-See the example [SimpleVector](examples/SimpleVector.h) class.
+See the example [SimpleVector](code/SimpleVector.h) class.
 
 ## 7. File Operations
 | Data Type  | Description                                                    |

@@ -30,7 +30,7 @@ Symbols declared inside a namespace block are placed in a named scope that preve
 Multiple namespace blocks with the same name are allowed. All declarations within those blocks are declared in the named scope.
 
 ``` cpp
-// this line should not be put in headers since it defeats the purpose of using namespaces
+// this line should not be put in headers because it defeats the purpose of using namespaces
 using namespace std;
 ```
 The line above allows you to directly use use functions & variables from `std` namespace:
@@ -52,8 +52,6 @@ using std::endl;
 ``` cpp
 #include <iostream> 
 
-using namespace std; 
-
 namespace first 
 { 
     int getVal()
@@ -71,7 +69,10 @@ namespace second
         return 2 * x; 
     } 
 } 
-  
+
+using namespace std; 
+using second::x;
+ 
 int main() 
 { 
     // access function within first 
@@ -81,7 +82,7 @@ int main()
     cout << second::value() << endl;  
   
     // access variable x directly 
-    cout << second::x << endl;        
+    cout << x << endl;        
 }
 ```
 

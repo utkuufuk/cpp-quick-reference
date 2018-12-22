@@ -25,10 +25,10 @@ class SimpleVector
         SimpleVector(int);
 
         // copy constructor
-        SimpleVector(const SimpleVector &);
+        SimpleVector(const SimpleVector&);
 
         // copy assignment
-        SimpleVector& operator=(const SimpleVector& other);
+        SimpleVector& operator=(const SimpleVector&);
 
         // destructordeclaration
         ~SimpleVector();
@@ -43,7 +43,7 @@ class SimpleVector
         T getElementAt(int position);
 
         // overloaded [] operator declaration
-        T &operator[](const int &);
+        T &operator[](const int&);
 };
 
 template <class T>
@@ -57,14 +57,8 @@ SimpleVector<T>::SimpleVector(int s) : arraySize(s), arrPtr(new T[s])
 }
 
 template <class T>
-SimpleVector<T>::SimpleVector(const SimpleVector &obj)
+SimpleVector<T>::SimpleVector(const SimpleVector &obj) : arraySize(obj.arraySize), arrPtr(new T[obj.arraySize])
 {
-    // copy the array size
-    arraySize = obj.arraySize;
-
-    // allocate memory for the array
-    arrPtr = new T[arraySize];
-
     // copy the elements of source array
     for (int i = 0; i < arraySize; i++)
     {
@@ -114,7 +108,7 @@ T SimpleVector<T>::getElementAt(int sub)
 }
 
 template <class T>
-T &SimpleVector<T>::operator[](const int &sub)
+T &SimpleVector<T>::operator[](const int& sub)
 {
     if (sub < 0 || sub >= arraySize)
     {

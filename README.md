@@ -4,16 +4,16 @@
     2.1. [Pointers](#21-pointers)<br>
     2.2. [Pass by Reference](#22-pass-by-reference)
  3. [Data Structures](#3-data-structures)<br>
-    3.1 [Character Functions](#31-character-functions)<br>
-    3.2 [C-Strings](#32-c-strings)<br>
-    3.3 [Strings](#33-strings)<br>
-    3.4 [Vectors](#34-vectors)
+    3.1. [Character Functions](#31-character-functions)<br>
+    3.2. [C-Strings](#32-c-strings)<br>
+    3.3. [Strings](#33-strings)<br>
+    3.4. [Vectors](#34-vectors)
  4. [File Operations](#4-file-operations)
  5. [Structs & Classes](#5-structs-and-classes)<br>
-    5.1 [Structs](#51-structs)<br>
-    5.2 [Classes](#52-classes)<br>
-    5.3 [Inheritence](#53-inheritence)<br>
-    5.4 [Enumerated Data Types](#54-enumerated-data-types)
+    5.1. [Structs](#51-structs)<br>
+    5.2. [Classes](#52-classes)<br>
+    5.3. [Inheritence](#53-inheritence)<br>
+    5.4. [Enumerated Data Types](#54-enumerated-data-types)
  6. [Exceptions](#6-exceptions)
  7. [Templates](#7-templates)
 

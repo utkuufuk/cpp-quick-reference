@@ -1,37 +1,24 @@
 # C++ Quick Reference
- 1. [Compiling](#1-compiling)
- 2. [Memory Management](#2-memory-management)<br>
-    2.1. [Pointers](#21-pointers)<br>
-    2.2. [Pass by Reference](#22-pass-by-reference)
- 3. [Data Structures](#3-data-structures)<br>
-    3.1. [Character Functions](#31-character-functions)<br>
-    3.2. [C-Strings](#32-c-strings)<br>
-    3.3. [Strings](#33-strings)<br>
-    3.4. [Vectors](#34-vectors)
- 4. [File Operations](#4-file-operations)
- 5. [Structs & Classes](#5-structs-and-classes)<br>
-    5.1. [Structs](#51-structs)<br>
-    5.2. [Classes](#52-classes)<br>
-    5.3. [Inheritence](#53-inheritence)<br>
-    5.4. [Enumerated Data Types](#54-enumerated-data-types)
- 6. [Exceptions](#6-exceptions)
- 7. [Templates](#7-templates)
+ 1. [Memory Management](#1-memory-management)<br>
+    1.1. [Pointers](#11-pointers)<br>
+    1.2. [Pass by Reference](#12-pass-by-reference)
+ 2. [Data Structures](#2-data-structures)<br>
+    2.1. [Character Functions](#21-character-functions)<br>
+    2.2. [C-Strings](#22-c-strings)<br>
+    2.3. [Strings](#23-strings)<br>
+    2.4. [Vectors](#24-vectors)
+ 3. [File Operations](#3-file-operations)
+ 4. [Structs & Classes](#4-structs-and-classes)<br>
+    4.1. [Structs](#41-structs)<br>
+    4.2. [Classes](#42-classes)<br>
+    4.3. [Inheritence](#43-inheritence)<br>
+    4.4. [Enumerated Data Types](#44-enumerated-data-types)
+ 5. [Exceptions](#5-exceptions)
+ 6. [Templates](#6-templates)<br>
+    6.1. [Function Templates](#61-function-templates)<br>
+    6.2. [Class Templates](#62-class-templates)
 
-## 1. Compiling
-``` sh
-# compile and run a C program
-gcc hello.c -o hello
-./hello
-
-# compile and run a C++ program
-g++ hello.cpp -o hello
-./hello
-
-# compile a program which uses C++11 features
-g++ -std=c++11 hello.cpp -o hello
-./hello
-```
-## 2. Memory Management
+## 1. Memory Management
 Keywords `new` and `delete` in C++ replace `malloc` and `free` in C, with the exception that `new` and `delete` call the constructor and destructor as well. 
 
 **Primitive Values:**
@@ -65,7 +52,7 @@ delete [] s;                    // free the allocated memory
 s = nullptr;
 ```
 
-### 2.1. Pointers
+### 1.1. Pointers
 ``` cpp 
 // this function accepts a pointer to an array of constants
 void displayPayRates(const double* rates, int size)
@@ -85,7 +72,7 @@ int number = 15;
 const int* const ptr = &number 
 ```
 
-### 2.2. Pass by Reference
+### 1.2. Pass by Reference
 **Swap in C**<br>
 ``` c
 // i and j are pointers to ints
@@ -122,8 +109,8 @@ inline void swap(double &i, double &j)
 swap(a, b);    
 ```
 
-## 3. Data Structures
-### 3.1. Character Functions
+## 2. Data Structures
+### 2.1. Character Functions
 ```cpp 
 #include <cctype>   // required for using the following functions
 ```  
@@ -145,7 +132,7 @@ swap(a, b);
 | `toupper` | Returns the uppercase equivalent of its argument. |
 | `tolower` | Returns the lowercase equivalent of its argument. |
 
-### 3.2. C-Strings
+### 2.2. C-Strings
 ``` cpp 
 // required for using the following functions
 #include <cstring>   
@@ -220,7 +207,7 @@ to_string(double value);
 to_string(long double value);
 ```
 
-### 3.3. Strings
+### 2.3. Strings
 #### Defining `string` objects
 ``` cpp 
 // required for using the string data type
@@ -265,7 +252,7 @@ char c = mystring[0];       // returns the char at position 0 in mystring
 ![string functions 2](images/string_functions_2.png)
 ![string functions 3](images/string_functions_3.png)
 
-### 3.4. Vectors
+### 2.4. Vectors
 ```cpp
 #include <vector>
 using namespace std;
@@ -289,14 +276,14 @@ myVec.resize(size, val);    // resize myVec. the new elements are initialized wi
 myVec.swap(someVec);        // swap the contents of myVec with the contents of anotherVec
 ```
 
-## 4. File Operations
+## 3. File Operations
 | Data Type  | Description                                                    |
 | :--------: | :------------------------------------------------------------- |
 | `ifstream` | Input file stream. Can be used to read data from files.        |
 | `ofstream` | Output file stream. Can be used to create write data to files. |
 | `fstream`  | File stream. Can be used to read and write data to/from files. |
 
-### `ifstream` and `ofstream`
+#### `ifstream` and `ofstream`
 ``` cpp
 #include <fstream>
 
@@ -322,7 +309,7 @@ inputFile.close();
 outputFile.close();
 ```
 
-### `fstream`
+#### `fstream`
 ``` cpp
 #include <fstream>
 
@@ -352,12 +339,12 @@ file.read(reinterpret_cast<char *>(numbers), sizeof(numbers));
 file.close();
 ```
 
-### File access flags
+#### File access flags
 By using different combinations of access flags, you can open files in many possible modes:
 ![File Access Flags](images/file-access-flags.png)
 
 
-## 5. Structs and Classes
+## 4. Structs and Classes
 Both `class` and `struct` declare a class. The only difference between the two is that structs have `public` members by default and classes have `private` members by default. Both classes and structs can have a mixture of public, protected and private members, can use inheritance and can have member functions.
 
 Beyond syntax, the only reason to choose one over the other is convention/style/preference. Structs are usually used as plain old data structures without any class-like features, and classes are used as aggregate data structures with private data and member functions.
@@ -365,7 +352,7 @@ Beyond syntax, the only reason to choose one over the other is convention/style/
 **Note:** *By default, structs/classes are passed to functions by value.*<br>
 **Note:** *You can return local structs/classes defined in functions unlike arrays.*
 
-### 5.1. Structs
+### 4.1. Structs
 ``` cpp
 // declare a struct
 struct CityInfo
@@ -428,7 +415,7 @@ for (int i = 0; i < 5; i++)
 }
 ```
 
-### 5.2. Classes
+### 4.2. Classes
 Classes are usually made up of a specification file and an implementation file with extensions `.h` and `.cpp`; however it is also possible to put everyting inside a single `.h` file.
 
 As a simple example, see the [specification](examples/Rectangle.cpp) and [implementation](examples/Rectangle.cpp) files of the Rectangle class.
@@ -467,7 +454,7 @@ contactPtr = nullptr;   // good practice for preventing errors
 // no need to delete other objects because they live on stack and will get deleted when the calling function returns
 ```
 
-### 5.3. Inheritence
+### 4.3. Inheritence
 The parent class’s constructor is called before the child class’s constructor.<br> 
 The destructors are called in reverse order, with the child class’s destructor being called first.
 
@@ -502,7 +489,7 @@ A **pure virtual function** is a virtual member function of a base class that **
 virtual void foo() = 0;
 ```
 
-### 5.4 Enumerated Data Types
+### 4.4 Enumerated Data Types
 ``` cpp
 // each enumerator is assigned an integer starting from 0
 enum Day
@@ -545,7 +532,7 @@ int x = static_cast<int>(President::MCKINLEY);
 enum class Day : char {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY}; 
 ```
 
-## 6. Exceptions
+## 5. Exceptions
 ### Throwing an Exception
 ``` cpp
 double divide(int numerator, int denominator)
@@ -665,8 +652,8 @@ catch(exception)
 | std::range_error      | This is occurred when you try to store a value which is out of range.                         |
 | std::underflow_error  | This is thrown if a mathematical underflow occurs.                                            |
 
-## 7. Templates
-### Function Templates
+## 6. Templates
+### 6.1. Function Templates
 ``` cpp
 template <class T>
 void swap(T &i, T &j)
@@ -679,5 +666,5 @@ void swap(T &i, T &j)
 swap(a, b);   
 ```
 
-### Class Templates
+### 6.2. Class Templates
 See the example [SimpleVector](examples/SimpleVector.h) class.

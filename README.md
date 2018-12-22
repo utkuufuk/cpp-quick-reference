@@ -9,7 +9,7 @@
  * [Strings](#strings)
  * [File Operations](#file-operations)
  * [Enumerated Data Types](#enumerated-data-types)
- * [Structs & Classes](#structs-&-classes)
+ * [Structs & Classes](#structs-and-classes)
     * [Structs](#structs)
     * [Classes](#classes)
     * [Inheritence](#inheritence)
@@ -398,7 +398,7 @@ int x = static_cast<int>(President::MCKINLEY);
 enum class Day : char {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY}; 
 ```
 
-## Structs & Classes
+## Structs and Classes
 Both `class` and `struct` declare a class. The only difference between the two is that structs have `public` members by default and classes have `private` members by default. Both classes and structs can have a mixture of public, protected and private members, can use inheritance and can have member functions.
 
 Beyond syntax, the only reason to choose one over the other is convention/style/preference. Structs are usually used as plain old data structures without any class-like features, and classes are used as aggregate data structures with private data and member functions.

@@ -1,22 +1,25 @@
 # C++ Quick Reference
  1. [Memory Management](#1-memory-management)<br>
-    1.1. [Pointers](#11-pointers)<br>
-    1.2. [Pass by Reference](#12-pass-by-reference)
- 2. [Data Structures](#2-data-structures)<br>
+    1.1. [Pass by Reference](#11-pass-by-reference)<br>
+    1.2. [Pointers](#12-pointers)<br>
+    1.3. [Smart Pointers](#13-smart-pointers)
+ 2. [Characters & Strings](#2-characters-and-strings)<br>
     2.1. [Character Functions](#21-character-functions)<br>
-    2.2. [C-Strings](#22-c-strings)<br>
-    2.3. [Strings](#23-strings)<br>
-    2.4. [Vectors](#24-vectors)
- 3. [File Operations](#3-file-operations)
+    2.2. [C-String Functions](#22-c-string-functions)<br>
+    2.3. [Strings](#23-strings)
+ 3. [Data Structures](#3-data-structures)<br>
+    3.1. [Vectors](#31-vectors)<br>
+    3.2. [Maps](#32-maps)
  4. [Structs & Classes](#4-structs-and-classes)<br>
     4.1. [Structs](#41-structs)<br>
     4.2. [Classes](#42-classes)<br>
     4.3. [Inheritence](#43-inheritence)<br>
     4.4. [Enumerated Data Types](#44-enumerated-data-types)
- 5. [Exceptions](#5-exceptions)
- 6. [Templates](#6-templates)<br>
-    6.1. [Function Templates](#61-function-templates)<br>
-    6.2. [Class Templates](#62-class-templates)
+ 5. [Templates](#5-templates)<br>
+    5.1. [Function Templates](#51-function-templates)<br>
+    5.2. [Class Templates](#52-class-templates)
+ 6. [File Operations](#6-file-operations)
+ 7. [Exceptions](#7-exceptions)
 
 ## 1. Memory Management
 Keywords `new` and `delete` in C++ replace `malloc` and `free` in C, with the exception that `new` and `delete` call the constructor and destructor as well. 
@@ -26,8 +29,8 @@ Keywords `new` and `delete` in C++ replace `malloc` and `free` in C, with the ex
 int x = 5;                      // create an int on the stack
                                 // automatically freed when calling function returns
 
-int* y = new int(5);            // crate an integer on the heap, has to be freed manually
-delete y                        // free heap memory occupied by y
+int* y = new int(5);            // crates an integer on the heap, has to be freed manually using 'delete'
+delete y                        // frees heap memory occupied by y
 y = nullptr;                    // good practice for preventing errors
 ```
 
@@ -40,39 +43,19 @@ class Person
     // other members
 }
 
-Person* person = new Person();  // call the constructor & instantiate a Person object 
-delete person;                  // call destructor & free heap memory occupied by person
+Person* person = new Person();  // calls the constructor & instantiates a Person object 
+delete person;                  // calls the destructor & frees heap memory occupied by person
 person = nullptr;
 ```
 
 #### Arrays
 ``` cpp
-char* s = new char[size];       // dynamically allocate memory for an array
-delete [] s;                    // free the allocated memory
+char* s = new char[size];       // dynamically allocates memory for an array
+delete [] s;                    // frees the allocated memory
 s = nullptr;
 ```
 
-### 1.1. Pointers
-``` cpp 
-// this function accepts a pointer to an array of constants
-void displayPayRates(const double* rates, int size)
-{
-    for (int count = 0; count < size; count++)
-    {
-        cout << rates[count] << endl;
-    }
-}
-
-// constant pointers can not point to something else
-int value = 22;
-int* const ptr = &value; 
-
-// this is a constant pointer to a constant
-int number = 15;
-const int* const ptr = &number 
-```
-
-### 1.2. Pass by Reference
+### 1.1. Pass by Reference
 **Swap in C**<br>
 ``` c
 // i and j are pointers to ints
@@ -109,10 +92,33 @@ inline void swap(double &i, double &j)
 swap(a, b);    
 ```
 
-## 2. Data Structures
+### 1.2. Pointers
+``` cpp 
+// this function accepts a pointer to an array of constants
+void displayPayRates(const double* rates, int size)
+{
+    for (int count = 0; count < size; count++)
+    {
+        cout << rates[count] << endl;
+    }
+}
+
+// constant pointers can not point to something else
+int value = 22;
+int* const ptr = &value; 
+
+// this is a constant pointer to a constant
+int number = 15;
+const int* const ptr = &number 
+```
+
+### 1.3. Smart Pointers
+*Coming soon...*
+
+## 2. Characters and Strings
 ### 2.1. Character Functions
 ```cpp 
-#include <cctype>   // required for using the following functions
+#include <cctype>   // required for using the functions below
 ```  
 #### Character testing
 | Function  | Returns true if the argument is a ...; returns 0 otherwise  |
@@ -132,20 +138,19 @@ swap(a, b);
 | `toupper` | Returns the uppercase equivalent of its argument. |
 | `tolower` | Returns the lowercase equivalent of its argument. |
 
-### 2.2. C-Strings
+### 2.2. C-String Functions
 ``` cpp 
-// required for using the following functions
-#include <cstring>   
+#include <cstring>  // required for using the functions below
 ```  
 
-#### The `strlen` function
+#### `strlen`
 ``` cpp 
 // don't confuse the length of a string with the size of the array holding it
-char name[] = "Thomas Edison";
-int length = strlen(name); // length is 13
+char name[] = "banana";
+int length = strlen(name); // length is 6
 ```
 
-#### The `strcat` function (see also: `strncat`)
+#### `strcat` (see also: `strncat`)
 *If the array holding the first string isn't large enough to hold both strings,
 `strcat` will overflow the boundaries of the array.*
 ``` cpp 
@@ -155,7 +160,7 @@ strcat(string1, string2);
 cout << string1 << endl;        // outputs "Hello World!"
 ```
 
-#### The `strcpy` function (see also: `strncpy`)
+#### `strcpy` (see also: `strncpy`)
 *`strcpy` performs no bounds checking. The array specified by the first 
 argument will be overflowed if it isn’t large enough to hold the string
 specified by the second argument.*
@@ -164,14 +169,14 @@ char name[] = "Some other string";  // size of the holding array is sufficient
 strcpy(name, "Albert Einstein");
 ```
 
-#### The `strstr` function
+#### `strstr`
 ``` cpp
 char arr[] = "Four score and seven years ago";
 char *ptr = strstr(arr, "seven");   // search for "seven" and return address
 cout << ptr << endl;                // outputs "seven years ago"
 ```
 
-#### The `strcmp` function
+#### `strcmp`
 ``` cpp
 int strcmp(char *string1, char *string2); // function prototype
 ```
@@ -252,7 +257,8 @@ char c = mystring[0];       // returns the char at position 0 in mystring
 ![string functions 2](images/string_functions_2.png)
 ![string functions 3](images/string_functions_3.png)
 
-### 2.4. Vectors
+### 3. Data Structures
+### 3.1. Vectors
 ```cpp
 #include <vector>
 using namespace std;
@@ -276,72 +282,8 @@ myVec.resize(size, val);    // resize myVec. the new elements are initialized wi
 myVec.swap(someVec);        // swap the contents of myVec with the contents of anotherVec
 ```
 
-## 3. File Operations
-| Data Type  | Description                                                    |
-| :--------: | :------------------------------------------------------------- |
-| `ifstream` | Input file stream. Can be used to read data from files.        |
-| `ofstream` | Output file stream. Can be used to create write data to files. |
-| `fstream`  | File stream. Can be used to read and write data to/from files. |
-
-#### `ifstream` and `ofstream`
-``` cpp
-#include <fstream>
-
-// open an ifstream
-ifstream inputFile;
-inputFile.open("InputFile.txt");
-// Alternatively: 
-// ifstream inputFile("InputFile.txt");
-
-// open an ofstream
-ofstream outputFile;
-outputFile.open("OutputFile.txt");
-// Alternatively: 
-// ofstream outputFile("OutputFile.txt");
-
-// open ofstream in append mode
-outputFile.open("OutputFile.txt", ios::out | ios::app);
-
-inputFile >> value;
-outputFile << "I love C++ programming" << endl;
-
-inputFile.close();
-outputFile.close();
-```
-
-#### `fstream`
-``` cpp
-#include <fstream>
-
-fstream file;
-
-// open fstream in output mode
-file.open("DataFile.txt", ios::out);
-
-// open fstream in both input and output modes
-file.open("DataFile.txt", ios::in | ios::out);
-
-// read and write data in binary mode
-char data[4] = {'A', 'B', 'C', 'D'};
-fstream file("DataFile.dat", ios::binary | ios::out);
-file.write(data, sizeof(data));
-file.open("DataFile.dat", ios::binary | ios::in);
-file.read(data, sizeof(data));
-
-// read and write non-char data
-int numbers[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-fstream file("numbers.dat", ios::out | ios::binary);
-file.write(reinterpret_cast<char *>(numbers), sizeof(numbers));
-file.open("numbers.dat", ios::in | ios::binary);
-file.read(reinterpret_cast<char *>(numbers), sizeof(numbers));
-
-// close the file
-file.close();
-```
-
-#### File access flags
-By using different combinations of access flags, you can open files in many possible modes:
-![File Access Flags](images/file-access-flags.png)
+### 3.2. Maps
+*Coming soon...*
 
 
 ## 4. Structs and Classes
@@ -532,7 +474,91 @@ int x = static_cast<int>(President::MCKINLEY);
 enum class Day : char {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY}; 
 ```
 
-## 5. Exceptions
+## 5. Templates
+### 5.1. Function Templates
+``` cpp
+template <class T>
+void swap(T &i, T &j)
+{
+    T temp = i;
+    i = j;
+    j = temp;
+}
+
+swap(a, b);   
+```
+
+### 5.2. Class Templates
+See the example [SimpleVector](examples/SimpleVector.h) class.
+
+## 6. File Operations
+| Data Type  | Description                                                    |
+| :--------: | :------------------------------------------------------------- |
+| `ifstream` | Input file stream. Can be used to read data from files.        |
+| `ofstream` | Output file stream. Can be used to create write data to files. |
+| `fstream`  | File stream. Can be used to read and write data to/from files. |
+
+#### `ifstream` and `ofstream`
+``` cpp
+#include <fstream>
+
+// open an ifstream
+ifstream inputFile;
+inputFile.open("InputFile.txt");
+// Alternatively: 
+// ifstream inputFile("InputFile.txt");
+
+// open an ofstream
+ofstream outputFile;
+outputFile.open("OutputFile.txt");
+// Alternatively: 
+// ofstream outputFile("OutputFile.txt");
+
+// open ofstream in append mode
+outputFile.open("OutputFile.txt", ios::out | ios::app);
+
+inputFile >> value;
+outputFile << "I love C++ programming" << endl;
+
+inputFile.close();
+outputFile.close();
+```
+
+#### `fstream`
+``` cpp
+#include <fstream>
+
+fstream file;
+
+// open fstream in output mode
+file.open("DataFile.txt", ios::out);
+
+// open fstream in both input and output modes
+file.open("DataFile.txt", ios::in | ios::out);
+
+// read and write data in binary mode
+char data[4] = {'A', 'B', 'C', 'D'};
+fstream file("DataFile.dat", ios::binary | ios::out);
+file.write(data, sizeof(data));
+file.open("DataFile.dat", ios::binary | ios::in);
+file.read(data, sizeof(data));
+
+// read and write non-char data
+int numbers[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+fstream file("numbers.dat", ios::out | ios::binary);
+file.write(reinterpret_cast<char *>(numbers), sizeof(numbers));
+file.open("numbers.dat", ios::in | ios::binary);
+file.read(reinterpret_cast<char *>(numbers), sizeof(numbers));
+
+// close the file
+file.close();
+```
+
+#### File access flags
+By using different combinations of access flags, you can open files in many possible modes:
+![File Access Flags](images/file-access-flags.png)
+
+## 7. Exceptions
 ### Throwing an Exception
 ``` cpp
 double divide(int numerator, int denominator)
@@ -651,20 +677,3 @@ catch(exception)
 | std::overflow_error   | This is thrown if a mathematical overflow occurs.                                             |
 | std::range_error      | This is occurred when you try to store a value which is out of range.                         |
 | std::underflow_error  | This is thrown if a mathematical underflow occurs.                                            |
-
-## 6. Templates
-### 6.1. Function Templates
-``` cpp
-template <class T>
-void swap(T &i, T &j)
-{
-    T temp = i;
-    i = j;
-    j = temp;
-}
-
-swap(a, b);   
-```
-
-### 6.2. Class Templates
-See the example [SimpleVector](examples/SimpleVector.h) class.

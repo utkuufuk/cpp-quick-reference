@@ -5,11 +5,10 @@
 // the static member variable definition
 int Rectangle::numObjects = 0;
 
-Rectangle::Rectangle()
+Rectangle::Rectangle() : width(0.0), length(0.0)
 {
-    width = 0.0;
-    length = 0.0;
-    numObjects++;   // increment total number of objects in each constructor call
+    // increment total number of objects in each constructor call
+    numObjects++;   
 } 
 
 void Rectangle::setWidth(double w)

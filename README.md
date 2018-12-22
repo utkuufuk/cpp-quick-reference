@@ -249,7 +249,7 @@ char name[] = "banana";
 int length = strlen(name); // length is 6
 ```
 
-#### `strcat` (see also: `strncat`)
+#### `strcat` (see also: [`strncat`](http://www.cplusplus.com/reference/cstring/strncat/))
 *If the array holding the first string isn't large enough to hold both strings,
 `strcat` will overflow the boundaries of the array.*
 ``` cpp 
@@ -259,7 +259,7 @@ strcat(string1, string2);
 cout << string1 << endl;        // outputs "Hello World!"
 ```
 
-#### `strcpy` (see also: `strncpy`)
+#### `strcpy` (see also: [`strncpy`](http://www.cplusplus.com/reference/cstring/strncpy/))
 *`strcpy` performs no bounds checking. The array specified by the first 
 argument will be overflowed if it isn’t large enough to hold the string
 specified by the second argument.*
@@ -281,8 +281,8 @@ int strcmp(char *string1, char *string2); // function prototype
 ```
 The result is
  - **zero** if the two strings are **equal**.
- - **negagive** if string1 comes **before** string2 in alphabetical order.
- - **positive** if string1 comes **after** string2 in alphabetical order.
+ - **negagive** if `string1` comes **before** `string2` in alphabetical order.
+ - **positive** if `string1` comes **after** `string2` in alphabetical order.
 
 #### Numeric conversion functions
 ``` cpp 

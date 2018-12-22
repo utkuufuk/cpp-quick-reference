@@ -3,7 +3,7 @@
  2. [Memory Management](#memory-management)
     * [Pointers](#pointers)
     * [Pass by Reference](#pass-by-reference)
- 3. [Data Structures](#data-stuctures)
+ 3. [Data Structures](#data-structures)
     * [Character Functions](#character-functions)
     * [C-Strings](#c-strings)
     * [Strings](#strings)

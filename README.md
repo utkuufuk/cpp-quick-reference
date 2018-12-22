@@ -1,5 +1,5 @@
 # C++ Quick Reference
- 1. [Namespaces](#1-namespaces) *(coming soon)*
+ 1. [Namespaces](#1-namespaces)
  2. [Memory Management](#2-memory-management)<br>
     2.1. [Pass by Reference](#21-pass-by-reference)<br>
     2.2. [Pointers](#22-pointers)<br>
@@ -23,7 +23,101 @@
  8. [Exceptions](#8-exceptions)
 
 ## 1. Namespaces
-*Coming soon...*
+Namespaces provide a method for preventing name conflicts in large projects.
+
+Symbols declared inside a namespace block are placed in a named scope that prevents them from being mistaken for identically-named symbols in other scopes.
+
+Multiple namespace blocks with the same name are allowed. All declarations within those blocks are declared in the named scope.
+
+``` cpp
+// should not be used in header files because it defeats the purpose of using namespaces in the first place
+using namespace std;
+```
+The line above allows you to directly use use functions & variables from `std` namespace:
+``` cpp
+cout << "Hello world." << endl;
+```
+as opposed to:
+``` cpp
+std::cout << "Hello world." << std::endl;
+```
+
+On the other hand, the following lets you use only cout & endl directly from `std:`
+``` cpp
+using std::cout;
+using std::endl;
+```
+
+#### Example
+``` cpp
+#include <iostream> 
+
+using namespace std; 
+
+namespace first 
+{ 
+    int getVal()
+    {
+        return 5;
+    } 
+} 
+
+namespace second  
+{ 
+    const double x = 100; 
+
+    double getVal() 
+    {  
+        return 2 * x; 
+    } 
+} 
+  
+int main() 
+{ 
+    // access function within first 
+    cout << first::value() << endl;  
+  
+    // access function within second 
+    cout << second::value() << endl;  
+  
+    // access variable x directly 
+    cout << second::x << endl;        
+}
+```
+
+#### Declarations & Definitions in Namespaces
+``` cpp
+namespace Q 
+{
+    // V is a member of Q, and is fully defined within Q
+    namespace V 
+    { 
+        // C is a member of V and is fully defined within V
+        class C 
+        { 
+            // C::m is only declared
+            void m(); 
+        }; 
+                            
+        // f is a member of V, but is only declared here
+        void f(); 
+    }
+
+    // definition of V's member f outside of V
+    // f's enclosing namespaces are still the global namespace, Q, and Q::V
+    void V::f() 
+    {
+        // This declares ::Q::V::h
+        extern void h();
+    }
+
+    // definition of V::C::m outside of the namespace (and the class body)
+    // enclosing namespaces are the global namespace, Q, and Q::V
+    void V::C::m() 
+    {
+    }
+}
+```
 
 ## 2. Memory Management
 Keywords `new` and `delete` in C++ replace `malloc` and `free` in C, with the exception that `new` and `delete` call the constructor and destructor as well. 

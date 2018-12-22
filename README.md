@@ -1,21 +1,22 @@
 # C++ Quick Reference
- * [Compiling](#compiling)
- * [Pointers](#pointers)
- * [Pass by Reference](#pass-by-reference)
- * [Memory Management](#memory-management)
- * [Vectors](#vectors)
- * [Character Functions](#character-functions)
- * [C-Strings](#c-strings)
- * [Strings](#strings)
- * [File Operations](#file-operations)
- * [Enumerated Data Types](#enumerated-data-types)
- * [Structs & Classes](#structs-and-classes)
+ 1. [Compiling](#compiling)
+ 2. [Memory Management](#memory-management)
+    * [Pointers](#pointers)
+    * [Pass by Reference](#pass-by-reference)
+ 3. [Data Structures](#data-stuctures)
+    * [Character Functions](#character-functions)
+    * [C-Strings](#c-strings)
+    * [Strings](#strings)
+    * [Vectors](#vectors)
+ 4. [File Operations](#file-operations)
+ 5. [Structs & Classes](#structs-and-classes)
     * [Structs](#structs)
     * [Classes](#classes)
     * [Inheritence](#inheritence)
     * [Polymorphism](#polymorphism)
- * [Exceptions](#exceptions)
- * [Templates](#templates)
+    * [Enumerated Data Types](#enumerated-data-types)
+ 6. [Exceptions](#exceptions)
+ 7. [Templates](#templates)
 
 ## Compiling
 ``` sh
@@ -31,64 +32,6 @@ g++ hello.cpp -o hello
 g++ -std=c++11 hello.cpp -o hello
 ./hello
 ```
-
-## Pointers
-``` cpp 
-// this function accepts a pointer to an array of constants
-void displayPayRates(const double* rates, int size)
-{
-    for (int count = 0; count < size; count++)
-    {
-        cout << rates[count] << endl;
-    }
-}
-
-// constant pointers can not point to something else
-int value = 22;
-int* const ptr = &value; 
-
-// this is a constant pointer to a constant
-int number = 15;
-const int* const ptr = &number 
-```
-
-## Pass by Reference
-#### Swap in C
-``` c
-// i and j are pointers to ints
-void swap(int* i, int *j)
-{
-    int temp = *i; // dereference i
-    *i = *j;
-    *j = temp;
-}
-
-// have to pass pointers to a and b
-swap(&a, &b);    
-```
-
-#### Swap in C++
-``` cpp
-// i and j are references to ints
-inline void swap(int &i, int &j)
-{
-    int temp i; // no need to dereference
-    i = j;
-    j = temp;
-}
-
-// C++ allows function overloading unlike C
-inline void swap(double &i, double &j)
-{
-    double temp i;
-    i = j;
-    j = temp;
-}
-
-// no need to pass pointers
-swap(a, b);    
-```
-
 ## Memory Management
 Keywords `new` and `delete` in C++ replace `malloc` and `free` in C, with the exception that `new` and `delete` call the constructor and destructor as well. 
 
@@ -123,35 +66,69 @@ delete [] s;                    // free the allocated memory
 s = nullptr;
 ```
 
-## Vectors
-```cpp
-#include <vector>
-using namespace std;
+### Pointers
+``` cpp 
+// this function accepts a pointer to an array of constants
+void displayPayRates(const double* rates, int size)
+{
+    for (int count = 0; count < size; count++)
+    {
+        cout << rates[count] << endl;
+    }
+}
 
-vector<int> numbers1;                   // an empty vector of ints
-vector<int> numbers2(10);               // a vector of 10 ints
-vector<int> numbers3(10, 2);            // a vector of 10 ints, each initialized to 2
-vector<int> numbers4 {10, 20, 30, 40};  // a vector initialized with an initialization list
-vector<int> myVec(numbers4);            // a vector initialized with the elements of numbers4 
+// constant pointers can not point to something else
+int value = 22;
+int* const ptr = &value; 
 
-int val = myVec.at(index);  // return the value of the element located at index of myVec
-int* arr = myVec.data();    // return the underlying int array of myVec
-myVec.push_back(50);        // create a last element (if myVec is full) and stores 50 in it
-myVec.pop_back();           // remove the last element from myVec
-myVec.size();               // get the number of elements in myVec
-myvec.capacity();           // get the capacity of myVec
-myVec.clear();              // completely clear the contents of myVec
-myVec.empty();              // return true if myVec is empty
-myVec.reverse();            // reverse the order of elements in myVec
-myVec.resize(size, val);    // resize myVec. the new elements are initialized with val
-myVec.swap(someVec);        // swap the contents of myVec with the contents of anotherVec
+// this is a constant pointer to a constant
+int number = 15;
+const int* const ptr = &number 
 ```
 
-## Character Functions
+### Pass by Reference
+**Swap in C**<br>
+``` c
+// i and j are pointers to ints
+void swap(int* i, int *j)
+{
+    int temp = *i; // dereference i
+    *i = *j;
+    *j = temp;
+}
+
+// have to pass pointers to a and b
+swap(&a, &b);    
+```
+
+**Swap in C++**<br>
+``` cpp
+// i and j are references to ints
+inline void swap(int &i, int &j)
+{
+    int temp i; // no need to dereference
+    i = j;
+    j = temp;
+}
+
+// C++ allows function overloading unlike C
+inline void swap(double &i, double &j)
+{
+    double temp i;
+    i = j;
+    j = temp;
+}
+
+// no need to pass pointers
+swap(a, b);    
+```
+
+## Data Structures
+### Character Functions
 ```cpp 
 #include <cctype>   // required for using the following functions
 ```  
-### Character testing
+#### Character testing
 | Function  | Returns true if the argument is a ...; returns 0 otherwise  |
 | :-------: | :---------------------------------------------------------- |
 | `isalpha` | letter of the alphabet.                                     |
@@ -163,16 +140,16 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 | `isupper` | uppercase letter. Otherwise, it returns 0.                  |
 | `isspace` | whitespace character. (`' '`, `' \n '`, `' \v '`, `' \t '`) |
 
-### Character case conversion
+#### Character case conversion
 | Function  | Description                                       |
 | :-------: | :------------------------------------------------ |
 | `toupper` | Returns the uppercase equivalent of its argument. |
 | `tolower` | Returns the lowercase equivalent of its argument. |
 
-## C-Strings
-### Working with c-strings
+### C-Strings
 ``` cpp 
-#include <cstring>   // required for using the following functions
+// required for using the following functions
+#include <cstring>   
 ```  
 
 #### The `strlen` function
@@ -217,9 +194,10 @@ The result is
  - **negagive** if string1 comes **before** string2 in alphabetical order.
  - **positive** if string1 comes **after** string2 in alphabetical order.
 
-### C-string/numeric conversion functions
+#### Numeric conversion functions
 ``` cpp 
-#include <cstdlib>   // required for using the following functions
+// required for using the following functions
+#include <cstdlib>   
 
 //Converts a c-string to an integer.
 int intVal = atoi("1000");
@@ -243,8 +221,8 @@ to_string(double value);
 to_string(long double value);
 ```
 
-## Strings
-### Defining `string` objects
+### Strings
+#### Defining `string` objects
 ``` cpp 
 // required for using the string data type
 #include <string>           
@@ -273,7 +251,7 @@ string str5('x', 10);
 // defines a string which is initialized with a substring of str5. 
 string str6(str5, 2, 8);    
 ```
-### `string` operators
+#### `string` operators
 There is no need to use a function such as `strcmp` to compare string objects. 
 You may use the `<` , `>` , `<=` , `>=` , `==` , and `!=` relational operators.
 
@@ -283,10 +261,34 @@ string s2 = "World!";
 string mystring = s1 + s2;  // concatenates s1 and s2
 char c = mystring[0];       // returns the char at position 0 in mystring
 ```
-### `string` member functions
+#### `string` member functions
 ![string functions 1](images/string_functions_1.png)
 ![string functions 2](images/string_functions_2.png)
 ![string functions 3](images/string_functions_3.png)
+
+### Vectors
+```cpp
+#include <vector>
+using namespace std;
+
+vector<int> numbers1;                   // an empty vector of ints
+vector<int> numbers2(10);               // a vector of 10 ints
+vector<int> numbers3(10, 2);            // a vector of 10 ints, each initialized to 2
+vector<int> numbers4 {10, 20, 30, 40};  // a vector initialized with an initialization list
+vector<int> myVec(numbers4);            // a vector initialized with the elements of numbers4 
+
+int val = myVec.at(index);  // return the value of the element located at index of myVec
+int* arr = myVec.data();    // return the underlying int array of myVec
+myVec.push_back(50);        // create a last element (if myVec is full) and stores 50 in it
+myVec.pop_back();           // remove the last element from myVec
+myVec.size();               // get the number of elements in myVec
+myvec.capacity();           // get the capacity of myVec
+myVec.clear();              // completely clear the contents of myVec
+myVec.empty();              // return true if myVec is empty
+myVec.reverse();            // reverse the order of elements in myVec
+myVec.resize(size, val);    // resize myVec. the new elements are initialized with val
+myVec.swap(someVec);        // swap the contents of myVec with the contents of anotherVec
+```
 
 ## File Operations
 | Data Type  | Description                                                    |
@@ -355,48 +357,6 @@ file.close();
 By using different combinations of access flags, you can open files in many possible modes:
 ![File Access Flags](images/file-access-flags.png)
 
-## Enumerated Data Types
-``` cpp
-// each enumerator is assigned an integer starting from 0
-enum Day
-{
-    MONDAY,     // 0
-    TUESDAY,    // 1
-    WEDNESDAY,  // 2
-    THURSDAY,   // 3
-    FRIDAY      // 4
-};
-
-// assign an enumerator to an integer
-int x = THURSDAY;
-
-// can not directly assign an int to an enum variable
-Day day1 = static_cast<Day>(3);         // day1 = 3 is illegal!!
-Day day2 = static_cast<Day>(day1 + 1);  // day2 = day1 + 1 is illegal!!
-
-// compare enum values
-bool b = FRIDAY > MONDAY // true because FIRDAY comes after MONDAY
-
-// anonymous enum types can be used when you don't need to define variables
-enum {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY};
-
-// can specify integer values for all or some enumerators
-enum Color {RED, ORANGE, YELLOW = 9, GREEN, BLUE};
-```
-
-### Strongly typed enumerators `(enum class)`
-``` cpp
-// can specify multiple enumerators with the same name, within the same scope
-enum class President {MCKINLEY, ROOSEVELT, TAFT};
-enum class VicePresident {ROOSEVELT, FAIRBANKS, SHERMAN};
-
-// can not directly assign a strongly typed enum to an integer
-// int x = President::MCKINLEY is illegal!!
-int x = static_cast<int>(President::MCKINLEY);  
-
-// can specify any integer data type as the underlying type
-enum class Day : char {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY}; 
-```
 
 ## Structs and Classes
 Both `class` and `struct` declare a class. The only difference between the two is that structs have `public` members by default and classes have `private` members by default. Both classes and structs can have a mixture of public, protected and private members, can use inheritance and can have member functions.
@@ -544,8 +504,51 @@ A **pure virtual function** is a virtual member function of a base class that **
 virtual void foo() = 0;
 ```
 
+### Enumerated Data Types
+``` cpp
+// each enumerator is assigned an integer starting from 0
+enum Day
+{
+    MONDAY,     // 0
+    TUESDAY,    // 1
+    WEDNESDAY,  // 2
+    THURSDAY,   // 3
+    FRIDAY      // 4
+};
+
+// assign an enumerator to an integer
+int x = THURSDAY;
+
+// can not directly assign an int to an enum variable
+Day day1 = static_cast<Day>(3);         // day1 = 3 is illegal!!
+Day day2 = static_cast<Day>(day1 + 1);  // day2 = day1 + 1 is illegal!!
+
+// compare enum values
+bool b = FRIDAY > MONDAY // true because FIRDAY comes after MONDAY
+
+// anonymous enum types can be used when you don't need to define variables
+enum {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY};
+
+// can specify integer values for all or some enumerators
+enum Color {RED, ORANGE, YELLOW = 9, GREEN, BLUE};
+```
+
+#### Strongly typed enumerators `(enum class)`
+``` cpp
+// can specify multiple enumerators with the same name, within the same scope
+enum class President {MCKINLEY, ROOSEVELT, TAFT};
+enum class VicePresident {ROOSEVELT, FAIRBANKS, SHERMAN};
+
+// can not directly assign a strongly typed enum to an integer
+// int x = President::MCKINLEY is illegal!!
+int x = static_cast<int>(President::MCKINLEY);  
+
+// can specify any integer data type as the underlying type
+enum class Day : char {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY}; 
+```
+
 ## Exceptions
-#### Throwing an Exception
+### Throwing an Exception
 ``` cpp
 double divide(int numerator, int denominator)
 {
@@ -561,7 +564,7 @@ double divide(int numerator, int denominator)
 }
 ```
 
-#### Handling an Exception
+### Handling an Exception
 ``` cpp
 try
 {
@@ -581,7 +584,7 @@ There are two possible ways for a thrown exception to go uncaught:
 
 If an exception is thrown by the member function of a class object, then the class destructor is called. If any other objects had been created in the try block,their destructors will be called as well.
 
-#### Multiple Exceptions
+### Multiple Exceptions
 ``` cpp
 // define a custom exception class
 class MyException: public std::exception
@@ -633,7 +636,7 @@ catch (MyException& e)
 }
 ```
 
-#### Rethrowing an Exception
+### Rethrowing an Exception
 ``` cpp
 try
 {
@@ -645,7 +648,8 @@ catch(exception)
     throw;  // rethrow the exception
 }
 ```
-#### Standard Exceptions
+
+### Standard Exceptions
 | Exception             | Description                                                                                   |
 | :-------------------- | :-------------------------------------------------------------------------------------------- |
 | std::exception        | An exception and parent class of all the standard C++ exceptions.                             |

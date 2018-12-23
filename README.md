@@ -1,9 +1,9 @@
 # C++ Quick Reference
  1. [Namespaces](#1-namespaces)
  2. [Memory Management](#2-memory-management)<br>
-    2.1. [Pass by Reference](#21-pass-by-reference)<br>
-    2.2. [Raw Pointers](#22-raw-pointers)<br>
-    2.3. [Smart Pointers](#23-smart-pointers)
+    2.1. [Raw Pointers](#21-raw-pointers)<br>
+    2.2. [Smart Pointers](#22-smart-pointers)<br>
+    2.3. [References](#23-references)
  3. [Characters & Strings](#3-characters-and-strings)<br>
     3.1. [Character Functions](#31-character-functions)<br>
     3.2. [C-String Functions](#32-c-string-functions)<br>
@@ -154,44 +154,7 @@ delete [] s;                    // frees the allocated memory
 s = nullptr;
 ```
 
-### 2.1. Pass by Reference
-**Swap in C**<br>
-``` c
-// i and j are pointers to ints
-void swap(int* i, int *j)
-{
-    int temp = *i; // dereference i
-    *i = *j;
-    *j = temp;
-}
-
-// have to pass pointers to a and b
-swap(&a, &b);    
-```
-
-**Swap in C++**<br>
-``` cpp
-// i and j are references to ints
-inline void swap(int &i, int &j)
-{
-    int temp i; // no need to dereference
-    i = j;
-    j = temp;
-}
-
-// C++ allows function overloading unlike C
-inline void swap(double &i, double &j)
-{
-    double temp i;
-    i = j;
-    j = temp;
-}
-
-// no need to pass pointers
-swap(a, b);    
-```
-
-### 2.2. Raw Pointers
+### 2.1. Raw Pointers
 ``` cpp 
 // this function accepts a pointer to an array of constants
 void displayPayRates(const double* rates, int size)
@@ -211,7 +174,7 @@ int number = 15;
 const int* const ptr = &number 
 ```
 
-### 2.3. Smart Pointers
+### 2.2. Smart Pointers
 Smart pointers are defined in the `std` namespace in the `<memory>` header file. 
 
 In most cases, when you initialize a raw pointer or resource handle to point to an actual resource, pass the pointer to a smart pointer immediately. In modern C++, raw pointers are only used in small code blocks of limited scope, loops, or helper functions where performance is critical and there is no chance of confusion about ownership.
@@ -285,6 +248,37 @@ void smartPointerDemo()
 
     // do some other work...
 }
+```
+
+### 2.3. References
+A reference variable is an alias, that is, another name for an already existing variable. A reference, like a pointer is also implemented by storing the address of an object.
+A reference can be thought of as a constant pointer (not to be confused with a pointer to a constant value) with automatic indirection, i.e the compiler will apply the * operator for you.
+
+#### Example
+``` cpp
+// i and j are pointers to ints
+void swap(int* i, int *j)
+{
+    int temp = *i; // dereference i
+    *i = *j;
+    *j = temp;
+}
+
+// have to pass pointers to a and b
+swap(&a, &b);    
+```
+
+``` cpp
+// i and j are references to ints
+inline void swap(int &i, int &j)
+{
+    int temp i; // no need to dereference
+    i = j;
+    j = temp;
+}
+
+// no need to pass pointers
+swap(a, b);    
 ```
 
 ## 3. Characters and Strings

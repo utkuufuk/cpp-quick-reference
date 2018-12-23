@@ -447,8 +447,13 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 ```
 
 ### 4.2. Maps
-*Coming soon...*
+Maps are associative containers that store elements formed by a combination of a key value and a mapped value, following a specific order.
 
+In a map, the key values are generally used to sort and uniquely identify the elements, while the mapped values store the content associated to this key. The types of key and mapped value may differ.
+
+The mapped values in a map can be accessed directly by their corresponding key using the bracket operator `[]`.
+
+![Maps](images/maps.png)
 
 ## 5. Structs and Classes
 Both `class` and `struct` declare a class. The only difference between the two is that structs have `public` members by default and classes have `private` members by default. Both classes and structs can have a mixture of public, protected and private members, can use inheritance and can have member functions.

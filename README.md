@@ -189,9 +189,8 @@ Reference-counted smart pointer. Use when you want to assign one raw pointer to 
 **`weak_ptr`**<br>
 Special-case smart pointer for use in conjunction with `shared_ptr`. Provides access to an object that is owned by one or more `shared_ptr` instances, but does not participate in reference counting. Use when you want to observe an object, but do not require it to remain alive. Required in some cases to break circular references between `shared_ptr` instances.
 
-#### Example
 ``` cpp
-void UseRawPointer()
+void useRawPointer()
 {
     // using a raw pointer
     Song* pSong = new Song("Nothing on You", "Bruno Mars"); 
@@ -202,7 +201,7 @@ void UseRawPointer()
     delete pSong;   
 }
 
-void UseSmartPointer()
+void useSmartPointer()
 {
     // declare a smart pointer on stack and pass it the raw pointer
     unique_ptr<Song> song2(new Song("Nothing on You", "Bruno Mars"));
@@ -218,7 +217,6 @@ The smart pointer destructor contains the call to delete, and because the smart 
 
 Smart pointers have their own member functions, which are accessed by using “dot” notation. For example, some C++ Standard Library smart pointers have a reset member function that releases ownership of the pointer. This is useful when you want to free the memory owned by the smart pointer before the smart pointer goes out of scope, as shown in the following example.
 
-#### Example 2
 ``` cpp
 class LargeObject
 {

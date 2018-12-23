@@ -10,7 +10,7 @@
     3.3. [Strings](#33-strings)
  4. [Data Structures](#4-data-structures)<br>
     4.1. [Vectors](#41-vectors)<br>
-    4.2. [Maps](#42-maps) *(coming soon)*
+    4.2. [Maps](#42-maps)
  5. [Structs & Classes](#5-structs-and-classes)<br>
     5.1. [Structs](#51-structs)<br>
     5.2. [Classes](#52-classes)<br>

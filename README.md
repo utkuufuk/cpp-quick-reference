@@ -2,8 +2,8 @@
  1. [Namespaces](#1-namespaces)
  2. [Memory Management](#2-memory-management)<br>
     2.1. [Pass by Reference](#21-pass-by-reference)<br>
-    2.2. [Pointers](#22-pointers)<br>
-    2.3. [Smart Pointers](#23-smart-pointers) *(coming soon)*
+    2.2. [Raw Pointers](#22-raw-pointers)<br>
+    2.3. [Smart Pointers](#23-smart-pointers)
  3. [Characters & Strings](#3-characters-and-strings)<br>
     3.1. [Character Functions](#31-character-functions)<br>
     3.2. [C-String Functions](#32-c-string-functions)<br>
@@ -191,7 +191,7 @@ inline void swap(double &i, double &j)
 swap(a, b);    
 ```
 
-### 2.2. Pointers
+### 2.2. Raw Pointers
 ``` cpp 
 // this function accepts a pointer to an array of constants
 void displayPayRates(const double* rates, int size)
@@ -212,7 +212,80 @@ const int* const ptr = &number
 ```
 
 ### 2.3. Smart Pointers
-*Coming soon...*
+Smart pointers are defined in the `std` namespace in the `<memory>` header file. 
+
+In most cases, when you initialize a raw pointer or resource handle to point to an actual resource, pass the pointer to a smart pointer immediately. In modern C++, raw pointers are only used in small code blocks of limited scope, loops, or helper functions where performance is critical and there is no chance of confusion about ownership.
+
+#### Types of Smart Pointers
+**`unique_ptr`**<br>
+Allows exactly one owner of the underlying pointer. Use as the default choice for POCO unless you know for certain that you require a `shared_ptr`. Can be moved to a new owner, but not copied or shared. The size is one pointer and it supports `rvalue` references for fast insertion and retrieval from C++ Standard Library collections.
+
+**`shared_ptr`**<br>
+Reference-counted smart pointer. Use when you want to assign one raw pointer to multiple owners, for example, when you return a copy of a pointer from a container but want to keep the original. The raw pointer is not deleted until all `shared_ptr` owners have gone out of scope or have otherwise given up ownership. The size is two pointers; one for the object and one for the shared control block that contains the reference count.
+
+**`weak_ptr`**<br>
+Special-case smart pointer for use in conjunction with `shared_ptr`. Provides access to an object that is owned by one or more `shared_ptr` instances, but does not participate in reference counting. Use when you want to observe an object, but do not require it to remain alive. Required in some cases to break circular references between `shared_ptr` instances.
+
+#### Example
+``` cpp
+void UseRawPointer()
+{
+    // using a raw pointer
+    Song* pSong = new Song("Nothing on You", "Bruno Mars"); 
+
+    // use pSong...
+
+    // don't forget to delete!
+    delete pSong;   
+}
+
+void UseSmartPointer()
+{
+    // declare a smart pointer on stack and pass it the raw pointer
+    unique_ptr<Song> song2(new Song("Nothing on You", "Bruno Mars"));
+
+    // use song2...
+    string s = song2->name;
+    // ...
+
+} // song2 is deleted automatically here
+```
+
+The smart pointer destructor contains the call to delete, and because the smart pointer is declared on the stack, its destructor is invoked when the smart pointer goes out of scope, even if an exception is thrown somewhere further up the stack.
+
+Smart pointers have their own member functions, which are accessed by using “dot” notation. For example, some C++ Standard Library smart pointers have a reset member function that releases ownership of the pointer. This is useful when you want to free the memory owned by the smart pointer before the smart pointer goes out of scope, as shown in the following example.
+
+#### Example 2
+``` cpp
+class LargeObject
+{
+    public:
+        void DoSomething() {}
+};
+
+void processLargeObject(const LargeObject& lo) {}
+void legacyLargeObjectFunction(LargeObject* lo) {}; 
+
+void smartPointerDemo()
+{    
+    // create the object and pass it to a smart pointer
+    std::unique_ptr<LargeObject> pLarge(new LargeObject());
+
+    // call a method on the object
+    pLarge->DoSomething();
+
+    // pass a reference to a method
+    processLargeObject(*pLarge);
+
+    // pass raw pointer to a legacy API
+    legacyLargeObjectFunction(pLarge.get()); 
+
+    // free the memory before we exit function block
+    pLarge.reset();
+
+    // do some other work...
+}
+```
 
 ## 3. Characters and Strings
 ### 3.1. Character Functions

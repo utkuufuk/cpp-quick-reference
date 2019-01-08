@@ -14,7 +14,7 @@
  5. [Structs & Classes](#5-structs-and-classes)<br>
     5.1. [Structs](#51-structs)<br>
     5.2. [Classes](#52-classes)<br>
-    5.3. [Inheritence](#53-inheritence)<br>
+    5.3. [Inheritance](#53-inheritance)<br>
     5.4. [Enumerated Data Types](#54-enumerated-data-types)
  6. [Templates](#6-templates)<br>
     6.1. [Function Templates](#61-function-templates)<br>
@@ -565,7 +565,7 @@ contactPtr = nullptr;   // good practice for preventing errors
 // no need to delete other objects because they live on stack and will get deleted when the calling function returns
 ```
 
-### 5.3. Inheritence
+### 5.3. Inheritance
 The parent class’s constructor is called before the child class’s constructor.<br> 
 The destructors are called in reverse order, with the child class’s destructor being called first.
 

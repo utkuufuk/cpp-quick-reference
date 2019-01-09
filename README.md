@@ -849,6 +849,6 @@ catch(exception)
     throw;  // rethrow the exception
 }
 ```
-## 9 Operator Overload
+## 9. Operator Overload
 In C++ you can customize operators to work with your custom classes.<br>
 See the example [SimpleVector](code/MyInt.h) class.

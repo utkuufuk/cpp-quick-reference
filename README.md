@@ -853,4 +853,4 @@ catch(exception)
 In C++ you can customize operators to work with your custom classes.<br>
 Some common operators that can be overloaded are the following: <br>
 ![operator overload](images/operator-overload.png)<br>
-See the example [SimpleVector](code/MyInt.h) class.
+See the example [MyInt](code/MyInt.h) class.

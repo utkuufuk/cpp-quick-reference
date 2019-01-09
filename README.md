@@ -21,7 +21,7 @@
     6.2. [Class Templates](#62-class-templates)
  7. [File Operations](#7-file-operations)
  8. [Exceptions](#8-exceptions)
- 9. [Operator Overload](#9-operators)
+ 9. [Operator Overload](#9-operator-overload)
 
 ## 1. Namespaces
 Namespaces provide a method for preventing name conflicts in large projects.
@@ -849,7 +849,6 @@ catch(exception)
     throw;  // rethrow the exception
 }
 ```
-##9 Operator Overload
-### Class operators
-In C++ you can customize operators to work with your custom classes.
+## 9 Operator Overload
+In C++ you can customize operators to work with your custom classes.<br>
 See the example [SimpleVector](code/MyInt.h) class.

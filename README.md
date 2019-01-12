@@ -130,7 +130,7 @@ int x = 5;                      // create an int on the stack
                                 // automatically freed when calling function returns
 
 int* y = new int(5);            // crates an integer on the heap, has to be freed manually using 'delete'
-delete y                        // frees heap memory occupied by y
+delete y;                       // frees heap memory occupied by y
 y = nullptr;                    // good practice for preventing errors
 ```
 
@@ -172,7 +172,7 @@ int* const ptr = &value;
 
 // this is a constant pointer to a constant
 int number = 15;
-const int* const ptr = &number 
+const int* const ptr = &number; 
 ```
 
 ### 2.2. Smart Pointers
@@ -347,7 +347,7 @@ int strcmp(char *string1, char *string2); // function prototype
 ```
 The result is
  - **zero** if the two strings are **equal**.
- - **negagive** if `string1` comes **before** `string2` in alphabetical order.
+ - **negative** if `string1` comes **before** `string2` in alphabetical order.
  - **positive** if `string1` comes **after** `string2` in alphabetical order.
 
 #### Numeric conversion functions
@@ -380,8 +380,8 @@ to_string(long double value);
 ### 3.3. Strings
 #### Defining `string` objects
 ``` cpp 
-// required for using the string data type
-#include <string>           
+#include <string>
+using namespace std;
 
 // defines an empty string
 string str0;                
@@ -621,7 +621,7 @@ Day day1 = static_cast<Day>(3);         // day1 = 3 is illegal!!
 Day day2 = static_cast<Day>(day1 + 1);  // day2 = day1 + 1 is illegal!!
 
 // compare enum values
-bool b = FRIDAY > MONDAY // true because FIRDAY comes after MONDAY
+bool b = FRIDAY > MONDAY;  // true because FIRDAY comes after MONDAY
 
 // anonymous enum types can be used when you don't need to define variables
 enum {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY};

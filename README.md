@@ -121,6 +121,24 @@ namespace Q
 }
 ```
 
+#### Anonymous Namepaces
+You can define anonymous namespaces to hide variables, types and functions from the end user. Anonymous namespaces are available only in their translation unit.
+
+As an example, check out the [header](code/multiply.h) and [implementation](code/multiply.cpp) files of the `multiply` namespace which can be used as follows:
+
+``` cpp
+#include <iostream>
+#include "multiply.h"
+
+int main(int argc, char **argv)
+{
+    std::cout << multiply::getFirst();      // OK
+    std::cout << multiply::getProduct();    // OK
+    std::cout << multiply::calc(3, 6);      // ERROR: 'calc' is not a member of 'multiply'
+    std::cout << multiply::first;           // ERROR: 'first' is not a member of 'multiply'
+}
+```
+
 ## 2. Memory Management
 Keywords `new` and `delete` in C++ replace `malloc` and `free` in C, with the exception that `new` and `delete` call the constructor and destructor as well. 
 

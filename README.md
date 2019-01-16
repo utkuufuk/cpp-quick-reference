@@ -121,7 +121,7 @@ namespace Q
 }
 ```
 
-#### Anonymous Namepaces
+#### Anonymous Namespaces
 You can define anonymous namespaces to hide variables, types and functions from the end user. Anonymous namespaces are available only in their translation unit.
 
 As an example, check out the [header](code/multiply.h) and [implementation](code/multiply.cpp) files of the `multiply` namespace which can be used as follows:

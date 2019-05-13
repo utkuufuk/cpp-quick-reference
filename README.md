@@ -22,6 +22,9 @@
  7. [File Operations](#7-file-operations)
  8. [Exceptions](#8-exceptions)
  9. [Operator Overloading](#9-operator-overloading)
+ 10. [Functions](#10-functions)<br>
+ 	10.1. [Pass By Value](#101-pass-by-value)<br>
+ 	10.2. [Pass By Reference](#102-pass-by-reference)
 
 ## 1. Namespaces
 Namespaces provide a method for preventing name conflicts in large projects.
@@ -871,3 +874,91 @@ catch(exception)
 You can customize operators to work with your custom classes. Take a look at the [MyInt](code/MyInt.h) class to see an example. Some common operators that can be overloaded are the following:
 
 ![Common Operators](images/common-operators.png)
+
+## 10. Functions
+Functions allow code to be written once, generically, and then called again at any point within the scope of the file. Functions can either be written globally (access from anywhere) or a part of a [namespace](#1-namespaces) or a [class/struct](#5-structs-and-classes).
+
+### Structure
+The structure of a function must follow 1) **return type** 2) **function name** 3) **argument list**. 
+
+#### Return Type
+The *return type* is the class or literal type of the returning value.
+
+#### Function Name
+The *function name* is the name of the function of you are going to use. This must be a unique name in your scope.
+
+#### Argument List
+The *argument list* is the list of arguments, in the exact order, you are going to pass to the function, to use. You can either have none to many arguments.
+
+``` cpp
+class MyMathClass
+{
+public:
+	MyMathClass()
+	{
+
+	}
+
+	// Function available only in an instance of a classs, to add two numbers, and returns their value
+	int Add(int val1, int val2)
+	{
+		return val1 + val2;
+	}
+};
+
+// Globally available function to say hi, with no arguments, and doesn't return anything
+void isEmpty()
+{
+	std::cout << "Hello There!" << std::endl;
+}
+```
+
+### 10.1 Pass By Value
+
+By default, functions only pass the values of their arguments *by value*. This means that if the value is changed within the function, it will not be affected when the function is complete.
+
+``` cpp
+void calculate(int value)
+{
+	value = value * 5;                      // Multiplies the value by 5 and stores it back into the variable
+	std::cout << value << std::endl;        // Outputs 15
+}
+
+int main()
+{
+	int myValue = 3;                        // Sets 'myValue' to the value of 3
+	std::cout << myValue << std::endl;      // Outputs 3
+	calculate(myValue);                     //Calls the function 'calculate' with the argument of 'myValue'
+	std::cout << myValue << std::endl;      // Outputs 3
+}
+
+Outputs:
+	3
+	15
+	3
+```
+
+### 10.2 Pass By Reference
+
+If an ampersand (**&**) is added inbetween an argument's type and name, the value will be *passed by reference*. This means the *address* of the value will be passed and any changes done to the value inside the function will be reflected outside of it.
+
+``` cpp
+void calculate(int & value)
+{
+	value = value * 5;                      // Multiplies the value by 5 and stores it back into the variable
+	std::cout << value << std::endl;        // Outputs 15
+}
+
+int main()
+{
+	int myValue = 3;                        // Sets 'myValue' to the value of 3
+	std::cout << myValue << std::endl;      // Outputs 3
+	calculate(myValue);                     // Calls the function 'calculate' with the argument of 'myValue'
+	std::cout << myValue << std::endl;      // Outputs 15
+}
+
+Outputs:
+	3
+	15
+	15
+```

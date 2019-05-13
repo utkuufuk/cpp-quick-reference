@@ -907,7 +907,7 @@ public:
 };
 
 // Globally available function to say hi, with no arguments, and doesn't return anything
-void isEmpty()
+void SayHello()
 {
 	std::cout << "Hello There!" << std::endl;
 }

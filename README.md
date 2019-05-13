@@ -548,7 +548,7 @@ for (int i = 0; i < 5; i++)
 ### 5.2. Classes
 Classes are usually made up of a specification file and an implementation file with extensions `.h` and `.cpp`; however it is also possible to put everyting inside a single `.h` file.
 
-As a simple example, see the [specification](code/Rectangle.cpp) and [implementation](code/Rectangle.cpp) files of the Rectangle class.
+As a simple example, see the [specification](code/Rectangle.h) and [implementation](code/Rectangle.cpp) files of the Rectangle class.
 
 #### Copy constructors and destructors
 See the [ContactInfo](code/ContactInfo.h) class.

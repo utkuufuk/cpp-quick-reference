@@ -900,6 +900,9 @@ void doSomething(int val)
 This function does not return anything (```void```), the name is ```doSomething``` and it has one argument ```val```. It can be called on in the program like this: ```doSomething(5);```.
 
 
+As a simple example, see the [implementation](code/functions.cpp) files of the functions.cpp program.
+
+
 Sample Code of showing global and class functions
 ``` cpp
 class MyMathClass

@@ -891,6 +891,17 @@ The *function name* is the name of the function of you are going to use. This mu
 The *argument list* is the list of arguments, in the exact order, you are going to pass to the function, to use. You can either have none to many arguments.
 
 ``` cpp
+void doSomething(int val)
+{
+	// Definition of do something
+}
+```
+
+This function does not return anything (```void```), the name is ```doSomething``` and it has one argument ```val```. It can be called on in the program like this: ```doSomething(5);```.
+
+
+Sample Code of showing global and class functions
+``` cpp
 class MyMathClass
 {
 public:

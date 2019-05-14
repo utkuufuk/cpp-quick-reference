@@ -958,7 +958,7 @@ auto nameCopy = myName; // C++ will infer 'nameCopy' based on the 'myName' varia
 
 Note that this only works when initializing a variable upon creation. Variables created without initialization values can not use this feature.
 
-In C++14, the auto keyword was extended to be able to auto-deduce a function’s return uype:
+In C++14, the `auto` keyword was extended to be able to auto-deduce a function’s return type:
 
 ```cpp
 auto add(int x, int y)

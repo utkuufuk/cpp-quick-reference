@@ -1,4 +1,5 @@
 # C++ Quick Reference
+
  1. [Namespaces](#1-namespaces)
  2. [Memory Management](#2-memory-management)<br>
     2.1. [Raw Pointers](#21-raw-pointers)<br>
@@ -22,93 +23,101 @@
  7. [File Operations](#7-file-operations)
  8. [Exceptions](#8-exceptions)
  9. [Operator Overloading](#9-operator-overloading)
- 10. [Auto](#10-auto)
+ 10. [`auto` Keyword](#10-auto-keyword)
 
 ## 1. Namespaces
+
 Namespaces provide a method for preventing name conflicts in large projects.
 
 Symbols declared inside a namespace block are placed in a named scope that prevents them from being mistaken for identically-named symbols in other scopes.
 
 Multiple namespace blocks with the same name are allowed. All declarations within those blocks are declared in the named scope.
 
-``` cpp
+```cpp
 // this line should not be put in headers because it defeats the purpose of using namespaces
 using namespace std;
 ```
+
 The line above allows you to directly use use functions & variables from `std` namespace:
-``` cpp
+
+```cpp
 cout << "Hello world." << endl;
 ```
+
 as opposed to:
-``` cpp
+
+```cpp
 std::cout << "Hello world." << std::endl;
 ```
 
 On the other hand, the following lets you use only `cout` & `endl` directly from `std:`
-``` cpp
+
+```cpp
 using std::cout;
 using std::endl;
 ```
 
 #### Example
-``` cpp
-#include <iostream> 
 
-namespace first 
-{ 
+```cpp
+#include <iostream>
+
+namespace first
+{
     int getVal()
     {
         return 5;
-    } 
-} 
+    }
+}
 
-namespace second  
-{ 
-    const double x = 100; 
+namespace second
+{
+    const double x = 100;
 
-    double getVal() 
-    {  
-        return 2 * x; 
-    } 
-} 
+    double getVal()
+    {
+        return 2 * x;
+    }
+}
 
-using namespace std; 
+using namespace std;
 using second::x;
- 
-int main() 
-{ 
-    // access function within first 
-    cout << first::getVal() << endl;  
-  
-    // access function within second 
-    cout << second::getVal() << endl;  
-  
-    // access variable x directly 
-    cout << x << endl;        
+
+int main()
+{
+    // access function within first
+    cout << first::getVal() << endl;
+
+    // access function within second
+    cout << second::getVal() << endl;
+
+    // access variable x directly
+    cout << x << endl;
 }
 ```
 
 #### Declarations & Definitions in Namespaces
-``` cpp
-namespace Q 
+
+```cpp
+namespace Q
 {
     // V is a member of Q, and is fully defined within Q
-    namespace V 
-    { 
+    namespace V
+    {
         // C is a member of V and is fully defined within V
-        class C 
-        { 
+        class C
+        {
             // C::m is only declared
-            void m(); 
-        }; 
-                            
+            void m();
+        };
+
         // f is a member of V, but is only declared here
-        void f(); 
+        void f();
     }
 
     // definition of V's member f outside of V
     // f's enclosing namespaces are still the global namespace, Q, and Q::V
-    void V::f() 
+    void V::f()
     {
         // This declares ::Q::V::h
         extern void h();
@@ -116,18 +125,19 @@ namespace Q
 
     // definition of V::C::m outside of the namespace (and the class body)
     // enclosing namespaces are the global namespace, Q, and Q::V
-    void V::C::m() 
+    void V::C::m()
     {
     }
 }
 ```
 
 #### Anonymous Namespaces
+
 You can define anonymous namespaces to hide variables, types and functions from the end user. Anonymous namespaces are available only in their translation unit.
 
 As an example, check out the [header](code/multiply.h) and [implementation](code/multiply.cpp) files of the `multiply` namespace which can be used as follows:
 
-``` cpp
+```cpp
 #include <iostream>
 #include "multiply.h"
 
@@ -141,10 +151,12 @@ int main(int argc, char **argv)
 ```
 
 ## 2. Memory Management
-Keywords `new` and `delete` in C++ replace `malloc` and `free` in C, with the exception that `new` and `delete` call the constructor and destructor as well. 
+
+Keywords `new` and `delete` in C++ replace `malloc` and `free` in C, with the exception that `new` and `delete` call the constructor and destructor as well.
 
 #### Primitive Values
-``` cpp
+
+```cpp
 int x = 5;                      // create an int on the stack
                                 // automatically freed when calling function returns
 
@@ -154,7 +166,8 @@ y = nullptr;                    // good practice for preventing errors
 ```
 
 #### Classes & Objects
-``` cpp
+
+```cpp
 class Person
 {
     // constructor
@@ -162,20 +175,22 @@ class Person
     // other members
 }
 
-Person* person = new Person();  // calls the constructor & instantiates a Person object 
+Person* person = new Person();  // calls the constructor & instantiates a Person object
 delete person;                  // calls the destructor & frees heap memory occupied by person
 person = nullptr;
 ```
 
 #### Arrays
-``` cpp
+
+```cpp
 char* s = new char[size];       // dynamically allocates memory for an array
 delete [] s;                    // frees the allocated memory
 s = nullptr;
 ```
 
 ### 2.1. Raw Pointers
-``` cpp 
+
+```cpp
 // this function accepts a pointer to an array of constants
 void displayPayRates(const double* rates, int size)
 {
@@ -187,19 +202,21 @@ void displayPayRates(const double* rates, int size)
 
 // constant pointers can not point to something else
 int value = 22;
-int* const ptr = &value; 
+int* const ptr = &value;
 
 // this is a constant pointer to a constant
 int number = 15;
-const int* const ptr = &number; 
+const int* const ptr = &number;
 ```
 
 ### 2.2. Smart Pointers
-Smart pointers are defined in the `std` namespace in the `<memory>` header file. 
+
+Smart pointers are defined in the `std` namespace in the `<memory>` header file.
 
 In most cases, when you initialize a raw pointer or resource handle to point to an actual resource, pass the pointer to a smart pointer immediately. In modern C++, raw pointers are only used in small code blocks of limited scope, loops, or helper functions where performance is critical and there is no chance of confusion about ownership.
 
 #### Types of Smart Pointers
+
 **`unique_ptr`**<br>
 Allows exactly one owner of the underlying pointer. Use as the default choice for POCO unless you know for certain that you require a `shared_ptr`. Can be moved to a new owner, but not copied or shared. The size is one pointer and it supports `rvalue` references for fast insertion and retrieval from C++ Standard Library collections.
 
@@ -209,16 +226,16 @@ Reference-counted smart pointer. Use when you want to assign one raw pointer to 
 **`weak_ptr`**<br>
 Special-case smart pointer for use in conjunction with `shared_ptr`. Provides access to an object that is owned by one or more `shared_ptr` instances, but does not participate in reference counting. Use when you want to observe an object, but do not require it to remain alive. Required in some cases to break circular references between `shared_ptr` instances.
 
-``` cpp
+```cpp
 void useRawPointer()
 {
     // using a raw pointer
-    Song* pSong = new Song("Nothing on You", "Bruno Mars"); 
+    Song* pSong = new Song("Nothing on You", "Bruno Mars");
 
     // use pSong...
 
     // don't forget to delete!
-    delete pSong;   
+    delete pSong;
 }
 
 void useSmartPointer()
@@ -237,7 +254,7 @@ The smart pointer destructor contains the call to delete, and because the smart 
 
 Smart pointers have their own member functions, which are accessed by using “dot” notation. For example, some C++ Standard Library smart pointers have a reset member function that releases ownership of the pointer. This is useful when you want to free the memory owned by the smart pointer before the smart pointer goes out of scope, as shown in the following example.
 
-``` cpp
+```cpp
 class LargeObject
 {
     public:
@@ -245,10 +262,10 @@ class LargeObject
 };
 
 void processLargeObject(const LargeObject& lo) {}
-void legacyLargeObjectFunction(LargeObject* lo) {}; 
+void legacyLargeObjectFunction(LargeObject* lo) {};
 
 void smartPointerDemo()
-{    
+{
     // create the object and pass it to a smart pointer
     std::unique_ptr<LargeObject> pLarge(new LargeObject());
 
@@ -259,7 +276,7 @@ void smartPointerDemo()
     processLargeObject(*pLarge);
 
     // pass raw pointer to a legacy API
-    legacyLargeObjectFunction(pLarge.get()); 
+    legacyLargeObjectFunction(pLarge.get());
 
     // free the memory before we exit function block
     pLarge.reset();
@@ -269,11 +286,13 @@ void smartPointerDemo()
 ```
 
 ### 2.3. References
+
 A reference variable is an alias, that is, another name for an already existing variable. A reference, like a pointer is also implemented by storing the address of an object.
-A reference can be thought of as a constant pointer (not to be confused with a pointer to a constant value) with automatic indirection, i.e the compiler will apply the * operator for you.
+A reference can be thought of as a constant pointer (not to be confused with a pointer to a constant value) with automatic indirection, i.e the compiler will apply the \* operator for you.
 
 #### Example
-``` cpp
+
+```cpp
 // i and j are pointers to ints
 void swap(int* i, int *j)
 {
@@ -283,10 +302,10 @@ void swap(int* i, int *j)
 }
 
 // have to pass pointers to a and b
-swap(&a, &b);    
+swap(&a, &b);
 ```
 
-``` cpp
+```cpp
 // i and j are references to ints
 inline void swap(int &i, int &j)
 {
@@ -296,15 +315,19 @@ inline void swap(int &i, int &j)
 }
 
 // no need to pass pointers
-swap(a, b);    
+swap(a, b);
 ```
 
 ## 3. Characters and Strings
+
 ### 3.1. Character Functions
-```cpp 
+
+```cpp
 #include <cctype>   // required for using the functions below
-```  
+```
+
 #### Character testing
+
 | Function  | Returns true if the argument is a ...; returns 0 otherwise  |
 | :-------: | :---------------------------------------------------------- |
 | `isalpha` | letter of the alphabet.                                     |
@@ -317,62 +340,74 @@ swap(a, b);
 | `isspace` | whitespace character. (`' '`, `' \n '`, `' \v '`, `' \t '`) |
 
 #### Character case conversion
+
 | Function  | Description                                       |
 | :-------: | :------------------------------------------------ |
 | `toupper` | Returns the uppercase equivalent of its argument. |
 | `tolower` | Returns the lowercase equivalent of its argument. |
 
 ### 3.2. C-String Functions
-``` cpp 
+
+```cpp
 #include <cstring>  // required for using the functions below
-```  
+```
 
 #### `strlen`
-``` cpp 
+
+```cpp
 // don't confuse the length of a string with the size of the array holding it
 char name[] = "banana";
 int length = strlen(name); // length is 6
 ```
 
 #### `strcat` (see also: [`strncat`](http://www.cplusplus.com/reference/cstring/strncat/))
-*If the array holding the first string isn't large enough to hold both strings,
-`strcat` will overflow the boundaries of the array.*
-``` cpp 
-char string1[100] = "Hello ";   // string1 has enough capacity for strcat 
+
+_If the array holding the first string isn't large enough to hold both strings,
+`strcat` will overflow the boundaries of the array._
+
+```cpp
+char string1[100] = "Hello ";   // string1 has enough capacity for strcat
 char string2[] = "World!";
 strcat(string1, string2);
 cout << string1 << endl;        // outputs "Hello World!"
 ```
 
 #### `strcpy` (see also: [`strncpy`](http://www.cplusplus.com/reference/cstring/strncpy/))
-*`strcpy` performs no bounds checking. The array specified by the first 
+
+_`strcpy` performs no bounds checking. The array specified by the first
 argument will be overflowed if it isn’t large enough to hold the string
-specified by the second argument.*
-``` cpp
+specified by the second argument._
+
+```cpp
 char name[] = "Some other string";  // size of the holding array is sufficient
 strcpy(name, "Albert Einstein");
 ```
 
 #### `strstr`
-``` cpp
+
+```cpp
 char arr[] = "Four score and seven years ago";
 char *ptr = strstr(arr, "seven");   // search for "seven" and return address
 cout << ptr << endl;                // outputs "seven years ago"
 ```
 
 #### `strcmp`
-``` cpp
+
+```cpp
 int strcmp(char *string1, char *string2); // function prototype
 ```
+
 The result is
- - **zero** if the two strings are **equal**.
- - **negative** if `string1` comes **before** `string2` in alphabetical order.
- - **positive** if `string1` comes **after** `string2` in alphabetical order.
+
+-   **zero** if the two strings are **equal**.
+-   **negative** if `string1` comes **before** `string2` in alphabetical order.
+-   **positive** if `string1` comes **after** `string2` in alphabetical order.
 
 #### Numeric conversion functions
-``` cpp 
+
+```cpp
 // required for using the following functions
-#include <cstdlib>   
+#include <cstdlib>
 
 //Converts a c-string to an integer.
 int intVal = atoi("1000");
@@ -397,52 +432,60 @@ to_string(long double value);
 ```
 
 ### 3.3. Strings
+
 #### Defining `string` objects
-``` cpp 
+
+```cpp
 #include <string>
 using namespace std;
 
 // defines an empty string
-string str0;                
+string str0;
 
 // defines a string initialized with "Hello"
-string str1 = "Hello";      
+string str1 = "Hello";
 
 // defines a string initialized with "Greetings!"
-string str2("Greetings!");  
+string str2("Greetings!");
 
 // defines a string which is a copy of str2. (str2 may be a string or a c-string)
-string str3(str2);          
+string str3(str2);
 
-// this has to be a c-string, not a string 
-char cStr[] = "abcdefgh";   
+// this has to be a c-string, not a string
+char cStr[] = "abcdefgh";
 
 // defines a string which is initialized to the first 5 characters in cStr
-string str4(cStr, 5);       
+string str4(cStr, 5);
 
 // defines a string initialized with 10 'x' chars
-string str5('x', 10);       
+string str5('x', 10);
 
-// defines a string which is initialized with a substring of str5. 
-string str6(str5, 2, 8);    
+// defines a string which is initialized with a substring of str5.
+string str6(str5, 2, 8);
 ```
+
 #### `string` operators
-There is no need to use a function such as `strcmp` to compare string objects. 
+
+There is no need to use a function such as `strcmp` to compare string objects.
 You may use the `<` , `>` , `<=` , `>=` , `==` , and `!=` relational operators.
 
-``` cpp
+```cpp
 string s1 = "Hello ";
 string s2 = "World!";
 string mystring = s1 + s2;  // concatenates s1 and s2
 char c = mystring[0];       // returns the char at position 0 in mystring
 ```
+
 #### `string` member functions
+
 ![string functions 1](images/string_functions_1.png)
 ![string functions 2](images/string_functions_2.png)
 ![string functions 3](images/string_functions_3.png)
 
 ### 4. Data Structures
+
 ### 4.1. Vectors
+
 ```cpp
 #include <vector>
 using namespace std;
@@ -451,7 +494,7 @@ vector<int> numbers1;                   // an empty vector of ints
 vector<int> numbers2(10);               // a vector of 10 ints
 vector<int> numbers3(10, 2);            // a vector of 10 ints, each initialized to 2
 vector<int> numbers4 {10, 20, 30, 40};  // a vector initialized with an initialization list
-vector<int> myVec(numbers4);            // a vector initialized with the elements of numbers4 
+vector<int> myVec(numbers4);            // a vector initialized with the elements of numbers4
 
 int val = myVec.at(index);  // return the value of the element located at index of myVec
 int* arr = myVec.data();    // return the underlying int array of myVec
@@ -467,6 +510,7 @@ myVec.swap(someVec);        // swap the contents of myVec with the contents of a
 ```
 
 ### 4.2. Maps
+
 Maps are associative containers that store elements formed by a combination of a key value and a mapped value, following a specific order.
 
 In a map, the key values are generally used to sort and uniquely identify the elements, while the mapped values store the content associated to this key. The types of key and mapped value may differ.
@@ -476,15 +520,17 @@ The mapped values in a map can be accessed directly by their corresponding key u
 ![Maps](images/maps.png)
 
 ## 5. Structs and Classes
+
 Both `class` and `struct` declare a class. The only difference between the two is that structs have `public` members by default and classes have `private` members by default. Both classes and structs can have a mixture of public, protected and private members, can use inheritance and can have member functions.
 
 Beyond syntax, the only reason to choose one over the other is convention/style/preference. Structs are usually used as plain old data structures without any class-like features, and classes are used as aggregate data structures with private data and member functions.
 
-**Note:** *By default, structs/classes are passed to functions by value.*<br>
-**Note:** *You can return local structs/classes defined in functions unlike arrays.*
+**Note:** _By default, structs/classes are passed to functions by value._<br>
+**Note:** _You can return local structs/classes defined in functions unlike arrays._
 
 ### 5.1. Structs
-``` cpp
+
+```cpp
 // declare a struct
 struct CityInfo
 {
@@ -500,8 +546,8 @@ CityInfo cities[20];
 
 // initialize a struct
 CityInfo location = {"Asheville", "NC", 50000, 28};
-CityInfo location = {"Atlanta"};  // only cityName is initialized 
-CityInfo cities[2] = {{"Asheville", "NC", 50000, 28}, 
+CityInfo location = {"Atlanta"};  // only cityName is initialized
+CityInfo cities[2] = {{"Asheville", "NC", 50000, 28},
                       {"Atlanta", "GA", 45000, 90}};
 
 // access struct members
@@ -523,7 +569,8 @@ cout << manager.birthPlace.population << endl;
 ```
 
 #### Dynamically allocating structs
-``` cpp
+
+```cpp
 struct Circle
 {
     double radius;
@@ -547,17 +594,20 @@ for (int i = 0; i < 5; i++)
 ```
 
 ### 5.2. Classes
+
 Classes are usually made up of a specification file and an implementation file with extensions `.h` and `.cpp`; however it is also possible to put everyting inside a single `.h` file.
 
 As a simple example, see the [specification](code/Rectangle.h) and [implementation](code/Rectangle.cpp) files of the Rectangle class.
 
 #### Copy constructors and destructors
+
 See the [ContactInfo](code/ContactInfo.h) class.
 
 #### Objects
+
 Here's some example usage of the [Rectangle](code/Rectangle.h) and [ContactInfo](ContactInfo.h) classes:
 
-``` cpp
+```cpp
 // define an object from the Rectangle class (lives on stack)
 Rectangle box1(12.8, 9.4);
 
@@ -578,15 +628,16 @@ contactPtr->getName();
 ContactInfo newContact = *contactPtr;       // our copy constructor is called here automatically
 const char* newName = newContact.getName(); // same as "Kristen Lee"
 
-// the destructor is called here automatically 
-delete contactPtr;      
+// the destructor is called here automatically
+delete contactPtr;
 contactPtr = nullptr;   // good practice for preventing errors
 
 // no need to delete other objects because they live on stack and will get deleted when the calling function returns
 ```
 
 ### 5.3. Inheritance
-The parent class’s constructor is called before the child class’s constructor.<br> 
+
+The parent class’s constructor is called before the child class’s constructor.<br>
 The destructors are called in reverse order, with the child class’s destructor being called first.
 
 See the [Cube](code/Cube.h) class which inherits from the [Rectangle](code/Rectangle.h) class.
@@ -596,12 +647,13 @@ See the [Cube](code/Cube.h) class which inherits from the [Rectangle](code/Recta
 **NOTE:** If the base class access specification is left out of a declaration, the default access specification is `private.`
 
 #### Polymorphism
+
 Any class that has a virtual member function should also have a virtual destructor.<br>
 Even if the class doesn’t normally require a destructor, it should still have an empty virtual destructor.
 
 See the [GradedActivity](code/GradedActivity.h) and [PassFailActivity](code/PassFailActivity.h) and then the example usage below:
 
-``` cpp
+```cpp
 PassFailActivity pfActivity(70);
 pfActivity.setScore(72);
 displayGrade(pfActivity);
@@ -614,14 +666,17 @@ void displayGrade(const GradedActivity &activity)
 ```
 
 #### Abstract Classes
+
 A **pure virtual function** is a virtual member function of a base class that **must be overridden**. When a class contains a pure virtual function as a member, that class becomes an **abstract class**.
-``` cpp
+
+```cpp
 // this is a pure virtual function
 virtual void foo() = 0;
 ```
 
 ### 5.4 Enumerated Data Types
-``` cpp
+
+```cpp
 // each enumerator is assigned an integer starting from 0
 enum Day
 {
@@ -650,22 +705,25 @@ enum Color {RED, ORANGE, YELLOW = 9, GREEN, BLUE};
 ```
 
 #### Strongly typed enumerators `(enum class)`
-``` cpp
+
+```cpp
 // can specify multiple enumerators with the same name, within the same scope
 enum class President {MCKINLEY, ROOSEVELT, TAFT};
 enum class VicePresident {ROOSEVELT, FAIRBANKS, SHERMAN};
 
 // can not directly assign a strongly typed enum to an integer
 // int x = President::MCKINLEY is illegal!!
-int x = static_cast<int>(President::MCKINLEY);  
+int x = static_cast<int>(President::MCKINLEY);
 
 // can specify any integer data type as the underlying type
-enum class Day : char {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY}; 
+enum class Day : char {MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRIDAY};
 ```
 
 ## 6. Templates
+
 ### 6.1. Function Templates
-``` cpp
+
+```cpp
 template <class T>
 void swap(T &i, T &j)
 {
@@ -674,13 +732,15 @@ void swap(T &i, T &j)
     j = temp;
 }
 
-swap(a, b);   
+swap(a, b);
 ```
 
 ### 6.2. Class Templates
+
 See the example [SimpleVector](code/SimpleVector.h) class.
 
 ## 7. File Operations
+
 | Data Type  | Description                                                    |
 | :--------: | :------------------------------------------------------------- |
 | `ifstream` | Input file stream. Can be used to read data from files.        |
@@ -688,19 +748,20 @@ See the example [SimpleVector](code/SimpleVector.h) class.
 | `fstream`  | File stream. Can be used to read and write data to/from files. |
 
 #### `ifstream` and `ofstream`
-``` cpp
+
+```cpp
 #include <fstream>
 
 // open an ifstream
 ifstream inputFile;
 inputFile.open("InputFile.txt");
-// Alternatively: 
+// Alternatively:
 // ifstream inputFile("InputFile.txt");
 
 // open an ofstream
 ofstream outputFile;
 outputFile.open("OutputFile.txt");
-// Alternatively: 
+// Alternatively:
 // ofstream outputFile("OutputFile.txt");
 
 // open ofstream in append mode
@@ -714,7 +775,8 @@ outputFile.close();
 ```
 
 #### `fstream`
-``` cpp
+
+```cpp
 #include <fstream>
 
 fstream file;
@@ -744,32 +806,36 @@ file.close();
 ```
 
 #### File access flags
+
 By using different combinations of access flags, you can open files in many possible modes:
 ![File Access Flags](images/file-access-flags.png)
 
 ## 8. Exceptions
+
 ### Standard Exceptions
+
 ![Standard Exceptions](images/exceptions.jpg)
 
-| Exception               | Description                                                                                 |
-| :---------------------- | :------------------------------------------------------------------------------------------ |
-| `std::exception`        | An exception and parent class of all the standard C++ exceptions.                           |
-| `std::bad_alloc`        | This can be thrown by new.                                                                  |
-| `std::bad_cast`         | This can be thrown by dynamic_cast.                                                         |
-| `std::bad_exception`    | This is useful device to handle unexpected exceptions in a C++ program.                     |
-| `std::bad_typeid`       | This can be thrown by typeid.                                                               |
-| `std::logic_error`      | An exception that theoretically can be detected by reading the code.                        |
-| `std::domain_error`     | This is an exception thrown when a mathematically invalid domain is used.                   |
-| `std::invalid_argument` | This is thrown due to invalid arguments.                                                    |
-| `std::length_error`     | This is thrown when a too big std::string is created.                                       |
-| `std::out_of_range`     | This can be thrown by the 'at' method, e.g. a std::vector and std::bitset<>::operator[]().  |	
-| `std::runtime_error`    | An exception that theoretically cannot be detected by reading the code.                     |	
-| `std::overflow_error`   | This is thrown if a mathematical overflow occurs.                                           |
-| `std::range_error`      | This is occurred when you try to store a value which is out of range.                       |
-| `std::underflow_error`  | This is thrown if a mathematical underflow occurs.                                          |
+| Exception               | Description                                                                                |
+| :---------------------- | :----------------------------------------------------------------------------------------- |
+| `std::exception`        | An exception and parent class of all the standard C++ exceptions.                          |
+| `std::bad_alloc`        | This can be thrown by new.                                                                 |
+| `std::bad_cast`         | This can be thrown by dynamic_cast.                                                        |
+| `std::bad_exception`    | This is useful device to handle unexpected exceptions in a C++ program.                    |
+| `std::bad_typeid`       | This can be thrown by typeid.                                                              |
+| `std::logic_error`      | An exception that theoretically can be detected by reading the code.                       |
+| `std::domain_error`     | This is an exception thrown when a mathematically invalid domain is used.                  |
+| `std::invalid_argument` | This is thrown due to invalid arguments.                                                   |
+| `std::length_error`     | This is thrown when a too big std::string is created.                                      |
+| `std::out_of_range`     | This can be thrown by the 'at' method, e.g. a std::vector and std::bitset<>::operator[](). |
+| `std::runtime_error`    | An exception that theoretically cannot be detected by reading the code.                    |
+| `std::overflow_error`   | This is thrown if a mathematical overflow occurs.                                          |
+| `std::range_error`      | This is occurred when you try to store a value which is out of range.                      |
+| `std::underflow_error`  | This is thrown if a mathematical underflow occurs.                                         |
 
 ### Throwing an Exception
-``` cpp
+
+```cpp
 double divide(int numerator, int denominator)
 {
     if (denominator == 0)
@@ -785,7 +851,8 @@ double divide(int numerator, int denominator)
 ```
 
 ### Handling an Exception
-``` cpp
+
+```cpp
 try
 {
     double quotient = divide(num1, num2);
@@ -796,16 +863,19 @@ catch (string exceptionString)  // only catches exceptions of type "string"
     cout << exceptionString;
 }
 ```
-There are two possible ways for a thrown exception to go uncaught: 
-1. The try/catch construct contains no catch blocks with an exception parameter of the right data type. 
-2. The exception is thrown from outside a try block. 
 
-*In either case, the exception will cause the entire program to abort execution.*
+There are two possible ways for a thrown exception to go uncaught:
+
+1. The try/catch construct contains no catch blocks with an exception parameter of the right data type.
+2. The exception is thrown from outside a try block.
+
+_In either case, the exception will cause the entire program to abort execution._
 
 If an exception is thrown by the member function of a class object, then the class destructor is called. If any other objects had been created in the try block,their destructors will be called as well.
 
 ### Multiple Exceptions
-``` cpp
+
+```cpp
 // define a custom exception class
 class MyException: public std::exception
 {
@@ -832,7 +902,7 @@ double divide(int numerator, int denominator)
     else if (numerator < 0 || denominator < 0)
     {
         // throw an exception of type "MyException"
-        throw MyException("Negative arguments not allowed!"); 
+        throw MyException("Negative arguments not allowed!");
     }
     else
     {
@@ -852,63 +922,51 @@ catch (string msg)  // only catches exceptions of type "string"
 }
 catch (MyException& e)
 {
-    cout << "Error: " << e.what() << endl;    
+    cout << "Error: " << e.what() << endl;
 }
 ```
 
 ### Rethrowing an Exception
-``` cpp
+
+```cpp
 try
 {
     // assume that this function throws an exception of type "exception"
-    doSomething();  
+    doSomething();
 }
 catch(exception)
 {
     throw;  // rethrow the exception
 }
 ```
+
 ## 9. Operator Overloading
+
 You can customize operators to work with your custom classes. Take a look at the [MyInt](code/MyInt.h) class to see an example. Some common operators that can be overloaded are the following:
 
 ![Common Operators](images/common-operators.png)
 
-## 10. Auto
-**Auto** was introduced as a reserved key word in [C++11](https://en.wikipedia.org/wiki/C%2B%2B11#Type_inference) and gained popularity in C++14.
+## 10. `auto` Keyword
 
-The purpose of auto is to have the C++ compiler *infer* the data type of a variable.
+Starting from C++11, the `auto` keyword can be used to _infer_ the type of a variable.
 
-``` cpp
-auto x = 5;                      // Auto will infer this is an integer
-
+```cpp
+auto x = 5; // C++ will infer this is an integer
 std::string myName = "Billy";
-auto nameCopy = myName;          // Auto will infer based on the 'myName' variable
+auto nameCopy = myName; // C++ will infer 'nameCopy' based on the 'myName' variable
 ```
 
-**Auto** should be used sparingly, however. Over using it can save time but it can also cause issues when certain logic relies on infered types. Take the example code below. *myCalculation* is calculated by using the returned value of *getValue()*. In this example it returns a double, so *myValue* is a double.
+Note that this only works when initializing a variable upon creation. Variables created without initialization values can not use this feature.
 
-``` cpp
-double getValue()
+In C++14, the auto keyword was extended to be able to auto-deduce a function’s return uype:
+
+```cpp
+auto add(int x, int y)
 {
-	return 0.1;
+    return x + y;
 }
-
-auto myValue = getValue();
-auto myCalculation = 1235 / myValue;    // This results in a value of 12,350
 ```
 
-However if a small change is done, your program will now crash with a divide by zero error
+Since `x + y` evaluates to an integer, the compiler will deduce this function should have a return type of `int`.
 
-``` cpp
-int getValue()
-{
-	return 0.1;
-}
-
-auto myValue = getValue();
-auto myCalculation = 1235 / myValue;    // This results in a divide by zero exception
-```
-
-Be careful of how you use **auto** and use it when you know the logic will not be easily fowled up on future changes.
-
-Take a look at a quick example of a program using auto [here!](code/auto-sample.cpp). Comment the function signatures to see how the program will work with *double* and fail with *int*.
+A good rule of thumb is that `auto` is okay to use when defining a variable, because the object the variable is inferring a type from is right there, on the right side of the statement. However, with functions, that is not the case -- there’s no context to help indicate what type the function returns. A user would actually have to dig into the function body itself to determine what type the function returned. It’s much less intuitive, and therefore more error prone.

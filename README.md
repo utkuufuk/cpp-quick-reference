@@ -22,6 +22,7 @@
  7. [File Operations](#7-file-operations)
  8. [Exceptions](#8-exceptions)
  9. [Operator Overloading](#9-operator-overloading)
+ 10. [Auto](#10-auto)
 
 ## 1. Namespaces
 Namespaces provide a method for preventing name conflicts in large projects.
@@ -871,3 +872,43 @@ catch(exception)
 You can customize operators to work with your custom classes. Take a look at the [MyInt](code/MyInt.h) class to see an example. Some common operators that can be overloaded are the following:
 
 ![Common Operators](images/common-operators.png)
+
+## 10. Auto
+**Auto** was introduced as a reserved key word in [C++11](https://en.wikipedia.org/wiki/C%2B%2B11#Type_inference) and gained popularity in C++14.
+
+The purpose of auto is to have the C++ compiler *infer* the data type of a variable.
+
+``` cpp
+auto x = 5;                      // Auto will infer this is an integer
+
+std::string myName = "Billy";
+auto nameCopy = myName;          // Auto will infer based on the 'myName' variable
+```
+
+**Auto** should be used sparingly, however. Over using it can save time but it can also cause issues when certain logic relies on infered types. Take the example code below. *myCalculation* is calculated by using the returned value of *getValue()*. In this example it returns a double, so *myValue* is a double.
+
+``` cpp
+double getValue()
+{
+	return 0.1;
+}
+
+auto myValue = getValue();
+auto myCalculation = 1235 / myValue;    // This results in a value of 12,350
+```
+
+However if a small change is done, your program will now crash with a divide by zero error
+
+``` cpp
+int getValue()
+{
+	return 0.1;
+}
+
+auto myValue = getValue();
+auto myCalculation = 1235 / myValue;    // This results in a divide by zero exception
+```
+
+Be careful of how you use **auto** and use it when you know the logic will not be easily fowled up on future changes.
+
+Take a look at a quick example of a program using auto [here!](code/auto-sample.cpp). Comment the function signatures to see how the program will work with *double* and fail with *int*.

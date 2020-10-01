@@ -484,7 +484,7 @@ char c = mystring[0];       // returns the char at position 0 in mystring
 
 ### 4. Data Structures
 
-### 4.1. Vectors
+### 4.1. Vectors-- It is a dynamically allocated contiguous array in the memory.
 
 ```cpp
 #include <vector>
